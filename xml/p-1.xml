@@ -1,0 +1,103 @@
+<zahtev-za-priznanje-patenta institucija="Zavod za intelektualnu svojinu" adresa="Kneginje Ljubice 5, 11000 Beograd, Republika Srbija">
+    <stranica broj_stranice="1">
+        <informacije-za-zavod>
+            <broj-prijave></broj-prijave>
+            <datum-prijema></datum-prijema>
+            <priznati-datum-podnosenja></priznati-datum-podnosenja>
+            <pecat-i-potpis></pecat-i-potpis>
+        </informacije-za-zavod>
+
+        <informacije-o-patentu>
+            <naziv-pronalaska>
+                <naziv jezik="srpski"></naziv>
+                <naziv jezik="engleski"></naziv>
+            </naziv-pronalaska>
+
+            <podnosilac-prijave podnosilac_je_pronalazac="">
+                <ime ucesnik="podnosilac"></ime>
+                <prezime ucesnik="podnosilac"></prezime>
+                <poslovno-ime ucesnik="podnosilac"></poslovno-ime>
+                <adresa ucesnik="podnosilac">
+                    <ulica></ulica>
+                    <broj-ulice></broj-ulice>
+                    <postanski-broj></postanski-broj>
+                    <mesto></mesto>
+                    <drzava></drzava>
+                </adresa>
+                <broj-telefona ucesnik="podnosilac"></broj-telefona>
+                <broj-faksa ucesnik="podnosilac"></broj-faksa>
+                <e-posta ucesnik="podnosilac"></e-posta>
+                <drzavljanstvo ucesnik="podnosilac"></drzavljanstvo>
+            </podnosilac-prijave>
+
+            <pronalazac ne_zeli_biti_naveden="" postoji_vise_pronalazaca="">
+                <ime ucesnik="pronalazac"></ime>
+                <prezime ucesnik="pronalazac"></prezime>
+                <adresa ucesnik="pronalazac">
+                    <ulica></ulica>
+                    <broj-ulice></broj-ulice>
+                    <postanski-broj></postanski-broj>
+                    <mesto></mesto>
+                    <drzava></drzava>
+                </adresa>
+                <broj-telefona ucesnik="pronalazac"></broj-telefona>
+                <broj-faksa ucesnik="pronalazac"></broj-faksa>
+                <e-posta ucesnik="pronalazac"></e-posta>
+            </pronalazac>
+
+        </informacije-o-patentu>
+    </stranica>
+
+    <stranica broj_stranice="2">
+        <punomocnik punomocnik_za_zastupanje="" punomocnik_za_prijem_pismena="" zajednicki_predstavnik="">
+            <ime ucesnik="punomocnik"></ime>
+            <prezime ucesnik="punomocnik"></prezime>
+            <adresa ucesnik="punomocnik">
+                <ulica></ulica>
+                <broj-ulice></broj-ulice>
+                <postanski-broj></postanski-broj>
+                <mesto></mesto>
+                <drzava></drzava>
+            </adresa>
+            <broj-telefona ucesnik="punomocnik"></broj-telefona>
+            <e-posta ucesnik="punomocnik"></e-posta>
+        </punomocnik>
+
+        <adresa-za-dostavljanje>
+            <adresa tip="adresa_za_dostavljanje">
+                <ulica></ulica>
+                <broj-ulice></broj-ulice>
+                <postanski-broj></postanski-broj>
+                <mesto></mesto>
+                <drzava></drzava>
+            </adresa>
+        </adresa-za-dostavljanje>
+        <nacin-dostavljanja>
+            <elektronsko-dostavljanje></elektronsko-dostavljanje>
+            <dostavljanje-u-papirnoj-formi></dostavljanje-u-papirnoj-formi>
+        </nacin-dostavljanja>
+        <informacije-o-prijavi dopunska_prijava="" izdvojena_prijava="">
+            <broj-prvobitne-prijave></broj-prvobitne-prijave>
+            <datum-podnosenja-prvobitne-prijave></datum-podnosenja-prvobitne-prijave>
+        </informacije-o-prijavi>
+        <priznanje-prava-prvenstva-iz-ranijih-prijava dodatna_prava_o_prvenstvu="">
+            <ranije-prijave>
+                <ranija-prijava redni_broj="1">
+                    <datum-podnosenje-ranije-prijave redni_broj="1"></datum-podnosenje-ranije-prijave>
+                    <broj-ranije-prijave redni_broj="1"></broj-ranije-prijave>
+                    <dvoslovna-oznaka-drzave-ili-organizacije redni_broj="1"></dvoslovna-oznaka-drzave-ili-organizacije>
+                </ranija-prijava>
+                <ranija-prijava redni_broj="2">
+                    <datum-podnosenje-ranije-prijave redni_broj="2"></datum-podnosenje-ranije-prijave>
+                    <broj-ranije-prijave redni_broj="2"></broj-ranije-prijave>
+                    <dvoslovna-oznaka-drzave-ili-organizacije redni_broj="2"></dvoslovna-oznaka-drzave-ili-organizacije>
+                </ranija-prijava>
+            </ranije-prijave>
+        </priznanje-prava-prvenstva-iz-ranijih-prijava>
+    </stranica>
+
+    <stranica broj_stranice="3" dodatni_list="1"></stranica>
+
+    <stranica broj_stranice="4" dodatni_list="2"></stranica>
+
+</zahtev-za-priznanje-patenta>
