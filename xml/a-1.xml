@@ -1,0 +1,70 @@
+<zahtev-za-unosenje-u-evidenciju-i-deponovanje-autorskih-prava institucija="Zavod za intelektualnu svojinu" adresa="Kneginje Ljubice 5, 11000 Beograd">
+
+    <stranica broj_stranice="1">
+        <podnosilac>
+            <ime></ime>
+            <prezime></prezime>
+            <adresa ucesnik="podnosilac">
+                <ulica></ulica>
+                <broj_ulice></broj_ulice>
+                <postanski_broj></postanski_broj>
+                <mesto></mesto>
+            </adresa>
+            <drzavljanstvo></drzavljanstvo>
+            <poslovno-ime></poslovno-ime>
+            <sediste>
+                <ulica></ulica>
+                <broj_ulice></broj_ulice>
+                <postanski_broj></postanski_broj>
+                <mesto></mesto>
+            </sediste>
+            <broj-telefona></broj-telefona>
+            <e-mail></e-mail>
+        </podnosilac>
+        <pseudonim-ili-znak-autora></pseudonim-ili-znak-autora>
+        <punomocnik>
+            <ime></ime>
+            <premize></premize>
+            <adresa ucesnik="punomocnik">
+                <ulica></ulica>
+                <broj_ulice></broj_ulice>
+                <postanski_broj></postanski_broj>
+                <mesto></mesto>
+            </adresa>
+        </punomocnik>
+        <naslov-autorskog-dela>
+            <glavni-naslov></glavni-naslov>
+            <alternativni-naslov></alternativni-naslov>
+        </naslov-autorskog-dela>
+        <podaci-o-delu-prerade>
+            <naslov-dela-na-kome-se-zasniva-delo-prerade></naslov-dela-na-kome-se-zasniva-delo-prerade>
+            <podatak-o-autoru-izvornog-dela></podatak-o-autoru-izvornog-dela>
+        </podaci-o-delu-prerade>
+    </stranica>
+
+    <stranica broj_stranice="2">
+        <vrsta-autorskog-dela></vrsta-autorskog-dela>
+        <forma-zapisa-autorskog-dela></forma-zapisa-autorskog-dela>
+        <podaci-o-autoru>
+            <autori>
+                <autor id="" anoniman_autor="" autor_nije_ziv="">
+                    <prezime-autora></prezime-autora>
+                    <ime-autora></ime-autora>
+                    <drzavljanstvo></drzavljanstvo>
+                    <datum-smrti></datum-smrti>
+                </autor>
+            </autori>
+        </podaci-o-autoru>
+        <autorsko-delo-stvoreno-u-radnom-odnosu></autorsko-delo-stvoreno-u-radnom-odnosu>
+        <nacin-koriscenja-autorskog-dela></nacin-koriscenja-autorskog-dela>
+        <potpis-podnosilaca-prijave></potpis-podnosilaca-prijave>
+    </stranica>
+
+    <stranica broj_stranice="3">
+        <informacije-za-zavod>
+            <prilozi-uz-prijavu></prilozi-uz-prijavu>
+            <broj-prijave></broj-prijave>
+            <datum-podnosenja-prijave></datum-podnosenja-prijave>
+        </informacije-za-zavod>
+    </stranica>
+</zahtev-za-unosenje-u-evidenciju-i-deponovanje-autorskih-prava>

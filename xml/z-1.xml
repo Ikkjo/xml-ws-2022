@@ -1,0 +1,115 @@
+<zahtev-za-priznanje-ziga institucija="Zavod za intelektualnu svojinu" adresa="Kneginje Ljubice 5, 11000 Beograd">
+
+    <stranica broj_stranice="1">
+        <podnosilac-prijave>
+            <ime ucesnik="podnosilac"></ime>
+            <prezime ucesnik="podnosilac"></prezime>
+            <poslovno_ime ucesnik="podnosilac"></poslovno_ime>
+            <adresa ucesnik="podnosilac">
+                <ulica></ulica>
+                <broj_ulice></broj_ulice>
+                <postanski_broj></postanski_broj>
+                <mesto></mesto>
+            </adresa>
+            <drzava_prebivalista ucesnik="podnosilac"></drzava_prebivalista>
+            <kontakt ucesnik="podnosilac">
+                <telefon></telefon>
+                <email></email>
+                <faks></faks>
+            </kontakt>
+        </podnosilac-prijave>
+
+        <punomocnik>
+            <ime ucesnik="punomocnik"></ime>
+            <prezime ucesnik="punomocnik"></prezime>
+            <poslovno_ime ucesnik="punomocnik"></poslovno_ime>
+            <adresa ucesnik="punomocnik">
+                <ulica></ulica>
+                <broj_ulice></broj_ulice>
+                <postanski_broj></postanski_broj>
+                <mesto></mesto>
+            </adresa>
+            <drzava_prebivalista ucesnik="punomocnik"></drzava_prebivalista>
+            <kontakt ucesnik="punomocnik">
+                <telefon></telefon>
+                <email></email>
+                <faks></faks>
+            </kontakt>
+        </punomocnik>
+
+        <zajednicki-predstavnik>
+            <ime ucesnik="predstavnik"></ime>
+            <prezime ucesnik="predstavnik"></prezime>
+            <poslovno_ime ucesnik="predstavnik"></poslovno_ime>
+            <adresa ucesnik="predstavnik">
+                <ulica></ulica>
+                <broj_ulice></broj_ulice>
+                <postanski_broj></postanski_broj>
+                <mesto></mesto>
+            </adresa>
+            <drzava_prebivalista ucesnik="predstavnik"></drzava_prebivalista>
+            <kontakt ucesnik="predstavnik">
+                <telefon></telefon>
+                <email></email>
+                <faks></faks>
+            </kontakt>
+        </zajednicki-predstavnik>
+
+        <prijava>
+            <svrha-podnosenja>
+                <podaci-o-znaku klasa="a"></podaci-o-znaku>
+                <tip-znaka klasa="b"></tip-znaka>
+                <izgled-znaka klasa="v"></izgled-znaka>
+            </svrha-podnosenja>
+
+            <naznacenje-boje></naznacenje-boje>
+
+            <transliteracija-znaka></transliteracija-znaka>
+
+            <prevod-znaka></prevod-znaka>
+
+            <opis-znaka></opis-znaka>
+
+            <klase-robe></klase-robe>
+
+            <zatrazeno-pravo-prvenstva></zatrazeno-pravo-prvenstva>
+        </prijava>
+    </stranica>
+
+    <stranica broj_stranice="2">
+        <prijava>
+            <placene-takse>
+                <osnovna-taksa>
+                    <iznos></iznos>
+                    <valuta>RSD</valuta>
+                </osnovna-taksa>
+                <klasa>
+                    <iznos></iznos>
+                    <valuta>RSD</valuta>
+                </klasa>
+                <graficko-resenje>
+                    <iznos></iznos>
+                    <valuta>RSD</valuta>
+                </graficko-resenje>
+                <ukupna-vrednost>
+                    <iznos></iznos>
+                    <valuta>RSD</valuta>
+                </ukupna-vrednost>
+            </placene-takse>
+
+            <potpis-podnosioca></potpis-podnosioca>
+        </prijava>
+
+        <informacije-za-zavod broj_prijave_ziga="" datum_podnosenja="">
+            <primerak-znaka></primerak-znaka>
+            <spisak-robe-i-usluga></spisak-robe-i-usluga>
+            <generalno-punomocje-ranije-prilozeno></generalno-punomocje-ranije-prilozeno>
+            <punomocje-naknadno-dostavljeno></punomocje-naknadno-dostavljeno>
+            <opsti-akt-o-kolektivnom-zigu></opsti-akt-o-kolektivnom-zigu>
+            <dokaz-o-pravu-prvenstva></dokaz-o-pravu-prvenstva>
+            <dokaz-o-uplati-takse></dokaz-o-uplati-takse>
+        </informacije-za-zavod>
+
+    </stranica>
+
+</zahtev-za-priznanje-ziga>
