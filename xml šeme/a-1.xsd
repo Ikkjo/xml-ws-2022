@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
+
+    <xs:import namespace="http://www.XMLproject.ftn.uns.ac.rs/User" schemaLocation="User.xsd"/>
+    <xs:complexType name="Zahtev_za_unosenje_autorskih_prava">
+        <xs:sequence>
+            <xs:element name="Podnosilac">
+                <xs:complexType>
+                    <xs:choice id="Podnosilac">
+                        <xs:element name="Fizicko_lice" type="user:TFizicko_lice"/>
+                        <xs:element name="Pravno_lice" type="user:TPravno_lice"/>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Punomocnik" type="user:TFizicko_lice"/>
+            <xs:element name="Pseudonim_autora" type="xs:string"/>
+            <xs:element name="Naslov_dela">
+                <xs:complexType>
+                    <xs:sequence id="Naslov_autorskog_dela">
+                        <xs:element name="Glavni_naslov" type="xs:string"/>
+                        <xs:element name="Alternativni_naslov" minOccurs="0" nillable="true"
+                            type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Podaci_o_delu_prerade">
+                <xs:complexType>
+                    <xs:choice/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Vrsta_autorskog_dela"/>
+            <xs:element name="Forma_zapisa_autorskog_dela"/>
+            <xs:element name="Podaci_o_autoru"/>
+            <xs:element name="Autorsko_delo_stvoreno_u_radnom_odnosu" type="xs:boolean"/>
+            <xs:element name="Nacin_koriscenja_autorskog_dela"/>
+            <xs:element name="Informacije_za_zavod">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Prilozi_uz_prijavu"/>
+                        <xs:element fixed="A-" name="Broj_prijave" type="xs:string"/>
+                        <xs:element name="Datum_podnosenja_prijave" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="institucija" type="xs:string"/>
+        <xs:attribute name="adresa" type="xs:string"/>
+    </xs:complexType>
+</xs:schema>
