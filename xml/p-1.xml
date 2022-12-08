@@ -1,103 +1,94 @@
-<zahtev-za-priznanje-patenta institucija="Zavod za intelektualnu svojinu" adresa="Kneginje Ljubice 5, 11000 Beograd, Republika Srbija">
-    <stranica broj_stranice="1">
-        <informacije-za-zavod>
-            <broj-prijave></broj-prijave>
-            <datum-prijema></datum-prijema>
-            <priznati-datum-podnosenja></priznati-datum-podnosenja>
-            <pecat-i-potpis></pecat-i-potpis>
-        </informacije-za-zavod>
+<Request_for_patent_recognition institution="Zavod za intelektualnu svojinu" address="Kneginje Ljubice 5, 11000 Beograd, Republika Srbija">
+    <Information_for_institution>
+        <Application_number></Application_number>
+        <Receipt_date></Receipt_date>
+        <Submission_date></Submission_date>
+        <Stamp_and_signature></Stamp_and_signature>
+    </Information_for_institution>
 
-        <informacije-o-patentu>
-            <naziv-pronalaska>
-                <naziv jezik="srpski"></naziv>
-                <naziv jezik="engleski"></naziv>
-            </naziv-pronalaska>
+    <Patent_information>
+        <Patent_name>
+            <Name language="serbian"></Name>
+            <Name language="english"></Name>
+        </Patent_name>
 
-            <podnosilac-prijave podnosilac_je_pronalazac="">
-                <ime ucesnik="podnosilac"></ime>
-                <prezime ucesnik="podnosilac"></prezime>
-                <poslovno-ime ucesnik="podnosilac"></poslovno-ime>
-                <adresa ucesnik="podnosilac">
-                    <ulica></ulica>
-                    <broj-ulice></broj-ulice>
-                    <postanski-broj></postanski-broj>
-                    <mesto></mesto>
-                    <drzava></drzava>
-                </adresa>
-                <broj-telefona ucesnik="podnosilac"></broj-telefona>
-                <broj-faksa ucesnik="podnosilac"></broj-faksa>
-                <e-posta ucesnik="podnosilac"></e-posta>
-                <drzavljanstvo ucesnik="podnosilac"></drzavljanstvo>
-            </podnosilac-prijave>
+        <Applicant applicant_is_inventor="">
+            <First_name></First_name>
+            <Last_name></Last_name>
+            <Business_name></Business_name>
+            <Address>
+                <Street></Street>
+                <Street_number></Street_number>
+                <Zip_code></Zip_code>
+                <City></City>
+                <Country></Country>
+            </Address>
+            <Phone_number></Phone_number>
+            <Fax_number></Fax_number>
+            <Email></Email>
+            <Citizenship></Citizenship>
+        </Applicant>
 
-            <pronalazac ne_zeli_biti_naveden="" postoji_vise_pronalazaca="">
-                <ime ucesnik="pronalazac"></ime>
-                <prezime ucesnik="pronalazac"></prezime>
-                <adresa ucesnik="pronalazac">
-                    <ulica></ulica>
-                    <broj-ulice></broj-ulice>
-                    <postanski-broj></postanski-broj>
-                    <mesto></mesto>
-                    <drzava></drzava>
-                </adresa>
-                <broj-telefona ucesnik="pronalazac"></broj-telefona>
-                <broj-faksa ucesnik="pronalazac"></broj-faksa>
-                <e-posta ucesnik="pronalazac"></e-posta>
-            </pronalazac>
+        <Inventor does_not_want_to_be_listed="">
+            <First_name></First_name>
+            <Last_name></Last_name>
+            <Address>
+                <Street></Street>
+                <Street_number></Street_number>
+                <Zip_code></Zip_code>
+                <City></City>
+                <Country></Country>
+            </Address>
+            <Phone_number></Phone_number>
+            <Fax_number></Fax_number>
+            <Email></Email>
+        </Inventor>
+    </Patent_information>
 
-        </informacije-o-patentu>
-    </stranica>
+    <Proxy proxy_for_representation="" attorney_for_receiving_letters="">
+        <First_name></First_name>
+        <Last_name></Last_name>
+        <Address>
+            <Street></Street>
+            <Street_number></Street_number>
+            <Zip_code></Zip_code>
+            <City></City>
+            <Country></Country>
+        </Address>
+        <Phone_number></Phone_number>
+        <Email></Email>
+    </Proxy>
 
-    <stranica broj_stranice="2">
-        <punomocnik punomocnik_za_zastupanje="" punomocnik_za_prijem_pismena="" zajednicki_predstavnik="">
-            <ime ucesnik="punomocnik"></ime>
-            <prezime ucesnik="punomocnik"></prezime>
-            <adresa ucesnik="punomocnik">
-                <ulica></ulica>
-                <broj-ulice></broj-ulice>
-                <postanski-broj></postanski-broj>
-                <mesto></mesto>
-                <drzava></drzava>
-            </adresa>
-            <broj-telefona ucesnik="punomocnik"></broj-telefona>
-            <e-posta ucesnik="punomocnik"></e-posta>
-        </punomocnik>
+    <Delivery_address>
+        <Address>
+            <Street></Street>
+            <Street_number></Street_number>
+            <Zip_code></Zip_code>
+            <City></City>
+            <Country></Country>
+        </Address>
+    </Delivery_address>
+    <Delivery_type>
+        <Electronic_delivery></Electronic_delivery>
+        <Delivery_in_paper_form></Delivery_in_paper_form>
+    </Delivery_type>
+    <Application_information supplementary_application="" separate_application="">
+        <Original_application_number></Original_application_number>
+        <Original_application_submission_date></Original_application_submission_date>
+    </Application_information>
+    <Priority_rights_recognition_from_earlier_applications dodatna_prava_o_prvenstvu="">
+        <Earlier_applications>
+            <Earlier_application>
+                <Earlier_application_submission_date></Earlier_application_submission_date>
+                <Earlier_application_number></Earlier_application_number>
+                <Country_or_organization_designation></Country_or_organization_designation>
+            </Earlier_application>
+            <Earlier_application>
+                <Earlier_application_submission_date></Earlier_application_submission_date>
+                <Earlier_application_number></Earlier_application_number>
+                <Country_or_organization_designation></Country_or_organization_designation>
+            </Earlier_application>
+        </Earlier_applications>
+    </Priority_rights_recognition_from_earlier_applications>
 
-        <adresa-za-dostavljanje>
-            <adresa tip="adresa_za_dostavljanje">
-                <ulica></ulica>
-                <broj-ulice></broj-ulice>
-                <postanski-broj></postanski-broj>
-                <mesto></mesto>
-                <drzava></drzava>
-            </adresa>
-        </adresa-za-dostavljanje>
-        <nacin-dostavljanja>
-            <elektronsko-dostavljanje></elektronsko-dostavljanje>
-            <dostavljanje-u-papirnoj-formi></dostavljanje-u-papirnoj-formi>
-        </nacin-dostavljanja>
-        <informacije-o-prijavi dopunska_prijava="" izdvojena_prijava="">
-            <broj-prvobitne-prijave></broj-prvobitne-prijave>
-            <datum-podnosenja-prvobitne-prijave></datum-podnosenja-prvobitne-prijave>
-        </informacije-o-prijavi>
-        <priznanje-prava-prvenstva-iz-ranijih-prijava dodatna_prava_o_prvenstvu="">
-            <ranije-prijave>
-                <ranija-prijava redni_broj="1">
-                    <datum-podnosenje-ranije-prijave redni_broj="1"></datum-podnosenje-ranije-prijave>
-                    <broj-ranije-prijave redni_broj="1"></broj-ranije-prijave>
-                    <dvoslovna-oznaka-drzave-ili-organizacije redni_broj="1"></dvoslovna-oznaka-drzave-ili-organizacije>
-                </ranija-prijava>
-                <ranija-prijava redni_broj="2">
-                    <datum-podnosenje-ranije-prijave redni_broj="2"></datum-podnosenje-ranije-prijave>
-                    <broj-ranije-prijave redni_broj="2"></broj-ranije-prijave>
-                    <dvoslovna-oznaka-drzave-ili-organizacije redni_broj="2"></dvoslovna-oznaka-drzave-ili-organizacije>
-                </ranija-prijava>
-            </ranije-prijave>
-        </priznanje-prava-prvenstva-iz-ranijih-prijava>
-    </stranica>
-
-    <stranica broj_stranice="3" dodatni_list="1"></stranica>
-
-    <stranica broj_stranice="4" dodatni_list="2"></stranica>
-
-</zahtev-za-priznanje-patenta>
+</Request_for_patent_recognition>
