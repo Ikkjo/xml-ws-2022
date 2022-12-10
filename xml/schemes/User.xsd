@@ -68,7 +68,7 @@
         <xs:complexContent>
             <xs:extension base="user:TPerson">
                 <xs:sequence>
-                    <xs:element name="Poslovno_ime">
+                    <xs:element name="Business_name">
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
                                 <xs:pattern value="[A-Z]+"/>
