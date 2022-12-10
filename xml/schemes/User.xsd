@@ -3,13 +3,13 @@
     targetNamespace="http://www.XMLproject.ftn.uns.ac.rs/User"
     xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
 
-    <xs:element name="Adresa">
+    <xs:element name="Address">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Ulica" type="xs:string"/>
-                <xs:element name="Broj" type="xs:positiveInteger"/>
-                <xs:element name="Mesto" type="xs:string"/>
-                <xs:element name="Postanski_broj">
+                <xs:element name="Street" type="xs:string"/>
+                <xs:element name="Street_number" type="xs:positiveInteger"/>
+                <xs:element name="City" type="xs:string"/>
+                <xs:element name="Zip_code">
                     <xs:simpleType>
                         <xs:restriction base="xs:int">
                             <xs:minInclusive value="11000"/>
@@ -21,38 +21,57 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:complexType abstract="true" name="TLice">
+    <xs:complexType abstract="true" name="TPerson">
         <xs:sequence>
-            <xs:element ref="user:Adresa"/>
-            <xs:element name="Broj_telefona" type="xs:string"/>
-            <xs:element name="Email_adresa" type="xs:string"/>
+            <xs:element ref="user:Address"/>
+            <xs:element name="Phone_number">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="9"/>
+                        <xs:maxLength value="14"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Email">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value=".+@(gmail|hotmail|yahoo)\.com"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="TFizicko_lice">
+    <xs:complexType name="TIndividual">
         <xs:complexContent>
-            <xs:extension base="user:TLice">
+            <xs:extension base="user:TPerson">
                 <xs:sequence>
-                    <xs:element name="Ime" type="xs:string"/>
-                    <xs:element name="Prezime">
+                    <xs:element name="First_name">
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
-                                <xs:pattern value="[A-Z]*"/>
+                                <xs:minLength value="1"/>
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:element>
-                    <xs:element name="Drzavljanstvo" type="xs:string"/>
+                    <xs:element name="Last_name">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:pattern value="[A-Z]+"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Citizenship" type="xs:string"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    <xs:complexType name="TPravno_lice">
+    <xs:complexType name="TLegal_entity">
         <xs:complexContent>
-            <xs:extension base="user:TLice">
+            <xs:extension base="user:TPerson">
                 <xs:sequence>
                     <xs:element name="Poslovno_ime">
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
-                                <xs:pattern value="[A-Z]*"/>
+                                <xs:pattern value="[A-Z]+"/>
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:element>
