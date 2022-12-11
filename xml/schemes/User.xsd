@@ -45,13 +45,6 @@
         <xs:complexContent>
             <xs:extension base="user:TPerson">
                 <xs:sequence>
-                    <xs:element name="First_name">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:string">
-                                <xs:minLength value="1"/>
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:element>
                     <xs:element name="Last_name">
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
@@ -60,6 +53,7 @@
                         </xs:simpleType>
                     </xs:element>
                     <xs:element name="Citizenship" type="xs:string" minOccurs="0"/>
+                    <xs:element name="First_name" type="xs:string"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>

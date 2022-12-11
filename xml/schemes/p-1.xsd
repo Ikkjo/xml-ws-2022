@@ -83,7 +83,7 @@
                             <xs:sequence>
                                 <xs:element name="Fax_number" type="xs:string"/>
                             </xs:sequence>
-                            <xs:attribute name="does_not_want_to_be_listened"/>
+                            <xs:attribute name="does_not_want_to_be_listed"/>
                         </xs:extension>
                     </xs:complexContent>
                 </xs:complexType>
