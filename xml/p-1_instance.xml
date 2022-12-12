@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request_for_patent_recognition institution="Zavod za intelektualnu svojinu" address="Kneginje Ljubice 5, 11000 Beograd, Republika Srbija"
+    xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition schemes/p-1.xsd"
+    xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
+    <Information_for_institution>
+        <Application_number>P-12345</Application_number>
+        <Receipt_date>2022-12-10</Receipt_date>
+        <Submission_date>2022-12-10</Submission_date>
+        <Stamp_and_signature></Stamp_and_signature>
+    </Information_for_institution>
+    
+    <Patent_information>
+        <Patent_name>
+            <Name language="serbian">Patent</Name>
+            <Name language="english">Patent</Name>
+        </Patent_name>
+        <Applicant applicant_is_inventor="true">
+            <user:Address>
+                <user:Street>Tolstojeva</user:Street>
+                <user:Street_number>50</user:Street_number>
+                <user:City>Novi Sad</user:City>
+                <user:Zip_code>21000</user:Zip_code>
+            </user:Address>
+            <user:Phone_number>0649295687</user:Phone_number>
+            <user:Email>pera123@gmail.com</user:Email>
+            <Fax_number></Fax_number>
+        </Applicant>
+        <Inventor does_not_want_to_be_listed="false">
+            <user:Address>
+                <user:Street>Tolstojeva</user:Street>
+                <user:Street_number>50</user:Street_number>
+                <user:City>Novi Sad</user:City>
+                <user:Zip_code>21000</user:Zip_code>
+            </user:Address>
+            <user:Phone_number>066294060</user:Phone_number>
+            <user:Email>mika123@gmail.com</user:Email>
+            <user:Last_name>MIKIC</user:Last_name>
+            <user:First_name>Mika</user:First_name>
+            <Fax_number></Fax_number>
+        </Inventor>
+    </Patent_information>
+    <Proxy proxy_for_representation="true" attorney_for_receiving_letters="false">
+        <user:Address>
+            <user:Street>Gogoljeva</user:Street>
+            <user:Street_number>12</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Phone_number>0667979030</user:Phone_number>
+        <user:Email>laza123@gmail.com</user:Email>
+        <user:Last_name>LAZIC</user:Last_name>
+        <user:First_name>Laza</user:First_name>
+    </Proxy>
+    <Delivery_address>
+        <user:Address>
+            <user:Street>Tolstojeva</user:Street>
+            <user:Street_number>30</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+    </Delivery_address>
+    <Delivery_type>
+        <Electronic_delivery></Electronic_delivery>
+        <Delivery_in_paper_form></Delivery_in_paper_form>
+    </Delivery_type>
+    <Application_information supplementary_application="" separate_application="">
+        <Original_application_number>12345</Original_application_number>
+        <Original_application_submission_date>2022-12-10</Original_application_submission_date>
+    </Application_information>
+    <Priority_rights_recognition_from_earlier_applications>
+        <Earlier_applications>
+            <Earlier_application>
+                <Earlier_application_submission_date>2022-09-10</Earlier_application_submission_date>
+                <Earlier_application_number>P-11111</Earlier_application_number>
+                <Country_or_organization_designation>RS</Country_or_organization_designation>
+            </Earlier_application>
+            <Earlier_application>
+                <Earlier_application_submission_date>2022-10-10</Earlier_application_submission_date>
+                <Earlier_application_number>P-22222</Earlier_application_number>
+                <Country_or_organization_designation>RS</Country_or_organization_designation>
+            </Earlier_application>
+        </Earlier_applications>
+    </Priority_rights_recognition_from_earlier_applications>
+</Request_for_patent_recognition>
