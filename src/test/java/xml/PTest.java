@@ -20,20 +20,19 @@ public class PTest {
 
             // Definiše se JAXB kontekst (putanja do paketa sa JAXB bean-ovima)
             JAXBContext context = JAXBContext.newInstance("models.p");
-            System.out.println("[INFO] P-1 unmarshalling example.\n");
             // Unmarshaller je objekat zadužen za konverziju iz XML-a u objektni model
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             // XML schema validacija
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = schemaFactory.newSchema(new File("../../../../xml/schemes/p-1.xsd"));
+            Schema schema = schemaFactory.newSchema(new File("./xml/schemes/p-1.xsd"));
 
             // Podešavanje unmarshaller-a za XML schema validaciju
             unmarshaller.setSchema(schema);
             unmarshaller.setEventHandler(new MyValidationEventHandler());
 
             // Test: proširiti XML fajl nepostojećim elementom (npr. <test></test>)
-            RequestForPatentRecognition request = (RequestForPatentRecognition) unmarshaller.unmarshal(new File("../../../../xml/schemes/p-1.xsd"));
+            RequestForPatentRecognition request = (RequestForPatentRecognition) unmarshaller.unmarshal(new File("./xml/schemes/p-1.xsd"));
 
             // Marshaller je objekat zadužen za konverziju iz objektnog u XML model
             Marshaller marshaller = context.createMarshaller();
