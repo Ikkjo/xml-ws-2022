@@ -1,0 +1,305 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="zahtev-za-priznanje-ziga">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="stranica" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="podnosilac-prijave" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ime">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="prezime">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="poslovno_ime">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="adresa">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="ulica"/>
+                                                    <xs:element type="xs:string" name="broj_ulice"/>
+                                                    <xs:element type="xs:string" name="postanski_broj"/>
+                                                    <xs:element type="xs:string" name="mesto"/>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:string" name="ucesnik"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="drzava_prebivalista">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="kontakt">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="telefon"/>
+                                                    <xs:element type="xs:string" name="email"/>
+                                                    <xs:element type="xs:string" name="faks"/>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:string" name="ucesnik"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="punomocnik" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ime">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="prezime">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="poslovno_ime">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="adresa">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="ulica"/>
+                                                    <xs:element type="xs:string" name="broj_ulice"/>
+                                                    <xs:element type="xs:string" name="postanski_broj"/>
+                                                    <xs:element type="xs:string" name="mesto"/>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:string" name="ucesnik"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="drzava_prebivalista">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="kontakt">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="telefon"/>
+                                                    <xs:element type="xs:string" name="email"/>
+                                                    <xs:element type="xs:string" name="faks"/>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:string" name="ucesnik"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="zajednicki-predstavnik" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ime">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="prezime">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="poslovno_ime">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="adresa">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="ulica"/>
+                                                    <xs:element type="xs:string" name="broj_ulice"/>
+                                                    <xs:element type="xs:string" name="postanski_broj"/>
+                                                    <xs:element type="xs:string" name="mesto"/>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:string" name="ucesnik"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="drzava_prebivalista">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="ucesnik"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="kontakt">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="telefon"/>
+                                                    <xs:element type="xs:string" name="email"/>
+                                                    <xs:element type="xs:string" name="faks"/>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:string" name="ucesnik"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="prijava">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="svrha-podnosenja" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="podaci-o-znaku">
+                                                        <xs:complexType>
+                                                            <xs:simpleContent>
+                                                                <xs:extension base="xs:string">
+                                                                    <xs:attribute type="xs:string" name="klasa"/>
+                                                                </xs:extension>
+                                                            </xs:simpleContent>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="tip-znaka">
+                                                        <xs:complexType>
+                                                            <xs:simpleContent>
+                                                                <xs:extension base="xs:string">
+                                                                    <xs:attribute type="xs:string" name="klasa"/>
+                                                                </xs:extension>
+                                                            </xs:simpleContent>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="izgled-znaka">
+                                                        <xs:complexType>
+                                                            <xs:simpleContent>
+                                                                <xs:extension base="xs:string">
+                                                                    <xs:attribute type="xs:string" name="klasa"/>
+                                                                </xs:extension>
+                                                            </xs:simpleContent>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element type="xs:string" name="naznacenje-boje" minOccurs="0"/>
+                                        <xs:element type="xs:string" name="transliteracija-znaka" minOccurs="0"/>
+                                        <xs:element type="xs:string" name="prevod-znaka" minOccurs="0"/>
+                                        <xs:element type="xs:string" name="opis-znaka" minOccurs="0"/>
+                                        <xs:element type="xs:string" name="klase-robe" minOccurs="0"/>
+                                        <xs:element type="xs:string" name="zatrazeno-pravo-prvenstva" minOccurs="0"/>
+                                        <xs:element name="placene-takse" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="osnovna-taksa">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="iznos"/>
+                                                                <xs:element type="xs:string" name="valuta"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="klasa">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="iznos"/>
+                                                                <xs:element type="xs:string" name="valuta"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="graficko-resenje">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="iznos"/>
+                                                                <xs:element type="xs:string" name="valuta"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="ukupna-vrednost">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="iznos"/>
+                                                                <xs:element type="xs:string" name="valuta"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element type="xs:string" name="potpis-podnosioca" minOccurs="0"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="informacije-za-zavod" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="primerak-znaka"/>
+                                        <xs:element type="xs:string" name="spisak-robe-i-usluga"/>
+                                        <xs:element type="xs:string" name="generalno-punomocje-ranije-prilozeno"/>
+                                        <xs:element type="xs:string" name="punomocje-naknadno-dostavljeno"/>
+                                        <xs:element type="xs:string" name="opsti-akt-o-kolektivnom-zigu"/>
+                                        <xs:element type="xs:string" name="dokaz-o-pravu-prvenstva"/>
+                                        <xs:element type="xs:string" name="dokaz-o-uplati-takse"/>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:string" name="broj_prijave_ziga"/>
+                                    <xs:attribute type="xs:string" name="datum_podnosenja"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="broj_stranice" use="optional"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="institucija"/>
+            <xs:attribute type="xs:string" name="adresa"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
