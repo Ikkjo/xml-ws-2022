@@ -2,28 +2,8 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.XMLproject.ftn.uns.ac.rs/User"
     xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
-
-    <xs:element name="Address">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="Street" type="xs:string"/>
-                <xs:element name="Street_number" type="xs:positiveInteger"/>
-                <xs:element name="City" type="xs:string"/>
-                <xs:element name="Zip_code">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:int">
-                            <xs:minInclusive value="11000"/>
-                            <xs:maxInclusive value="40000"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="Drzava" type="xs:string" minOccurs="0"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
     <xs:complexType abstract="true" name="TPerson">
         <xs:sequence>
-            <xs:element ref="user:Address"/>
             <xs:element name="Phone_number">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -39,6 +19,7 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
+            <xs:element name="Address" type="user:Address"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TIndividual">
@@ -72,5 +53,21 @@
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Address">
+        <xs:sequence>
+            <xs:element name="Street" type="xs:string"/>
+            <xs:element name="Street_number" type="xs:positiveInteger"/>
+            <xs:element name="City" type="xs:string"/>
+            <xs:element name="Zip_code">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="11000"/>
+                        <xs:maxInclusive value="40000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Drzava" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
     </xs:complexType>
 </xs:schema>

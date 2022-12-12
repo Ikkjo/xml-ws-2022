@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Copyright_submission_request xmlns="http://www.XMLproject.ftn.uns.ac.rs/User" xmlns:ns2="http://www.XMLproject.ftn.uns.ac.rs/a-1">
+    <ns2:Applicant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="TIndividual">
+        <Phone_number>061228232</Phone_number>
+        <Email>novimail@gmail.com</Email>
+        <Address>
+            <Street>Markoviceva</Street>
+            <Street_number>2</Street_number>
+            <City>Novi sad</City>
+            <Zip_code>21000</Zip_code>
+            <Drzava>Republika Srbija</Drzava>
+        </Address>
+        <Last_name>MARKOVIC</Last_name>
+        <Citizenship>srpsko</Citizenship>
+        <First_name>Marko</First_name>
+    </ns2:Applicant>
+    <ns2:Author_pseudonym>Marko</ns2:Author_pseudonym>
+    <ns2:Work_title>
+        <ns2:Main_title>Isn't she lovely obrada</ns2:Main_title>
+        <ns2:Alternative_title>Marko</ns2:Alternative_title>
+    </ns2:Work_title>
+    <ns2:Work_type>PESMA</ns2:Work_type>
+    <ns2:Form_of_recording_work>CD</ns2:Form_of_recording_work>
+    <ns2:Work_made_in_business_relationship>false</ns2:Work_made_in_business_relationship>
+    <ns2:Way_of_using_work>Marko</ns2:Way_of_using_work>
+    <ns2:Information_for_institution>
+        <ns2:Request_number>A-1337</ns2:Request_number>
+        <ns2:Request_submission_date>2022-12-02</ns2:Request_submission_date>
+    </ns2:Information_for_institution>
+</ns2:Copyright_submission_request>
