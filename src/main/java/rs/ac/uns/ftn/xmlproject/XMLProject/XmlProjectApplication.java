@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class XmlProjectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(XmlProjectApplication.class, args);
+		// ova linija ce trebati kasnije
+		// SpringApplication.run(XmlProjectApplication.class, args);
 	}
 
 }
