@@ -16,7 +16,7 @@
             <Name language="serbian">Patent</Name>
             <Name language="english">Patent</Name>
         </Patent_name>
-        <Applicant applicant_is_inventor="true">
+        <Applicant xsi:type="user:TIndividual">
             <user:Address>
                 <user:Street>Tolstojeva</user:Street>
                 <user:Street_number>50</user:Street_number>
@@ -25,7 +25,8 @@
             </user:Address>
             <user:Phone_number>0649295687</user:Phone_number>
             <user:Email>pera123@gmail.com</user:Email>
-            <Fax_number></Fax_number>
+            <user:First_name>Pera</user:First_name>
+            <user:Last_name>PERIC</user:Last_name>
         </Applicant>
         <Inventor does_not_want_to_be_listed="false">
             <user:Address>
