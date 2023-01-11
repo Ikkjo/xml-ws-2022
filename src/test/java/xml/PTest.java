@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
 public class PTest {
     public static void test(String testFilePath) {
         try {
-            System.out.println("[INFO] P-1 unmarshalling example.\n");
+            System.out.println("\n\n[INFO] P-1 unmarshalling example.");
 
             // Definiše se JAXB kontekst (putanja do paketa sa JAXB bean-ovima)
             JAXBContext context = JAXBContext.newInstance("models.p");
@@ -59,9 +59,9 @@ public class PTest {
         // Request
         PatentInformation.Applicant requestApplicant = request.getPatentInformation().getApplicant();
         System.out.println("PODNOSILAC");
-        System.out.printf("Adresa:\n\tGrad: %s\n\tUlica: %s\n\tPostanski broj: %s\n",
+        System.out.printf("Adresa:\n\tGrad: %s\n\tUlica: %s %s\n\tPostanski broj: %s\n",
                 requestApplicant.getAddress().getCity(),
-                requestApplicant.getAddress().getStreet() + requestApplicant.getAddress().getStreetNumber(),
+                requestApplicant.getAddress().getStreet(), requestApplicant.getAddress().getStreetNumber(),
                 requestApplicant.getAddress().getZipCode());
         System.out.printf("Broj telefona: %s\n", requestApplicant.getPhoneNumber());
         System.out.printf("E-posta: %s\n", requestApplicant.getEmail());
@@ -73,9 +73,9 @@ public class PTest {
             System.out.printf("Ime: %s\n", applicantIndividual.getFirstName());
             System.out.printf("Prezime: %s\n", applicantIndividual.getLastName());
             System.out.printf(
-                    "Adresa:\n\tGrad: %s\n\tUlica: %s\n\tPostanski broj: %s\n",
+                    "Adresa:\n\tGrad: %s\n\tUlica: %s %s\n\tPostanski broj: %s\n",
                     applicantIndividual.getAddress().getCity(),
-                    applicantIndividual.getAddress().getStreet() + applicantIndividual.getAddress().getStreetNumber(),
+                    applicantIndividual.getAddress().getStreet(), applicantIndividual.getAddress().getStreetNumber(),
                     applicantIndividual.getAddress().getZipCode()
             );
             String citizenship = applicantIndividual.getCitizenship();

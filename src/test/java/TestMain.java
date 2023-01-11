@@ -8,7 +8,7 @@ public class TestMain {
 
     public static void main(String[] args) {
 
-        //ATest.test(ATestFilepath);
+        ATest.test(ATestFilepath);
         PTest.test(PTestFilePath);
     }
 
