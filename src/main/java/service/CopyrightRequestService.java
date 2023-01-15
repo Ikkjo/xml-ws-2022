@@ -1,25 +1,18 @@
-package services;
+package service;
 
 import models.a.CopyrightSubmissionRequest;
-import models.a.TIndividual;
-import models.a.TPerson;
 import models.a.dto.CopyrightSubmissionRequestDTO;
 import org.springframework.stereotype.Service;
 import repository.CopyrightSubmissionRequestRepository;
 import org.apache.commons.io.FileUtils;
-import org.springframework.stereotype.Service;
+import util.DTOUtils;
+import util.DocumentTransformer;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.Transformer;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -33,15 +26,30 @@ public class CopyrightRequestService {
 //    private PDFTransformer pdfTransformer = new PDFTransformer();
 
     public boolean createCopyrightSubmissionRequest(CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
+        List<CopyrightSubmissionRequest> copyrightSubmissionRequests = copyrightSubmissionRequestRepository.findAll();
+        int id = copyrightSubmissionRequests.size() + 1;
+
+        try {
+            CopyrightSubmissionRequest request = DTOUtils.copyrightSubmissionRequestfromDTO(copyrightSubmissionRequestDTO);
+            request.getInformationForInstitution().setRequestNumber(String.format("A-%06d", id));
+            request.getInformationForInstitution().setRequestSubmissionDate(getXMLGregorianCalendarNow());
+            copyrightSubmissionRequestRepository.save(request);
+        } catch (DatatypeConfigurationException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
     public CopyrightSubmissionRequestDTO getCopyrightSubmissionRequestById(String id) {
-        return null;
+        return DTOUtils.copyrightSubmissionRequestToDTO(
+                copyrightSubmissionRequestRepository.findById(id)
+        );
     }
 
     public List<CopyrightSubmissionRequestDTO> getAllCopyrightSubmissionRequests() {
-        return null;
+        return DTOUtils.copyrightSubmissionRequestToDTOList(
+                copyrightSubmissionRequestRepository.findAll()
+        );
     }
 
     public ByteArrayInputStream getCopyrightSubmissionRequestPDF(String id) {
@@ -49,8 +57,8 @@ public class CopyrightRequestService {
 
         try {
 
-//            pdfTransformer.generateHTML(patentRepository.findById(id));
-//            pdfTransformer.generatePDF(id);
+            DocumentTransformer.generateXHTML(copyrightSubmissionRequestRepository.findById(id));
+            DocumentTransformer.generatePDF(id);
 
             File pdfFile = new File("gen/pdf/" + id + ".pdf");
             File htmlFile = new File("gen/html/" + id + ".html");
@@ -72,7 +80,7 @@ public class CopyrightRequestService {
 
         try {
 
-//            pdfTransformer.generateHTML(copyrightSubmissionRequestRepository.findById(id));
+            DocumentTransformer.generateXHTML(copyrightSubmissionRequestRepository.findById(id));
 
             File htmlFile = new File("gen/html/" + id + ".html");
             File xmlFile = new File("gen/xml/" + id + ".xml");
@@ -87,6 +95,10 @@ public class CopyrightRequestService {
         return fileContent;
     }
 
-
-
+    private XMLGregorianCalendar getXMLGregorianCalendarNow() throws DatatypeConfigurationException {
+        Date now = new Date();
+        GregorianCalendar c = new GregorianCalendar();
+        c.setTime(now);
+        return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+    }
 }
