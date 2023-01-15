@@ -16,7 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping(value = "/api/copyright")
+@RequestMapping(value = "/api/patent")
 public class PatentController {
 
     private final PatentService patentService;

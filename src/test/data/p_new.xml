@@ -1,80 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Request_for_patent_recognition xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition" xmlns:ns2="http://www.XMLproject.ftn.uns.ac.rs/User" address="Kneginje Ljubice 5, 11000 Beograd, Republika Srbija" institution="Zavod za intelektualnu svojinu">
-    <Information_for_institution>
-        <Application_number>P-9999</Application_number>
-        <Receipt_date>2022-12-10</Receipt_date>
-        <Submission_date>2022-12-10</Submission_date>
-        <Stamp_and_signature xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
-    </Information_for_institution>
-    <Patent_information>
-        <Patent_name>
-            <Name language="serbian">Patent</Name>
-            <Name language="english">Patent</Name>
-        </Patent_name>
-        <Applicant>
-            <ns2:Address>
-                <ns2:Street>Tolstojeva</ns2:Street>
-                <ns2:Street_number>50</ns2:Street_number>
-                <ns2:City>Novi Sad</ns2:City>
-                <ns2:Zip_code>21000</ns2:Zip_code>
-            </ns2:Address>
-            <ns2:Phone_number>0649295687</ns2:Phone_number>
-            <ns2:Email>pera123@gmail.com</ns2:Email>
-        </Applicant>
-        <Inventor does_not_want_to_be_listed="false">
-            <ns2:Address>
-                <ns2:Street>Tolstojeva</ns2:Street>
-                <ns2:Street_number>50</ns2:Street_number>
-                <ns2:City>Novi Sad</ns2:City>
-                <ns2:Zip_code>21000</ns2:Zip_code>
-            </ns2:Address>
-            <ns2:Phone_number>066294060</ns2:Phone_number>
-            <ns2:Email>zikazika12@gmail.com</ns2:Email>
-            <ns2:Last_name>MIKIC</ns2:Last_name>
-            <ns2:First_name>Mika</ns2:First_name>
-            <Fax_number></Fax_number>
-        </Inventor>
-    </Patent_information>
-    <Proxy proxy_for_representation="true" attorney_for_receiving_letters="false">
-        <ns2:Address>
-            <ns2:Street>Gogoljeva</ns2:Street>
-            <ns2:Street_number>12</ns2:Street_number>
-            <ns2:City>Novi Sad</ns2:City>
-            <ns2:Zip_code>21000</ns2:Zip_code>
-        </ns2:Address>
-        <ns2:Phone_number>0667979030</ns2:Phone_number>
-        <ns2:Email>laza123@gmail.com</ns2:Email>
-        <ns2:Last_name>LAZIC</ns2:Last_name>
-        <ns2:First_name>Laza</ns2:First_name>
-    </Proxy>
-    <Delivery_address>
-        <ns2:Address>
-            <ns2:Street>Tolstojeva</ns2:Street>
-            <ns2:Street_number>30</ns2:Street_number>
-            <ns2:City>Novi Sad</ns2:City>
-            <ns2:Zip_code>21000</ns2:Zip_code>
-        </ns2:Address>
-    </Delivery_address>
-    <Delivery_type>
-        <Electronic_delivery></Electronic_delivery>
-        <Delivery_in_paper_form></Delivery_in_paper_form>
-    </Delivery_type>
-    <Application_information supplementary_application="" separate_application="">
-        <Original_application_number>12345</Original_application_number>
-        <Original_application_submission_date>2022-12-10</Original_application_submission_date>
-    </Application_information>
-    <Priority_rights_recognition_from_earlier_applications>
-        <Earlier_applications>
-            <Earlier_application>
-                <Earlier_application_submission_date>2022-09-10</Earlier_application_submission_date>
-                <Earlier_application_number>P-11111</Earlier_application_number>
-                <Country_or_organization_designation>RS</Country_or_organization_designation>
-            </Earlier_application>
-            <Earlier_application>
-                <Earlier_application_submission_date>2022-10-10</Earlier_application_submission_date>
-                <Earlier_application_number>P-22222</Earlier_application_number>
-                <Country_or_organization_designation>RS</Country_or_organization_designation>
-            </Earlier_application>
-        </Earlier_applications>
-    </Priority_rights_recognition_from_earlier_applications>
-</Request_for_patent_recognition>
+<ns2:Request_for_patent_recognition xmlns="http://www.XMLproject.ftn.uns.ac.rs/User" xmlns:ns2="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition" address="Kneginje Ljubice 5, 11000 Beograd, Republika Srbija" institution="Zavod za intelektualnu svojinu">
+    <ns2:Information_for_institution>
+        <ns2:Application_number>P-9999</ns2:Application_number>
+        <ns2:Receipt_date>2022-12-10</ns2:Receipt_date>
+        <ns2:Submission_date>2022-12-10</ns2:Submission_date>
+        <ns2:Stamp_and_signature xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+    </ns2:Information_for_institution>
+    <ns2:Patent_information>
+        <ns2:Patent_name>
+            <ns2:Name language="serbian">Patent</ns2:Name>
+            <ns2:Name language="english">Patent</ns2:Name>
+        </ns2:Patent_name>
+        <ns2:Applicant>
+            <Address>
+                <Street>Tolstojeva</Street>
+                <Street_number>50</Street_number>
+                <City>Novi Sad</City>
+                <Zip_code>21000</Zip_code>
+            </Address>
+            <Phone_number>0649295687</Phone_number>
+            <Email>pera123@gmail.com</Email>
+        </ns2:Applicant>
+        <ns2:Inventor does_not_want_to_be_listed="false">
+            <Address>
+                <Street>Tolstojeva</Street>
+                <Street_number>50</Street_number>
+                <City>Novi Sad</City>
+                <Zip_code>21000</Zip_code>
+            </Address>
+            <Phone_number>066294060</Phone_number>
+            <Email>zikazika12@gmail.com</Email>
+            <Last_name>MIKIC</Last_name>
+            <First_name>Mika</First_name>
+            <ns2:Fax_number></ns2:Fax_number>
+        </ns2:Inventor>
+    </ns2:Patent_information>
+    <ns2:Proxy proxy_for_representation="true" attorney_for_receiving_letters="false">
+        <Address>
+            <Street>Gogoljeva</Street>
+            <Street_number>12</Street_number>
+            <City>Novi Sad</City>
+            <Zip_code>21000</Zip_code>
+        </Address>
+        <Phone_number>0667979030</Phone_number>
+        <Email>laza123@gmail.com</Email>
+        <Last_name>LAZIC</Last_name>
+        <First_name>Laza</First_name>
+    </ns2:Proxy>
+    <ns2:Delivery_address>
+        <Address>
+            <Street>Tolstojeva</Street>
+            <Street_number>30</Street_number>
+            <City>Novi Sad</City>
+            <Zip_code>21000</Zip_code>
+        </Address>
+    </ns2:Delivery_address>
+    <ns2:Delivery_type>
+        <ns2:Electronic_delivery></ns2:Electronic_delivery>
+        <ns2:Delivery_in_paper_form></ns2:Delivery_in_paper_form>
+    </ns2:Delivery_type>
+    <ns2:Application_information supplementary_application="" separate_application="">
+        <ns2:Original_application_number>12345</ns2:Original_application_number>
+        <ns2:Original_application_submission_date>2022-12-10</ns2:Original_application_submission_date>
+    </ns2:Application_information>
+    <ns2:Priority_rights_recognition_from_earlier_applications>
+        <ns2:Earlier_applications>
+            <ns2:Earlier_application>
+                <ns2:Earlier_application_submission_date>2022-09-10</ns2:Earlier_application_submission_date>
+                <ns2:Earlier_application_number>P-11111</ns2:Earlier_application_number>
+                <ns2:Country_or_organization_designation>RS</ns2:Country_or_organization_designation>
+            </ns2:Earlier_application>
+            <ns2:Earlier_application>
+                <ns2:Earlier_application_submission_date>2022-10-10</ns2:Earlier_application_submission_date>
+                <ns2:Earlier_application_number>P-22222</ns2:Earlier_application_number>
+                <ns2:Country_or_organization_designation>RS</ns2:Country_or_organization_designation>
+            </ns2:Earlier_application>
+        </ns2:Earlier_applications>
+    </ns2:Priority_rights_recognition_from_earlier_applications>
+</ns2:Request_for_patent_recognition>
