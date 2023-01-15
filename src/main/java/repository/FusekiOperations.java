@@ -1,5 +1,7 @@
 package repository;
 
+import models.p.RequestForPatentRecognition;
+import util.AuthenticationUtilitiesRDF;
 import org.apache.commons.io.FileUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -7,6 +9,7 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
+import util.SparqlUtil;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.util.JAXBSource;
@@ -18,16 +21,41 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import models.p.RequestForPatentRecognition;
-import util.AuthenticationUtilitiesRDF;
-
 public class FusekiOperations {
+
+    private static final String GRAPH_URI = "/patent/metadata";
+
     public void save(RequestForPatentRecognition requestForPatentRecognition) throws Exception {
 
-        String rdfFile = "gen/rdf/" + requestForPatentRecognition.getInformationForInstitution().getApplicationNumber() + ".rdf";
+        String applicationNumber = requestForPatentRecognition.getInformationForInstitution().getApplicationNumber();
+        String rdfFile = "gen/rdf/" + applicationNumber + ".rdf";
+
+        generateRdf(requestForPatentRecognition);
+        AuthenticationUtilitiesRDF.ConnectionProperties conn = AuthenticationUtilitiesRDF.loadProperties();
+
+        Model model = ModelFactory.createDefaultModel();
+        model.read(rdfFile);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        model.write(out, "N-TRIPLES");
+
+        String sparqlUpdate = SparqlUtil.insertData(conn.dataEndpoint + GRAPH_URI, out.toString());
+
+        UpdateRequest update = UpdateFactory.create(sparqlUpdate);
+
+        UpdateProcessor processor = UpdateExecutionFactory.createRemote(update, conn.updateEndpoint);
+        processor.execute();
+
+    }
+
+    private void generateRdf(RequestForPatentRecognition requestForPatentRecognition) throws Exception {
+        String brojPrijave = requestForPatentRecognition.getInformationForInstitution().getApplicationNumber();
+        String rdfFile = "gen/rdf/" + brojPrijave + ".rdf";
+        String xslFile = "data/metadata.xsl";
 
         TransformerFactory factory = TransformerFactory.newInstance();
-        InputStream resourceAsStream = FileUtils.openInputStream(new File("data/metadata.xsl"));
+        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
         StreamSource xslt = new StreamSource(resourceAsStream);
         Transformer transformer = factory.newTransformer(xslt);
 
@@ -37,23 +65,5 @@ public class FusekiOperations {
         StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(rdfFile)));
 
         transformer.transform(source, result);
-
-        AuthenticationUtilitiesRDF.ConnectionProperties conn = AuthenticationUtilitiesRDF.loadProperties();
-
-        Model model = ModelFactory.createDefaultModel();
-        String applicationNumber = requestForPatentRecognition.getInformationForInstitution().getApplicationNumber();
-        model.read(rdfFile);
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-        model.write(out, "N-TRIPLES");
-
-        String sparqlUpdate = String.format("INSERT DATA { GRAPH <%1$s> { %2$s } }", conn.dataEndpoint + "/patent/metadata", out.toString());
-
-        UpdateRequest update = UpdateFactory.create(sparqlUpdate);
-
-        UpdateProcessor processor = UpdateExecutionFactory.createRemote(update, conn.updateEndpoint);
-        processor.execute();
-
     }
 }

@@ -8,7 +8,11 @@ import models.p.RequestForPatentRecognition;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.util.JAXBSource;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -21,6 +25,8 @@ public class PDFTransformer {
     private static final DocumentBuilderFactory documentFactory;
 
     private static final TransformerFactory transformerFactory;
+
+    private static final String XSL_FILEPATH = "data/p-1.xsl";
 
     static {
 
@@ -49,19 +55,53 @@ public class PDFTransformer {
     public void generateHTML(RequestForPatentRecognition request) throws Exception {
 
         String outputFile = "gen/html/" + request.getInformationForInstitution().getApplicationNumber() + ".html";
+        String xmlFile = "gen/xml/" + request.getInformationForInstitution().getApplicationNumber() + ".xml";
+
+        // initializa xml file source
+        writeToXMLFile(request, xmlFile);
 
         // Initialize Transformer instance
-        StreamSource transformSource = new StreamSource(new File("data/P-1.xsl"));
+        StreamSource transformSource = new StreamSource(new File(XSL_FILEPATH));
         Transformer transformer = transformerFactory.newTransformer(transformSource);
         transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        // Generate XHTML
         transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
 
-        JAXBContext context = JAXBContext.newInstance(RequestForPatentRecognition.class);
-        JAXBSource source = new JAXBSource(context, request);
-
-        StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(outputFile)));
+        // Transform DOM to HTML
+        DOMSource source = new DOMSource(buildDocument(xmlFile));
+        StreamResult result = new StreamResult(new FileOutputStream(outputFile));
         transformer.transform(source, result);
+
+    }
+
+    public org.w3c.dom.Document buildDocument(String filePath) {
+
+        org.w3c.dom.Document document = null;
+        try {
+
+            DocumentBuilder builder = documentFactory.newDocumentBuilder();
+            document = builder.parse(new File(filePath));
+
+            if (document != null)
+                System.out.println("[INFO] File parsed with no errors.");
+            else
+                System.out.println("[WARN] Document is null.");
+
+        } catch (Exception e) {
+            return null;
+
+        }
+
+        return document;
+    }
+
+    private void writeToXMLFile(RequestForPatentRecognition request, String filename) throws JAXBException, IOException {
+
+        JAXBContext context = JAXBContext.newInstance("backend.patent.jaxb");
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.marshal(request, Files.newOutputStream(Paths.get(filename)));
 
     }
 }
