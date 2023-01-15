@@ -46,7 +46,7 @@ public class PatentController {
     }
 
     /*@GetMapping(value = "/{id}", produces = "application/xml")
-    public CopyrightSubmissionRequestDTO getCopyrightRequestById(@PathVariable("id") String id) {
-        return copyrightRequestService.getCopyrightSubmissionRequestById(id);
+    public RequestForPatentRecognitionDTO getById(@PathVariable("id") String id) {
+        return patentService.getById(id);
     }*/
 }
