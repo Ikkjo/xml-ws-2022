@@ -8,9 +8,7 @@ public class XmlProjectApplication {
 
 	public static void main(String[] args) {
 		// ova linija ce trebati kasnije
-		// SpringApplication.run(XmlProjectApplication.class, args);
-
-
+		SpringApplication.run(XmlProjectApplication.class, args);
 	}
 
 }
