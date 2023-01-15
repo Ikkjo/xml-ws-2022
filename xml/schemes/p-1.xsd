@@ -23,7 +23,7 @@
                 <xs:element name="Delivery_address">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element ref="user:Address"/>
+                            <xs:element name="Address" type="user:Address"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>

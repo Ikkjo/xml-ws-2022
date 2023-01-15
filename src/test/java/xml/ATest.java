@@ -45,8 +45,7 @@ public class ATest {
             // Umesto System.out-a, može se koristiti FileOutputStream
             marshaller.marshal(request, new FileOutputStream("src/test/data/a_new.xml"));
 
-        } catch (JAXBException | FileNotFoundException e) {
-
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("[ERROR] Test failed.");
         }
