@@ -7,8 +7,8 @@ import java.util.ArrayList;
 @SuppressWarnings("deprecation")
 public class RequestForPatentRecognitionRepository {
 
-    ExistDBOperations exist = new ExistDBOperations();
-    FusekiOperations fuseki = new FusekiOperations();
+    PatentExistDBOperations exist = new PatentExistDBOperations();
+    PatentFusekiOperations fuseki = new PatentFusekiOperations();
 
     public RequestForPatentRecognition findById(String id) throws Exception {
         return exist.findById(id);

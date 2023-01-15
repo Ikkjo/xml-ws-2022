@@ -27,7 +27,7 @@ import java.nio.file.Paths;
 public class DocumentTransformer {
     private static final DocumentBuilderFactory documentFactory;
     private static final TransformerFactory transformerFactory;
-    private static final String XSL_FILEPATH = "xsl/a1.xsl";
+    private static final String XSL_FILEPATH = "data/a1.xsl";
 
 
     static {

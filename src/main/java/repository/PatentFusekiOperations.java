@@ -21,7 +21,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class FusekiOperations {
+public class PatentFusekiOperations {
 
     private static final String GRAPH_URI = "/patent/metadata";
 

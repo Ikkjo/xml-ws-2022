@@ -18,7 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class ExistDBOperations {
+public class PatentExistDBOperations {
 
     public RequestForPatentRecognition findById(String id) throws Exception {
         RequestForPatentRecognition request = null;
