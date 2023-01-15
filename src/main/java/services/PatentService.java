@@ -1,5 +1,6 @@
 package services;
 
+import models.p.RequestForPatentRecognition;
 import repository.RequestForPatentRecognitionRepository;
 import util.PDFTransformer;
 import org.apache.commons.io.FileUtils;
@@ -7,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class PatentService {
 
@@ -54,5 +56,9 @@ public class PatentService {
         }
 
         return fileContent;
+    }
+
+    public ArrayList<RequestForPatentRecognition> getAllPatentRecognitionRequests() throws Exception {
+        return repository.getAll();
     }
 }

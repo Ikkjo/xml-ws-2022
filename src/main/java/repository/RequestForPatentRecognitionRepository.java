@@ -2,6 +2,8 @@ package repository;
 
 import models.p.RequestForPatentRecognition;
 
+import java.util.ArrayList;
+
 @SuppressWarnings("deprecation")
 public class RequestForPatentRecognitionRepository {
 
@@ -15,5 +17,9 @@ public class RequestForPatentRecognitionRepository {
     public void save(RequestForPatentRecognition request) throws Exception {
         exist.save(request);
         fuseki.save(request);
+    }
+
+    public ArrayList<RequestForPatentRecognition> getAll() throws Exception {
+        return exist.getAll();
     }
 }

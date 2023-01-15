@@ -7,6 +7,7 @@ import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
+import org.xmldb.api.modules.XPathQueryService;
 import util.AuthenticationUtilities;
 
 import javax.xml.bind.JAXBContext;
@@ -15,6 +16,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.OutputKeys;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class ExistDBOperations {
 
@@ -177,5 +179,48 @@ public class ExistDBOperations {
         } else {
             return col;
         }
+    }
+
+    public ArrayList<RequestForPatentRecognition> getAll() throws Exception {
+        AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
+
+        // initialize collection and document identifiers
+        String collectionId = "/db/xml-project/patent";
+
+        Class<?> cl = Class.forName(conn.driver);
+
+        Database database = (Database) cl.newInstance();
+        database.setProperty("create-database", "true");
+
+        DatabaseManager.registerDatabase(database);
+
+        Collection col = null;
+
+        RequestForPatentRecognition request;
+        ArrayList<RequestForPatentRecognition> requests;
+        try {
+            // get the collection
+            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+            XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            xPathQueryService.setProperty("indent", "yes");
+
+            requests = new ArrayList<>();
+            String[] resources = col.listResources();
+            XMLResource res;
+            for (String resourceId : resources) {
+                res = (XMLResource) col.getResource(resourceId);
+                JAXBContext context = JAXBContext.newInstance(RequestForPatentRecognition.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                request = (RequestForPatentRecognition) unmarshaller.unmarshal(res.getContentAsDOM());
+                requests.add(request);
+            }
+        } finally {
+            if (col != null) {
+                col.close();
+            }
+        }
+        return requests;
     }
 }
