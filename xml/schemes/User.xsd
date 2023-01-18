@@ -20,6 +20,7 @@
                 </xs:simpleType>
             </xs:element>
             <xs:element name="Address" type="user:Address"/>
+            <xs:element minOccurs="0" name="Fax_number" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TIndividual">

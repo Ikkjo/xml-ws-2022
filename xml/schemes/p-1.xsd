@@ -3,13 +3,29 @@
     xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
     targetNamespace="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
     elementFormDefault="qualified" xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
-
     <xs:import namespace="http://www.XMLproject.ftn.uns.ac.rs/User" schemaLocation="User.xsd"/>
     <xs:element name="Request_for_patent_recognition">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="Information_for_institution" type="Information_for_institution"/>
-                <xs:element name="Patent_information" type="Patent_information"/>
+                <xs:element name="Patent_name">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Serbian_patent_name" type="xs:string"/>
+                            <xs:element name="English_patent_name" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Applicant" type="user:TPerson"/>
+                <xs:element name="Inventor">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="user:TIndividual">
+                                <xs:attribute name="does_not_want_to_be_listed"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
                 <xs:element name="Proxy">
                     <xs:complexType>
                         <xs:complexContent>
@@ -48,50 +64,6 @@
             <xs:element name="Receipt_date" type="xs:date"/>
             <xs:element name="Submission_date" type="xs:date"/>
             <xs:element name="Stamp_and_signature"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:element name="Patent_name">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="2" name="Name">
-                    <xs:complexType>
-                        <xs:simpleContent>
-                            <xs:extension base="xs:string">
-                                <xs:attribute name="language" type="xs:string"/>
-                            </xs:extension>
-                        </xs:simpleContent>
-                    </xs:complexType>
-                </xs:element>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:complexType name="Patent_information">
-        <xs:sequence>
-            <xs:element ref="Patent_name"/>
-            <xs:element name="Applicant">
-                <xs:complexType>
-                    <xs:complexContent>
-                        <xs:extension base="user:TPerson">
-                            <xs:sequence>
-                                <xs:element name="Fax_number" type="xs:string"/>
-                            </xs:sequence>
-                            <xs:attribute name="applicant_is_inventor"/>
-                        </xs:extension>
-                    </xs:complexContent>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="Inventor">
-                <xs:complexType>
-                    <xs:complexContent>
-                        <xs:extension base="user:TIndividual">
-                            <xs:sequence>
-                                <xs:element name="Fax_number" type="xs:string"/>
-                            </xs:sequence>
-                            <xs:attribute name="does_not_want_to_be_listed"/>
-                        </xs:extension>
-                    </xs:complexContent>
-                </xs:complexType>
-            </xs:element>
         </xs:sequence>
     </xs:complexType>
     <xs:element name="Delivery_type">
