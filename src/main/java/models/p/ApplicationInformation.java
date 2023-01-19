@@ -53,10 +53,10 @@ public class ApplicationInformation {
     protected XMLGregorianCalendar originalApplicationSubmissionDate;
     @XmlAttribute(name = "supplementary_application")
     @XmlSchemaType(name = "anySimpleType")
-    protected String supplementaryApplication;
+    protected Boolean supplementaryApplication;
     @XmlAttribute(name = "separate_application")
     @XmlSchemaType(name = "anySimpleType")
-    protected String separateApplication;
+    protected Boolean separateApplication;
 
     /**
      * Gets the value of the originalApplicationNumber property.
@@ -111,10 +111,10 @@ public class ApplicationInformation {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Boolean }
      *     
      */
-    public String getSupplementaryApplication() {
+    public Boolean getSupplementaryApplication() {
         return supplementaryApplication;
     }
 
@@ -123,10 +123,10 @@ public class ApplicationInformation {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Boolean }
      *     
      */
-    public void setSupplementaryApplication(String value) {
+    public void setSupplementaryApplication(Boolean value) {
         this.supplementaryApplication = value;
     }
 
@@ -135,10 +135,10 @@ public class ApplicationInformation {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Boolean }
      *     
      */
-    public String getSeparateApplication() {
+    public Boolean getSeparateApplication() {
         return separateApplication;
     }
 
@@ -147,10 +147,10 @@ public class ApplicationInformation {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Boolean }
      *     
      */
-    public void setSeparateApplication(String value) {
+    public void setSeparateApplication(Boolean value) {
         this.separateApplication = value;
     }
 

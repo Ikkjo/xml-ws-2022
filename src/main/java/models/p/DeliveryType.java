@@ -44,19 +44,19 @@ import javax.xml.bind.annotation.XmlType;
 public class DeliveryType {
 
     @XmlElement(name = "Electronic_delivery", required = true)
-    protected String electronicDelivery;
+    protected Boolean electronicDelivery;
     @XmlElement(name = "Delivery_in_paper_form", required = true)
-    protected String deliveryInPaperForm;
+    protected Boolean deliveryInPaperForm;
 
     /**
      * Gets the value of the electronicDelivery property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Boolean}
      *     
      */
-    public String getElectronicDelivery() {
+    public Boolean getElectronicDelivery() {
         return electronicDelivery;
     }
 
@@ -65,10 +65,10 @@ public class DeliveryType {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Boolean }
      *     
      */
-    public void setElectronicDelivery(String value) {
+    public void setElectronicDelivery(Boolean value) {
         this.electronicDelivery = value;
     }
 
@@ -77,10 +77,10 @@ public class DeliveryType {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Boolean }
      *     
      */
-    public String getDeliveryInPaperForm() {
+    public Boolean getDeliveryInPaperForm() {
         return deliveryInPaperForm;
     }
 
@@ -89,10 +89,10 @@ public class DeliveryType {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Boolean }
      *     
      */
-    public void setDeliveryInPaperForm(String value) {
+    public void setDeliveryInPaperForm(Boolean value) {
         this.deliveryInPaperForm = value;
     }
 

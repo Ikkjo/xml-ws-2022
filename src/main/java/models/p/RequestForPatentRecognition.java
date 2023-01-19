@@ -467,17 +467,17 @@ public class RequestForPatentRecognition {
 
         @XmlAttribute(name = "does_not_want_to_be_listed")
         @XmlSchemaType(name = "anySimpleType")
-        protected String doesNotWantToBeListed;
+        protected Boolean doesNotWantToBeListed;
 
         /**
          * Gets the value of the doesNotWantToBeListed property.
          * 
          * @return
          *     possible object is
-         *     {@link String }
+         *     {@link Boolean }
          *     
          */
-        public String getDoesNotWantToBeListed() {
+        public Boolean getDoesNotWantToBeListed() {
             return doesNotWantToBeListed;
         }
 
@@ -486,10 +486,10 @@ public class RequestForPatentRecognition {
          * 
          * @param value
          *     allowed object is
-         *     {@link String }
+         *     {@link Boolean }
          *     
          */
-        public void setDoesNotWantToBeListed(String value) {
+        public void setDoesNotWantToBeListed(Boolean value) {
             this.doesNotWantToBeListed = value;
         }
 
@@ -605,20 +605,20 @@ public class RequestForPatentRecognition {
 
         @XmlAttribute(name = "proxy_for_representation")
         @XmlSchemaType(name = "anySimpleType")
-        protected String proxyForRepresentation;
+        protected Boolean proxyForRepresentation;
         @XmlAttribute(name = "attorney_for_receiving_letters")
         @XmlSchemaType(name = "anySimpleType")
-        protected String attorneyForReceivingLetters;
+        protected Boolean attorneyForReceivingLetters;
 
         /**
          * Gets the value of the proxyForRepresentation property.
          * 
          * @return
          *     possible object is
-         *     {@link String }
+         *     {@link Boolean }
          *     
          */
-        public String getProxyForRepresentation() {
+        public Boolean getProxyForRepresentation() {
             return proxyForRepresentation;
         }
 
@@ -627,10 +627,10 @@ public class RequestForPatentRecognition {
          * 
          * @param value
          *     allowed object is
-         *     {@link String }
+         *     {@link Boolean }
          *     
          */
-        public void setProxyForRepresentation(String value) {
+        public void setProxyForRepresentation(Boolean value) {
             this.proxyForRepresentation = value;
         }
 
@@ -639,10 +639,10 @@ public class RequestForPatentRecognition {
          * 
          * @return
          *     possible object is
-         *     {@link String }
+         *     {@link Boolean }
          *     
          */
-        public String getAttorneyForReceivingLetters() {
+        public Boolean getAttorneyForReceivingLetters() {
             return attorneyForReceivingLetters;
         }
 
@@ -651,10 +651,10 @@ public class RequestForPatentRecognition {
          * 
          * @param value
          *     allowed object is
-         *     {@link String }
+         *     {@link Boolean }
          *     
          */
-        public void setAttorneyForReceivingLetters(String value) {
+        public void setAttorneyForReceivingLetters(Boolean value) {
             this.attorneyForReceivingLetters = value;
         }
 
