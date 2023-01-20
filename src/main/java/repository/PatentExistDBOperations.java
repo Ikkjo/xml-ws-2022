@@ -26,7 +26,7 @@ public class PatentExistDBOperations {
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml-project/patents";
+        String collectionId = "/db/xml/patent/";
         String documentId = id + ".xml";
 
         // initialize database driver
@@ -69,7 +69,7 @@ public class PatentExistDBOperations {
 
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
-        String collectionId = "/db/xml-project/patents";
+        String collectionId = "/db/xml/patent/";
         String documentId = request.getInformationForInstitution().getApplicationNumber() + ".xml";
 
         // initialize database driver
@@ -185,7 +185,7 @@ public class PatentExistDBOperations {
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml-project/patent";
+        String collectionId = "/db/xml/patent/";
 
         Class<?> cl = Class.forName(conn.driver);
 

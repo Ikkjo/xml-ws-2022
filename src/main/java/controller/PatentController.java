@@ -1,6 +1,6 @@
 package controller;
 
-import models.p.RequestForPatentRecognition;
+import models.p.dto.RequestForPatentRecognitionDTO;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import services.PatentService;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/patent")
@@ -25,15 +25,20 @@ public class PatentController {
         this.patentService = patentService;
     }
 
+    @GetMapping(value = "/{id}", produces = "application/xml")
+    public RequestForPatentRecognitionDTO getPatentRecognitionRequest(@PathVariable("id") String id) throws Exception {
+        return patentService.getPatentRecognitionRequest(id);
+    }
+
     @GetMapping(value = "/all", produces = "application/xml")
-    public ArrayList<RequestForPatentRecognition> getAllPatentRecognitionRequests() throws Exception {
+    public List<RequestForPatentRecognitionDTO> getAllPatentRecognitionRequests() throws Exception {
         return patentService.getAllPatentRecognitionRequests();
     }
 
     @GetMapping(path = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> getDocumentPdf(@PathVariable String id) {
 
-        ByteArrayInputStream byteFile = patentService.getPdfZahtev(id);
+        ByteArrayInputStream byteFile = patentService.getRequestForPatentRecognitionPDF(id);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=generated-" + id + ".pdf");
 
@@ -42,11 +47,6 @@ public class PatentController {
 
     @GetMapping(path = "/{id}/html", produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> getDocumentHtml(@PathVariable String id) {
-        return new ResponseEntity<>(patentService.getHtmlZahtev(id), HttpStatus.OK);
+        return new ResponseEntity<>(patentService.getRequestForPatentRecognitionHTML(id), HttpStatus.OK);
     }
-
-    /*@GetMapping(value = "/{id}", produces = "application/xml")
-    public RequestForPatentRecognitionDTO getById(@PathVariable("id") String id) {
-        return patentService.getById(id);
-    }*/
 }

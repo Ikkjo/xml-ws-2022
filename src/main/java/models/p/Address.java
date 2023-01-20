@@ -60,7 +60,7 @@ public class Address {
     protected String street;
     @XmlElement(name = "Street_number", required = true)
     @XmlSchemaType(name = "positiveInteger")
-    protected BigInteger streetNumber;
+    protected Integer streetNumber;
     @XmlElement(name = "City", required = true)
     protected String city;
     @XmlElement(name = "Zip_code")
@@ -97,10 +97,10 @@ public class Address {
      * 
      * @return
      *     possible object is
-     *     {@link BigInteger }
+     *     {@link Integer }
      *     
      */
-    public BigInteger getStreetNumber() {
+    public Integer getStreetNumber() {
         return streetNumber;
     }
 
@@ -109,10 +109,10 @@ public class Address {
      * 
      * @param value
      *     allowed object is
-     *     {@link BigInteger }
+     *     {@link Integer }
      *     
      */
-    public void setStreetNumber(BigInteger value) {
+    public void setStreetNumber(Integer value) {
         this.streetNumber = value;
     }
 

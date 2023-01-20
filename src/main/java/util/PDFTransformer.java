@@ -2,6 +2,7 @@ package util;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import models.p.RequestForPatentRecognition;
@@ -44,7 +45,7 @@ public class PDFTransformer {
         String inputFile = "gen/html/" + id + ".html";
         String outputFile = "gen/pdf/" + id + ".pdf";
 
-        Document document = new Document();
+        Document document = new Document(PageSize.A4);
         PdfWriter writer = PdfWriter.getInstance(document, Files.newOutputStream(Paths.get(outputFile)));
         document.open();
         XMLWorkerHelper.getInstance().parseXHtml(writer, document, Files.newInputStream(Paths.get(inputFile)));
@@ -98,7 +99,7 @@ public class PDFTransformer {
 
     private void writeToXMLFile(RequestForPatentRecognition request, String filename) throws JAXBException, IOException {
 
-        JAXBContext context = JAXBContext.newInstance("backend.patent.jaxb");
+        JAXBContext context = JAXBContext.newInstance("model.p");
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(request, Files.newOutputStream(Paths.get(filename)));

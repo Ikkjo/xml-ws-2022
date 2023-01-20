@@ -1,21 +1,23 @@
 package services;
 
-import models.p.RequestForPatentRecognition;
+import models.p.dto.RequestForPatentRecognitionDTO;
 import repository.RequestForPatentRecognitionRepository;
 import util.PDFTransformer;
 import org.apache.commons.io.FileUtils;
+import util.PatentDTOUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.List;
 
 public class PatentService {
 
     private RequestForPatentRecognitionRepository repository = new RequestForPatentRecognitionRepository();
     private PDFTransformer pdfTransformer = new PDFTransformer();
+    private PatentDTOUtils dtoUtils = new PatentDTOUtils();
 
-    public ByteArrayInputStream getPdfZahtev(String id) {
+    public ByteArrayInputStream getRequestForPatentRecognitionPDF(String id) {
         ByteArrayInputStream byteArrayInputStream;
 
         try {
@@ -38,7 +40,7 @@ public class PatentService {
         return byteArrayInputStream;
     }
 
-    public String getHtmlZahtev(String id) {
+    public String getRequestForPatentRecognitionHTML(String id) {
         String fileContent = "";
 
         try {
@@ -58,7 +60,11 @@ public class PatentService {
         return fileContent;
     }
 
-    public ArrayList<RequestForPatentRecognition> getAllPatentRecognitionRequests() throws Exception {
-        return repository.getAll();
+    public List<RequestForPatentRecognitionDTO> getAllPatentRecognitionRequests() throws Exception {
+        return dtoUtils.patentRecognitionRequestsToDTOList(repository.getAll());
+    }
+
+    public RequestForPatentRecognitionDTO getPatentRecognitionRequest(String id) throws Exception {
+        return dtoUtils.patentRecognitionRequestToDTO(repository.findById(id));
     }
 }
