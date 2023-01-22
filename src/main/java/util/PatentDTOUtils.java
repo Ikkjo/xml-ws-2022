@@ -21,6 +21,9 @@ public class PatentDTOUtils {
     public static RequestForPatentRecognitionDTO patentRecognitionRequestToDTO(RequestForPatentRecognition request){
         RequestForPatentRecognitionDTO requestDTO = new RequestForPatentRecognitionDTO();
 
+        requestDTO.address = request.getAddress();
+        requestDTO.institution = request.getInstitution();
+
         // Informacije za instituciju
         InformationForInstitutionDTO informationForInstitutionDTO = new InformationForInstitutionDTO();
         informationForInstitutionDTO.applicationNumber = request.getInformationForInstitution().getApplicationNumber();

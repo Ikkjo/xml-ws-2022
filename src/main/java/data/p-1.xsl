@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
                 xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User"
                 version="2.0">
     <xsl:template match="/">
