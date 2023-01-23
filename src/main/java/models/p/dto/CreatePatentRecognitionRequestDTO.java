@@ -1,12 +1,9 @@
 package models.p.dto;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-public class RequestForPatentRecognitionDTO {
+public class CreatePatentRecognitionRequestDTO {
 
-    @XmlElement(name = "Information_for_institution")
-    public InformationForInstitutionDTO informationForInstitution;
     @XmlElement(name = "Patent_name")
     public PatentNameDTO patentName;
     @XmlElement(name = "Applicant")
@@ -23,8 +20,4 @@ public class RequestForPatentRecognitionDTO {
     public ApplicationInformationDTO applicationInformation;
     @XmlElement(name = "Priority_rights_recognition_from_earlier_applications")
     public PriorityRightsRecognitionFromEarlierApplicationsDTO priorityRightsRecognitionFromEarlierApplications;
-    @XmlAttribute(name = "address")
-    public String address;
-    @XmlAttribute(name = "institution")
-    public String institution;
 }

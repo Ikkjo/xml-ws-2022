@@ -1,11 +1,14 @@
 package util;
 
-import models.p.Address;
-import models.p.EarlierApplications;
-import models.p.RequestForPatentRecognition;
+import models.p.*;
 import models.p.dto.*;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class PatentDTOUtils {
 
@@ -39,7 +42,25 @@ public class PatentDTOUtils {
         requestDTO.patentName = patentNameDTO;
 
         // Podnosilac
-        // NOTE: Srediti ime, prezime, poslovno ime, drzavljanstvo
+        if (request.getApplicant() instanceof TIndividual) {
+            TIndividualDTO applicantDTO = new TIndividualDTO();
+            applicantDTO.firstName = ((TIndividual) request.getApplicant()).getFirstName();
+            applicantDTO.lastName = ((TIndividual) request.getApplicant()).getLastName();
+            applicantDTO.email = request.getApplicant().getEmail();
+            applicantDTO.phoneNumber = request.getApplicant().getPhoneNumber();
+            applicantDTO.faxNumber = request.getApplicant().getFaxNumber();
+            applicantDTO.address = addressToDTO(request.getApplicant().getAddress());
+            applicantDTO.citizenship = ((TIndividual) request.getApplicant()).getCitizenship();
+            requestDTO.applicant = applicantDTO;
+        } else if (request.getApplicant() instanceof TLegalEntity) {
+            TLegalEntityDTO applicantDTO = new TLegalEntityDTO();
+            applicantDTO.businessName = ((TLegalEntity) request.getApplicant()).getBusinessName();
+            applicantDTO.email = request.getApplicant().getEmail();
+            applicantDTO.phoneNumber = request.getApplicant().getPhoneNumber();
+            applicantDTO.faxNumber = request.getApplicant().getFaxNumber();
+            applicantDTO.address = addressToDTO(request.getApplicant().getAddress());
+            requestDTO.applicant = applicantDTO;
+        }
         TPersonDTO applicantDTO = new TPersonDTO();
         applicantDTO.email = request.getApplicant().getEmail();
         applicantDTO.phoneNumber = request.getApplicant().getPhoneNumber();
@@ -113,5 +134,114 @@ public class PatentDTOUtils {
         addressDTO.zipCode = address.getZipCode();
         addressDTO.drzava = address.getDrzava();
         return addressDTO;
+    }
+
+    public RequestForPatentRecognition PatentRecognitionRequestFromDTO(CreatePatentRecognitionRequestDTO requestDTO) throws DatatypeConfigurationException {
+        RequestForPatentRecognition request = new RequestForPatentRecognition();
+
+        request.getInformationForInstitution().setSubmissionDate(getCurrentDate());
+
+        // Naziv pronalaska
+        RequestForPatentRecognition.PatentName patentName = new RequestForPatentRecognition.PatentName();
+        patentName.setSerbianPatentName(requestDTO.patentName.serbianPatentName);
+        patentName.setEnglishPatentName(requestDTO.patentName.englishPatentName);
+        request.setPatentName(patentName);
+
+        // Podnosilac
+        if (requestDTO.applicant instanceof TIndividualDTO) {
+            TIndividual applicant = new TIndividual();
+            applicant.setFirstName(((TIndividualDTO) requestDTO.applicant).firstName);
+            applicant.setLastName(((TIndividualDTO) requestDTO.applicant).lastName);
+            applicant.setAddress(addressFromDTO(requestDTO.applicant.address));
+            applicant.setEmail(requestDTO.applicant.email);
+            applicant.setPhoneNumber(requestDTO.applicant.phoneNumber);
+            applicant.setFaxNumber(requestDTO.applicant.faxNumber);
+            applicant.setCitizenship(((TIndividualDTO) requestDTO.applicant).citizenship);
+            request.setApplicant(applicant);
+        } else if (requestDTO.applicant instanceof TLegalEntityDTO) {
+            TLegalEntity applicant = new TLegalEntity();
+            applicant.setBusinessName(((TLegalEntityDTO) requestDTO.applicant).businessName);
+            applicant.setAddress(addressFromDTO(requestDTO.applicant.address));
+            applicant.setEmail(requestDTO.applicant.email);
+            applicant.setPhoneNumber(requestDTO.applicant.phoneNumber);
+            applicant.setFaxNumber(requestDTO.applicant.faxNumber);
+            request.setApplicant(applicant);
+        }
+
+        // Pronalazac
+        RequestForPatentRecognition.Inventor inventor = new RequestForPatentRecognition.Inventor();
+        inventor.setDoesNotWantToBeListed(requestDTO.inventor.doesNotWantToBeListed);
+        inventor.setFirstName(requestDTO.inventor.firstName);
+        inventor.setLastName(requestDTO.inventor.lastName);
+        inventor.setAddress(addressFromDTO(requestDTO.inventor.address));
+        inventor.setEmail(requestDTO.inventor.email);
+        inventor.setPhoneNumber(requestDTO.inventor.phoneNumber);
+        inventor.setFaxNumber(requestDTO.inventor.faxNumber);
+        request.setInventor(inventor);
+
+        // Punomocnik
+        RequestForPatentRecognition.Proxy proxy = new RequestForPatentRecognition.Proxy();
+        proxy.setProxyForRepresentation(requestDTO.proxy.proxyForRepresentation);
+        proxy.setAttorneyForReceivingLetters(requestDTO.proxy.attorneyForReceivingLetters);
+        proxy.setFirstName(requestDTO.proxy.firstName);
+        proxy.setLastName(requestDTO.proxy.lastName);
+        proxy.setAddress(addressFromDTO(requestDTO.proxy.address));
+        proxy.setEmail(requestDTO.proxy.email);
+        proxy.setPhoneNumber(requestDTO.proxy.phoneNumber);
+        request.setProxy(proxy);
+
+        // Adresa za dostavljanje
+        RequestForPatentRecognition.DeliveryAddress deliveryAddress = new RequestForPatentRecognition.DeliveryAddress();
+        deliveryAddress.setAddress(addressFromDTO(requestDTO.deliveryAddress.address));
+        request.setDeliveryAddress(deliveryAddress);
+
+        // Nacin dostavljanja
+        DeliveryType deliveryType = new DeliveryType();
+        deliveryType.setDeliveryInPaperForm(requestDTO.deliveryType.deliveryInPaperForm);
+        deliveryType.setElectronicDelivery(requestDTO.deliveryType.electronicDelivery);
+        request.setDeliveryType(deliveryType);
+
+        // Prijava
+        ApplicationInformation applicationInformation = new ApplicationInformation();
+        applicationInformation.setSeparateApplication(requestDTO.applicationInformation.separateApplication);
+        applicationInformation.setSupplementaryApplication(requestDTO.applicationInformation.supplementaryApplication);
+        applicationInformation.setOriginalApplicationNumber(requestDTO.applicationInformation.originalApplicationNumber);
+        applicationInformation.setOriginalApplicationSubmissionDate(requestDTO.applicationInformation.originalApplicationSubmissionDate);
+        request.setApplicationInformation(applicationInformation);
+
+        // Zahtev za priznanje prava prvenstva iz ranijih prijava
+        EarlierApplications earlierApplications = new EarlierApplications();
+        //earlierApplications.getEarlierApplication();
+        for (EarlierApplicationDTO earlierApplicationDTO : requestDTO.priorityRightsRecognitionFromEarlierApplications.earlierApplications.earlierApplication) {
+            EarlierApplications.EarlierApplication earlierApplication = new EarlierApplications.EarlierApplication();
+            earlierApplication.setEarlierApplicationNumber(earlierApplicationDTO.earlierApplicationNumber);
+            earlierApplication.setEarlierApplicationSubmissionDate(earlierApplicationDTO.earlierApplicationSubmissionDate);
+            earlierApplication.setCountryOrOrganizationDesignation(earlierApplicationDTO.countryOrOrganizationDesignation);
+            earlierApplications.getEarlierApplication().add(earlierApplication);
+        }
+        PriorityRightsRecognitionFromEarlierApplications priorityRightsRecognitionFromEarlierApplications = new PriorityRightsRecognitionFromEarlierApplications();
+        priorityRightsRecognitionFromEarlierApplications.setEarlierApplications(earlierApplications);
+        request.setPriorityRightsRecognitionFromEarlierApplications(priorityRightsRecognitionFromEarlierApplications);
+
+        return request;
+    }
+
+    private static Address addressFromDTO(AddressDTO addressDTO){
+        Address address = new Address();
+        address.setStreet(addressDTO.street);
+        address.setStreetNumber(addressDTO.streetNumber);
+        address.setCity(addressDTO.city);
+        address.setZipCode(addressDTO.zipCode);
+        address.setDrzava(addressDTO.drzava);
+        return address;
+    }
+
+    private XMLGregorianCalendar getCurrentDate() throws DatatypeConfigurationException {
+
+        Date now = new Date();
+        GregorianCalendar c = new GregorianCalendar();
+        c.setTime(now);
+        return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+
     }
 }

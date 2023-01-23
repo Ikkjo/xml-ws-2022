@@ -1,15 +1,14 @@
 package controller;
 
+import models.p.dto.CreatePatentRecognitionRequestDTO;
 import models.p.dto.RequestForPatentRecognitionDTO;
+import org.apache.catalina.connector.Response;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import services.PatentService;
 
 import java.io.ByteArrayInputStream;
@@ -48,5 +47,11 @@ public class PatentController {
     @GetMapping(path = "/{id}/html", produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> getDocumentHtml(@PathVariable String id) {
         return new ResponseEntity<>(patentService.getRequestForPatentRecognitionHTML(id), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/create", consumes = "application/xml", produces = "application/xml")
+    public int createNewPatentRecognitionRequest(@RequestBody CreatePatentRecognitionRequestDTO createPatentRecognitionRequestDTO) throws Exception {
+        patentService.createNewPatentRecognitionRequest(createPatentRecognitionRequestDTO);
+        return Response.SC_OK;
     }
 }
