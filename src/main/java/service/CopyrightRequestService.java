@@ -31,8 +31,8 @@ public class CopyrightRequestService {
 
         try {
             CopyrightSubmissionRequest request = DTOUtils.copyrightSubmissionRequestfromDTO(copyrightSubmissionRequestDTO);
-            request.getInformationForInstitution().setRequestNumber(String.format("A-%06d", id));
-            request.getInformationForInstitution().setRequestSubmissionDate(getXMLGregorianCalendarNow());
+            request.setRequestNumber(String.format("A-%06d", id));
+            request.setRequestSubmissionDate(getXMLGregorianCalendarNow());
             copyrightSubmissionRequestRepository.save(request);
         } catch (DatatypeConfigurationException e) {
             e.printStackTrace();
