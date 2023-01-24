@@ -18,10 +18,10 @@
     <xs:element name="Copyright_submission_request">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Applicant" type="user:TPerson"> </xs:element>
-                <xs:element name="Attorney" type="user:TIndividual" minOccurs="0" nillable="true"/>
+                <xs:element name="Applicant" type="user:TPerson" nillable="true"> </xs:element>
+                <xs:element name="Attorney" type="user:TIndividual" minOccurs="1" nillable="true"/>
                 <xs:element name="Author_pseudonym" type="xs:string" minOccurs="0" nillable="true"/>
-                <xs:element name="Work_title">
+                <xs:element name="Work_title" nillable="true">
                     <xs:complexType>
                         <xs:sequence id="Naslov_autorskog_dela">
                             <xs:element name="Main_title" type="xs:string"/>
@@ -38,14 +38,14 @@
                         </xs:choice>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="Work_type">
+                <xs:element name="Work_type" nillable="true">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[A-Z]+"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Form_of_recording_work">
+                <xs:element name="Form_of_recording_work" nillable="true">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[A-z]+"/>
@@ -61,18 +61,13 @@
                 </xs:element>
                 <xs:element name="Work_made_in_business_relationship" type="xs:boolean"
                     minOccurs="0" nillable="true"/>
-                <xs:element name="Way_of_using_work" minOccurs="0" nillable="true" type="xs:string"/>
-                <xs:element name="Information_for_institution">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="Request_number" type="xs:string"/>
-                            <xs:element name="Request_submission_date" type="xs:date"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element name="Way_of_using_work" minOccurs="0" nillable="true" type="xs:string"
+                />
             </xs:sequence>
             <xs:attribute name="institution" type="xs:string"/>
             <xs:attribute name="address" type="xs:string"/>
+            <xs:attribute name="request_number" type="xs:string"/>
+            <xs:attribute name="request_submission_date" type="xs:date"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>
