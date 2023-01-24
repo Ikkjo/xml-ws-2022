@@ -30,7 +30,7 @@ public class CopyrightSubmissionRequestDTO {
     @XmlElement(name = "formOfRecordingWork")
     public String formOfRecordingWork;
     @XmlElement(name = "authorInformation")
-    public AuthorDTO authorInformation;
+    public AuthorDTO author;
     @XmlElement(name = "workMadeInBusinessRelationship")
     public Boolean workMadeInBusinessRelationship;
     @XmlElement(name = "wayOfUsingWork")

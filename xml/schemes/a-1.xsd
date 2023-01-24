@@ -52,13 +52,7 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Author_information" minOccurs="0">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="Author" type="a1:TAuthor"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element name="Author" type="a1:TAuthor"/>
                 <xs:element name="Work_made_in_business_relationship" type="xs:boolean"/>
                 <xs:element name="Way_of_using_work" minOccurs="0" type="xs:string"/>
             </xs:sequence>

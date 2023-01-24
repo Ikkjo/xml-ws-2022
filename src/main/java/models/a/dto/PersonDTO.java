@@ -11,9 +11,11 @@ import javax.xml.bind.annotation.XmlElement;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonDTO {
+public abstract class PersonDTO {
     @XmlElement(name = "phoneNumber")
     protected String phoneNumber;
+    @XmlElement(name = "faxNumber")
+    protected String faxNumber;
     @XmlElement(name = "email")
     protected String email;
     @XmlElement(name = "address")
