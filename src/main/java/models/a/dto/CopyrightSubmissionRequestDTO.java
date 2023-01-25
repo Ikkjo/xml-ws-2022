@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.junit.FixMethodOrder;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,13 +30,16 @@ public class CopyrightSubmissionRequestDTO {
     @XmlElement(name = "formOfRecordingWork")
     public String formOfRecordingWork;
     @XmlElement(name = "authorInformation")
-    public AuthorDTO authorInformation;
+    public AuthorDTO author;
     @XmlElement(name = "workMadeInBusinessRelationship")
-    public boolean workMadeInBusinessRelationship;
+    public Boolean workMadeInBusinessRelationship;
     @XmlElement(name = "wayOfUsingWork")
     public String wayOfUsingWork;
-    @XmlElement(name = "informationForInstitution")
-    public InformationForInstitutionDTO informationForInstitution;
+    @XmlAttribute(name = "request_number")
+    protected String requestNumber;
+    @XmlAttribute(name = "request_submission_date")
+    @XmlSchemaType(name = "date")
+    protected XMLGregorianCalendar requestSubmissionDate;
     @XmlAttribute(name = "institution")
     protected String institution;
     @XmlAttribute(name = "address")

@@ -5,7 +5,7 @@ import models.a.dto.CopyrightSubmissionRequestDTO;
 import org.springframework.stereotype.Service;
 import repository.CopyrightSubmissionRequestRepository;
 import org.apache.commons.io.FileUtils;
-import util.DTOUtils;
+import util.CopyrightDTOMapper;
 import util.DocumentTransformer;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -30,9 +30,9 @@ public class CopyrightRequestService {
         int id = copyrightSubmissionRequests.size() + 1;
 
         try {
-            CopyrightSubmissionRequest request = DTOUtils.copyrightSubmissionRequestfromDTO(copyrightSubmissionRequestDTO);
-            request.getInformationForInstitution().setRequestNumber(String.format("A-%06d", id));
-            request.getInformationForInstitution().setRequestSubmissionDate(getXMLGregorianCalendarNow());
+            CopyrightSubmissionRequest request = CopyrightDTOMapper.copyrightSubmissionRequestFromDTO(copyrightSubmissionRequestDTO);
+            request.setRequestNumber(String.format("A-%06d", id));
+            request.setRequestSubmissionDate(getXMLGregorianCalendarNow());
             copyrightSubmissionRequestRepository.save(request);
         } catch (DatatypeConfigurationException e) {
             e.printStackTrace();
@@ -41,13 +41,13 @@ public class CopyrightRequestService {
     }
 
     public CopyrightSubmissionRequestDTO getCopyrightSubmissionRequestById(String id) {
-        return DTOUtils.copyrightSubmissionRequestToDTO(
+        return CopyrightDTOMapper.copyrightSubmissionRequestToDTO(
                 copyrightSubmissionRequestRepository.findById(id)
         );
     }
 
     public List<CopyrightSubmissionRequestDTO> getAllCopyrightSubmissionRequests() {
-        return DTOUtils.copyrightSubmissionRequestToDTOList(
+        return CopyrightDTOMapper.copyrightSubmissionRequestToDTOList(
                 copyrightSubmissionRequestRepository.findAll()
         );
     }

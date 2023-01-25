@@ -6,81 +6,75 @@
     xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
     <Information_for_institution>
         <Application_number>P-12345</Application_number>
-        <Receipt_date>2022-12-10</Receipt_date>
-        <Submission_date>2022-12-10</Submission_date>
+        <Receipt_date>2022-12-21</Receipt_date>
+        <Submission_date>2022-12-21</Submission_date>
         <Stamp_and_signature></Stamp_and_signature>
     </Information_for_institution>
-    
-    <Patent_information>
-        <Patent_name>
-            <Name language="serbian">Patent</Name>
-            <Name language="english">Patent</Name>
-        </Patent_name>
-        <Applicant xsi:type="user:TIndividual">
-            <user:Address>
-                <user:Street>Tolstojeva</user:Street>
-                <user:Street_number>50</user:Street_number>
-                <user:City>Novi Sad</user:City>
-                <user:Zip_code>21000</user:Zip_code>
-            </user:Address>
-            <user:Phone_number>0649295687</user:Phone_number>
-            <user:Email>pera123@gmail.com</user:Email>
-            <user:First_name>Pera</user:First_name>
-            <user:Last_name>PERIC</user:Last_name>
-        </Applicant>
-        <Inventor does_not_want_to_be_listed="false">
-            <user:Address>
-                <user:Street>Tolstojeva</user:Street>
-                <user:Street_number>50</user:Street_number>
-                <user:City>Novi Sad</user:City>
-                <user:Zip_code>21000</user:Zip_code>
-            </user:Address>
-            <user:Phone_number>066294060</user:Phone_number>
-            <user:Email>mika123@gmail.com</user:Email>
-            <user:Last_name>MIKIC</user:Last_name>
-            <user:First_name>Mika</user:First_name>
-            <Fax_number></Fax_number>
-        </Inventor>
-    </Patent_information>
-    <Proxy proxy_for_representation="true" attorney_for_receiving_letters="false">
-        <user:Address>
-            <user:Street>Gogoljeva</user:Street>
-            <user:Street_number>12</user:Street_number>
-            <user:City>Novi Sad</user:City>
-            <user:Zip_code>21000</user:Zip_code>
-        </user:Address>
-        <user:Phone_number>0667979030</user:Phone_number>
-        <user:Email>laza123@gmail.com</user:Email>
-        <user:Last_name>LAZIC</user:Last_name>
-        <user:First_name>Laza</user:First_name>
-    </Proxy>
-    <Delivery_address>
+    <Patent_name>
+        <Serbian_patent_name>Patent</Serbian_patent_name>
+        <English_patent_name>Patent</English_patent_name>
+    </Patent_name>
+    <Applicant xsi:type="user:TIndividual">
+        <user:Phone_number>066153786</user:Phone_number>
+        <user:Email>pera@gmail.com</user:Email>
         <user:Address>
             <user:Street>Tolstojeva</user:Street>
-            <user:Street_number>30</user:Street_number>
+            <user:Street_number>50</user:Street_number>
             <user:City>Novi Sad</user:City>
             <user:Zip_code>21000</user:Zip_code>
         </user:Address>
+        <user:Fax_number>12345</user:Fax_number>
+        <user:Last_name>ZIKIC</user:Last_name>
+        <user:Citizenship>srpsko</user:Citizenship>
+        <user:First_name>Zika</user:First_name>
+    </Applicant>
+    <Inventor does_not_want_to_be_listed="">
+        <user:Phone_number>0649294080</user:Phone_number>
+        <user:Email>pera123@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Tolstojeva</user:Street>
+            <user:Street_number>50</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Fax_number>54321</user:Fax_number>
+        <user:Last_name>PERIC</user:Last_name>
+        <user:First_name>Pera</user:First_name>
+    </Inventor>
+    <Proxy proxy_for_representation="" attorney_for_receiving_letters="">
+        <user:Phone_number>0645678444</user:Phone_number>
+        <user:Email>mika@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Tolstojeva</user:Street>
+            <user:Street_number>50</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Last_name>MIKIC</user:Last_name>
+        <user:First_name>Mika</user:First_name>
+    </Proxy>
+    <Delivery_address>
+        <Address>
+            <user:Street>Puskinova</user:Street>
+            <user:Street_number>10</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </Address>
     </Delivery_address>
     <Delivery_type>
         <Electronic_delivery></Electronic_delivery>
         <Delivery_in_paper_form></Delivery_in_paper_form>
     </Delivery_type>
     <Application_information supplementary_application="" separate_application="">
-        <Original_application_number>12345</Original_application_number>
-        <Original_application_submission_date>2022-12-10</Original_application_submission_date>
+        <Original_application_number></Original_application_number>
+        <Original_application_submission_date>2022-12-21</Original_application_submission_date>
     </Application_information>
     <Priority_rights_recognition_from_earlier_applications>
         <Earlier_applications>
             <Earlier_application>
-                <Earlier_application_submission_date>2022-09-10</Earlier_application_submission_date>
-                <Earlier_application_number>P-11111</Earlier_application_number>
-                <Country_or_organization_designation>RS</Country_or_organization_designation>
-            </Earlier_application>
-            <Earlier_application>
-                <Earlier_application_submission_date>2022-10-10</Earlier_application_submission_date>
-                <Earlier_application_number>P-22222</Earlier_application_number>
-                <Country_or_organization_designation>RS</Country_or_organization_designation>
+                <Earlier_application_submission_date>2022-12-10</Earlier_application_submission_date>
+                <Earlier_application_number></Earlier_application_number>
+                <Country_or_organization_designation></Country_or_organization_designation>
             </Earlier_application>
         </Earlier_applications>
     </Priority_rights_recognition_from_earlier_applications>

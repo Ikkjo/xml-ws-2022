@@ -17,7 +17,7 @@ public class AddressDTO {
     @XmlElement(name = "street")
     protected String street;
     @XmlElement(name = "streetNumber")
-    protected int streetNumber;
+    protected BigInteger streetNumber;
     @XmlElement(name = "city")
     protected String city;
     @XmlElement(name = "zipCode")
