@@ -1,42 +1,43 @@
 <?xml version="1.0"?>
 <xsl:stylesheet version="2.0"
+                xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
     <xsl:template match="/">
         <rdf:RDF>
-            <xsl:variable name="application_number">
-                <xsl:value-of select="//@applicationNumber" />
+            <xsl:variable name="Application_number">
+                <xsl:value-of select="//Information_for_institution/Application_number" />
             </xsl:variable>
-            <xsl:variable name="receipt_date">
-                <xsl:value-of select="//@receiptDate" />
+            <xsl:variable name="Receipt_date">
+                <xsl:value-of select="//Information_for_institution/Receipt_date" />
             </xsl:variable>
-            <xsl:variable name="patent_name">
-                <xsl:value-of select="//patentName" />
+            <xsl:variable name="Serbian_patent_name">
+                <xsl:value-of select="//Patent_name/Serbian_patent_name" />
             </xsl:variable>
-            <xsl:variable name="patent_name">
-                <xsl:value-of select="//patentName" />
+            <xsl:variable name="English_patent_name">
+                <xsl:value-of select="//Patent_name/English_patent_name" />
             </xsl:variable>
-            <xsl:variable name="applicant">
-                <xsl:value-of select="//applicant" />
+            <xsl:variable name="Applicant">
+                <xsl:value-of select="//Applicant" />
             </xsl:variable>
-            <rdf:Description rdf:about="{$application_number}">
+            <rdf:Description rdf:about="{$Application_number}">
 
-                <application_number>
-                    <xsl:value-of select="$application_number" />
-                </application_number>
-                <receipt_date>
-                    <xsl:value-of select="$receipt_date" />
-                </receipt_date>
-                <patent_name>
-                    <xsl:value-of select="$patent_name" />
-                </patent_name>
-                <patent_name>
-                    <xsl:value-of select="$patent_name" />
-                </patent_name>
-                <applicant>
-                    <xsl:value-of select="$applicant" />
-                </applicant>
+                <Application_number>
+                    <xsl:value-of select="$Application_number" />
+                </Application_number>
+                <Receipt_date>
+                    <xsl:value-of select="$Receipt_date" />
+                </Receipt_date>
+                <Serbian_patent_name>
+                    <xsl:value-of select="$Serbian_patent_name" />
+                </Serbian_patent_name>
+                <English_patent_name>
+                    <xsl:value-of select="$English_patent_name" />
+                </English_patent_name>
+                <Applicant>
+                    <xsl:value-of select="$Applicant" />
+                </Applicant>
             </rdf:Description>
         </rdf:RDF>
     </xsl:template>

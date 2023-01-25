@@ -29,7 +29,7 @@ public class PTest {
 
             // Promeni vrednosti
             request.getInformationForInstitution().setApplicationNumber("P-9999");
-            request.getPatentInformation().getInventor().setEmail("zikazika12@gmail.com");
+            request.getInventor().setEmail("zikazika12@gmail.com");
 
             // Marshaller je objekat zadužen za konverziju iz objektnog u XML model
             Marshaller marshaller = context.createMarshaller();
@@ -57,7 +57,7 @@ public class PTest {
         );
 
         // Request
-        PatentInformation.Applicant requestApplicant = request.getPatentInformation().getApplicant();
+        TPerson requestApplicant = request.getApplicant();
         System.out.println("PODNOSILAC");
         System.out.printf("Adresa:\n\tGrad: %s\n\tUlica: %s %s\n\tPostanski broj: %s\n",
                 requestApplicant.getAddress().getCity(),
@@ -66,7 +66,7 @@ public class PTest {
         System.out.printf("Broj telefona: %s\n", requestApplicant.getPhoneNumber());
         System.out.printf("E-posta: %s\n", requestApplicant.getEmail());
         System.out.printf("Broj faksa: %s\n", requestApplicant.getFaxNumber());
-        TPerson requestInventor = request.getPatentInformation().getInventor();
+        TPerson requestInventor = request.getInventor();
         if (requestInventor instanceof TIndividual) {
             TIndividual applicantIndividual = (TIndividual) requestInventor;
             System.out.println("\nPRONALAZAC");
