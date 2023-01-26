@@ -1,4 +1,4 @@
-package services;
+package service;
 
 import models.p.RequestForPatentRecognition;
 import models.p.dto.CreatePatentRecognitionRequestDTO;
