@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a1:Copyright_submission_request xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User"
+ xmlns:a1="http://www.XMLproject.ftn.uns.ac.rs/a-1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.XMLproject.ftn.uns.ac.rs/a-1 file:/home/ikkjo/School/Semestar%207/XML%20i%20Web%20Servisi/xml-ws-2022/xml/schemes/a-1.xsd"
+ request_number="request_number0"
+ request_submission_date="2006-05-04">
+    <a1:Applicant xsi:type="user:TLegal_entity">
+        <user:Phone_number>Phone_number0</user:Phone_number>
+        <user:Email>0@00.AA</user:Email>
+        <user:Address>
+            <user:Street>Street0</user:Street>
+            <user:Street_number>50</user:Street_number>
+            <user:City>City0</user:City>
+            <user:Zip_code>25500</user:Zip_code>
+        </user:Address>
+        <user:Business_name>Business_name0</user:Business_name>
+    </a1:Applicant>
+    <a1:Attorney>
+        <user:Phone_number>Phone_number1</user:Phone_number>
+        <user:Email>0@00.AA</user:Email>
+        <user:Address>
+            <user:Street>Street1</user:Street>
+            <user:Street_number>50</user:Street_number>
+            <user:City>City1</user:City>
+            <user:Zip_code>25500</user:Zip_code>
+        </user:Address>
+        <user:Last_name>Last_name0</user:Last_name>
+        <user:First_name>First_name0</user:First_name>
+    </a1:Attorney>
+    <a1:Work_title>
+        <a1:Main_title>Main_title0</a1:Main_title>
+    </a1:Work_title>
+    <a1:Work_type>A</a1:Work_type>
+    <a1:Form_of_recording_work>A</a1:Form_of_recording_work>
+    <a1:Author>
+        <a1:Author_surname>Author_surname0</a1:Author_surname>
+        <a1:Author_name>Author_name0</a1:Author_name>
+    </a1:Author>
+    <a1:Work_made_in_business_relationship>false</a1:Work_made_in_business_relationship>
+</a1:Copyright_submission_request>
