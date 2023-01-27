@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import repository.CopyrightSubmissionRequestRepository;
 import org.apache.commons.io.FileUtils;
 import util.CopyrightDTOMapper;
+import util.CopyrightPDFTransformer;
 import util.DocumentTransformer;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -22,8 +23,7 @@ import java.util.List;
 public class CopyrightRequestService {
 
     private CopyrightSubmissionRequestRepository copyrightSubmissionRequestRepository = new CopyrightSubmissionRequestRepository();
-//    private Converter converter = new Converter();
-//    private PDFTransformer pdfTransformer = new PDFTransformer();
+    private CopyrightPDFTransformer copyrightPDFTransformer = new CopyrightPDFTransformer();
 
     public boolean createCopyrightSubmissionRequest(CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
         List<CopyrightSubmissionRequest> copyrightSubmissionRequests = copyrightSubmissionRequestRepository.findAll();
@@ -57,13 +57,15 @@ public class CopyrightRequestService {
 
         try {
 
-            DocumentTransformer.generateXHTML(copyrightSubmissionRequestRepository.findById(id));
-            DocumentTransformer.generatePDF(id);
+            copyrightPDFTransformer.generateCopyrightRequestHTML(copyrightSubmissionRequestRepository.findById(id));
+            copyrightPDFTransformer.generatePDF(id);
 
             File pdfFile = new File("gen/pdf/" + id + ".pdf");
             File htmlFile = new File("gen/html/" + id + ".html");
             File xmlFile = new File("gen/xml/" + id + ".xml");
+
             byteArrayInputStream = new ByteArrayInputStream(FileUtils.readFileToByteArray(pdfFile));
+
             pdfFile.delete();
             htmlFile.delete();
             xmlFile.delete();
@@ -80,7 +82,7 @@ public class CopyrightRequestService {
 
         try {
 
-            DocumentTransformer.generateXHTML(copyrightSubmissionRequestRepository.findById(id));
+            copyrightPDFTransformer.generateCopyrightRequestHTML(copyrightSubmissionRequestRepository.findById(id));
 
             File htmlFile = new File("gen/html/" + id + ".html");
             File xmlFile = new File("gen/xml/" + id + ".xml");

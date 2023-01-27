@@ -5,7 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -18,21 +23,27 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
+import models.a.CopyrightSubmissionRequest;
 
 public class CopyrightPDFTransformer {
     private static DocumentBuilderFactory documentFactory;
 
     private static TransformerFactory transformerFactory;
 
-    public static final String XSL_FILE = "data/styles/bookstore.xsl";
+    public static final String A1_XSL_FILE = "data/A-1.xsl";
 
-    public static final String HTML_FILE = "gen/itext/bookstore.html";
+    public static final String HTML_PATH = "gen/html/";
 
-    public static final String OUTPUT_FILE = "gen/itext/bookstore.pdf";
+    public static final String PDF_PATH = "gen/pdf/";
+
+    public static final String XML_PATH = "gen/xml/";
 
     static {
 
@@ -49,27 +60,18 @@ public class CopyrightPDFTransformer {
 
     /**
      * Creates a PDF using iText Java API
-     * @param filePath
+     * @param id
      * @throws IOException
      * @throws DocumentException
      */
-    public void generatePDF(String filePath) throws IOException, DocumentException {
+    public void generatePDF(String id) throws IOException, DocumentException {
 
-        // Step 1
-        Document document = new Document();
+        String inputFile = "gen/html/" + id + ".html";
+        String outputFile = "gen/pdf/" + id + ".pdf";
 
-        // Step 2
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-
-        // Step 3
-        document.open();
-
-        // Step 4
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(HTML_FILE));
-
-        // Step 5
-        document.close();
-
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outputFile));
+        pdfDocument.setDefaultPageSize(new PageSize(780,2000));
+        HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(inputFile)), pdfDocument);
     }
 
     public org.w3c.dom.Document buildDocument(String filePath) {
@@ -93,7 +95,16 @@ public class CopyrightPDFTransformer {
         return document;
     }
 
-    public void generateHTML(String xmlPath, String xslPath) throws FileNotFoundException {
+    public void generateCopyrightRequestHTML(CopyrightSubmissionRequest copyrightSubmissionRequest) throws JAXBException, IOException {
+        String xmlFilename = XML_PATH + copyrightSubmissionRequest.getRequestNumber() + ".xml";
+        String htmlFilename = HTML_PATH + copyrightSubmissionRequest.getRequestNumber() + ".html";
+
+        writeToXMLFile(copyrightSubmissionRequest, xmlFilename);
+
+        generateHTML(xmlFilename, A1_XSL_FILE, htmlFilename);
+    }
+
+    public void generateHTML(String xmlPath, String xslPath, String outputHtmlPath) throws FileNotFoundException {
 
         try {
 
@@ -108,7 +119,7 @@ public class CopyrightPDFTransformer {
 
             // Transform DOM to HTML
             DOMSource source = new DOMSource(buildDocument(xmlPath));
-            StreamResult result = new StreamResult(new FileOutputStream(HTML_FILE));
+            StreamResult result = new StreamResult(new FileOutputStream(outputHtmlPath));
             transformer.transform(source, result);
 
         } catch (TransformerConfigurationException e) {
@@ -121,24 +132,13 @@ public class CopyrightPDFTransformer {
 
     }
 
-//    public static void main(String[] args) throws IOException, DocumentException {
-//
-//        System.out.println("[INFO] " + PDFTransformer.class.getSimpleName());
-//
-//        // Creates parent directory if necessary
-//        File pdfFile = new File(OUTPUT_FILE);
-//
-//        if (!pdfFile.getParentFile().exists()) {
-//            System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
-//            pdfFile.getParentFile().mkdir();
-//        }
-//
-//        PDFTransformer pdfTransformer = new PDFTransformer();
-//
-//        pdfTransformer.generateHTML(INPUT_FILE, XSL_FILE);
-//        pdfTransformer.generatePDF(OUTPUT_FILE);
-//
-//        System.out.println("[INFO] File \"" + OUTPUT_FILE + "\" generated successfully.");
-//        System.out.println("[INFO] End.");
-//    }
+    private void writeToXMLFile(CopyrightSubmissionRequest copyrightSubmissionRequest, String filename)
+            throws JAXBException, IOException {
+
+        JAXBContext context = JAXBContext.newInstance("models.a");
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.marshal(copyrightSubmissionRequest, Files.newOutputStream(Paths.get(filename)));
+
+    }
 }
