@@ -1,5 +1,6 @@
 package controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import models.p.dto.CreatePatentRecognitionRequestDTO;
 import models.p.dto.RequestForPatentRecognitionDTO;
 import org.apache.catalina.connector.Response;
@@ -54,4 +55,14 @@ public class PatentController {
         patentService.createNewPatentRecognitionRequest(createPatentRecognitionRequestDTO);
         return Response.SC_OK;
     }
+
+    @GetMapping(path = "/{id}/rdf", produces = "application/xml")
+    public ResponseEntity<String>  getMetadataRdf(@PathVariable String id) {
+        return new ResponseEntity<>(patentService.getRdfMetadata(id), HttpStatus.OK);
+    }
+
+    /*@GetMapping(path = "/{id}/json", produces = "application/json")
+    public ResponseEntity<String>  getMetadataJson(@PathVariable String id) {
+        return new ResponseEntity<>(patentService.getJsonMetadata(id), HttpStatus.OK);
+    }*/
 }

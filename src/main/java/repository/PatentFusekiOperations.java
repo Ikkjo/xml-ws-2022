@@ -1,6 +1,10 @@
 package repository;
 
 import models.p.RequestForPatentRecognition;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import util.AuthenticationUtilitiesRDF;
 import org.apache.commons.io.FileUtils;
 import org.apache.jena.rdf.model.Model;
@@ -25,12 +29,12 @@ public class PatentFusekiOperations {
 
     private static final String GRAPH_URI = "/patent/metadata";
 
-    public void save(RequestForPatentRecognition requestForPatentRecognition) throws Exception {
+    public void save(RequestForPatentRecognition requestForPatentRecognition, String xslFile) throws Exception {
 
         String applicationNumber = requestForPatentRecognition.getInformationForInstitution().getApplicationNumber();
         String rdfFile = "gen/rdf/" + applicationNumber + ".rdf";
 
-        generateRdf(requestForPatentRecognition);
+        generateRdf(requestForPatentRecognition, xslFile);
         AuthenticationUtilitiesRDF.ConnectionProperties conn = AuthenticationUtilitiesRDF.loadProperties();
 
         Model model = ModelFactory.createDefaultModel();
@@ -49,21 +53,33 @@ public class PatentFusekiOperations {
 
     }
 
-    private void generateRdf(RequestForPatentRecognition requestForPatentRecognition) throws Exception {
+    public void generateRdf(RequestForPatentRecognition requestForPatentRecognition, String xslFile) throws Exception {
         String brojPrijave = requestForPatentRecognition.getInformationForInstitution().getApplicationNumber();
-        String rdfFile = "gen/rdf/" + brojPrijave + ".rdf";
-        String xslFile = "data/metadata.xsl";
+        String rdfFilePath = "gen/rdf/" + brojPrijave + ".rdf";
+        String xslFilePath = "data/" + xslFile;
 
         TransformerFactory factory = TransformerFactory.newInstance();
-        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
+        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFilePath));
         StreamSource xslt = new StreamSource(resourceAsStream);
         Transformer transformer = factory.newTransformer(xslt);
 
         JAXBContext context = JAXBContext.newInstance(RequestForPatentRecognition.class);
         JAXBSource source = new JAXBSource(context, requestForPatentRecognition);
         System.out.println("Source" + source);
-        StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(rdfFile)));
+        StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(rdfFilePath)));
 
         transformer.transform(source, result);
+    }
+
+    public String getRdfString(String applicationNumber) {
+
+        Model model = ModelFactory.createDefaultModel();
+        model.read("gen/rdf/" + applicationNumber + ".rdf");
+
+        String syntax = "RDF/XML-ABBREV";
+        StringWriter out = new StringWriter();
+        model.write(out, syntax);
+
+        return out.toString();
     }
 }

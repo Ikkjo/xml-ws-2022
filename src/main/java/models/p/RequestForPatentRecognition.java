@@ -77,6 +77,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;/sequence>
  *       &lt;attribute name="address" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="institution" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *        *       &lt;attribute name="is_accepted" type="{http://www.w3.org/2001/XMLSchema}boolean" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -121,6 +122,8 @@ public class RequestForPatentRecognition {
     protected String address;
     @XmlAttribute(name = "institution")
     protected String institution;
+    @XmlAttribute(name = "is_accepted")
+    protected  Boolean isAccepted;
 
     /**
      * Gets the value of the informationForInstitution property.
@@ -386,6 +389,29 @@ public class RequestForPatentRecognition {
         this.institution = value;
     }
 
+    /**
+     * Gets the value of the is_accepted property.
+     *
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *
+     */
+    public Boolean getIsAccepted() {
+        return isAccepted;
+    }
+
+    /**
+     * Sets the value of the is_accepted property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *
+     */
+    public void setIsAccepted(Boolean value) {
+        this.isAccepted = value;
+    }
 
     /**
      * <p>Java class for anonymous complex type.
