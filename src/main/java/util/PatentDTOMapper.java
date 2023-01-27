@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class PatentDTOUtils {
+public class PatentDTOMapper {
 
     public ArrayList<RequestForPatentRecognitionDTO> patentRecognitionRequestsToDTOList(
             ArrayList<RequestForPatentRecognition> requests) {

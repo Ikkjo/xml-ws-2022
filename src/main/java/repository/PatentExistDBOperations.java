@@ -1,6 +1,7 @@
 package repository;
 
 import models.p.RequestForPatentRecognition;
+import models.solution.PatentSolution;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -65,12 +66,11 @@ public class PatentExistDBOperations {
         return request;
     }
 
-    public void save(RequestForPatentRecognition request) throws Exception {
+    public void save(Object object, String applicationNumber, String collectionId, String contextPath) throws Exception {
 
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
-        String collectionId = "/db/xml/patent/";
-        String documentId = request.getInformationForInstitution().getApplicationNumber() + ".xml";
+        String documentId = applicationNumber + ".xml";
 
         // initialize database driver
         Class<?> cl = Class.forName(conn.driver);
@@ -88,32 +88,26 @@ public class PatentExistDBOperations {
         OutputStream os = new ByteArrayOutputStream();
 
         try {
-
-            System.out.println("[INFO] Retrieving the collection: " + collectionId);
             col = getOrCreateCollection(conn, collectionId);
 
             /*
              *  create new XMLResource with a given id
              *  an id is assigned to the new resource if left empty (null)
              */
-            System.out.println("[INFO] Inserting the document: " + documentId);
             res = (XMLResource) col.createResource(documentId, XMLResource.RESOURCE_TYPE);
 
-            System.out.println("[INFO] Unmarshalling XML document to an JAXB instance: ");
-            JAXBContext context = JAXBContext.newInstance("models.p");
+            JAXBContext context = JAXBContext.newInstance(contextPath);
 
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
             // marshal the contents to an output stream
-            marshaller.marshal(request, os);
+            marshaller.marshal(object, os);
 
             // link the stream to the XML resource
             res.setContent(os);
-            System.out.println("[INFO] Storing the document: " + res.getId());
 
             col.storeResource(res);
-            System.out.println("[INFO] Done.");
 
         } finally {
             cleanup(col);
@@ -222,5 +216,48 @@ public class PatentExistDBOperations {
             }
         }
         return requests;
+    }
+
+    public PatentSolution findByIdSolution(String id) throws Exception {
+
+        PatentSolution solution = null;
+
+        AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
+
+        // initialize collection and document identifiers
+        String collectionId = "/db/xml-project/patent/solution";
+        String documentId = id + ".xml";
+
+        // initialize database driver
+        Class<?> cl = Class.forName(conn.driver);
+
+        Database database = (Database) cl.newInstance();
+        database.setProperty("create-database", "true");
+
+        DatabaseManager.registerDatabase(database);
+
+        Collection col = null;
+        XMLResource res;
+        try {
+            // get the collection
+            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+            res = (XMLResource)col.getResource(documentId);
+
+
+            if(res != null) {
+
+                JAXBContext context = JAXBContext.newInstance("models.solution");
+
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+
+                solution = (PatentSolution) unmarshaller.unmarshal(res.getContentAsDOM());
+
+            }
+        } finally {
+            cleanup(col);
+        }
+        return solution;
     }
 }

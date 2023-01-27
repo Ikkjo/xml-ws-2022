@@ -15,7 +15,7 @@ public class RequestForPatentRecognitionRepository {
     }
 
     public void save(RequestForPatentRecognition request) throws Exception {
-        exist.save(request);
+        exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "models.p");
         fuseki.save(request, "metadata.xsl");
     }
 
@@ -34,5 +34,10 @@ public class RequestForPatentRecognitionRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void update(RequestForPatentRecognition request) throws Exception {
+        exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "models.p");
+        fuseki.save(request, "update_metadata.xsl");
     }
 }

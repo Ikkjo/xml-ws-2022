@@ -3,10 +3,11 @@ package service;
 import models.p.RequestForPatentRecognition;
 import models.p.dto.CreatePatentRecognitionRequestDTO;
 import models.p.dto.RequestForPatentRecognitionDTO;
+import org.springframework.stereotype.Service;
 import repository.RequestForPatentRecognitionRepository;
 import util.PDFTransformer;
 import org.apache.commons.io.FileUtils;
-import util.PatentDTOUtils;
+import util.PatentDTOMapper;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -14,16 +15,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@Service
 public class PatentService {
 
     private RequestForPatentRecognitionRepository repository = new RequestForPatentRecognitionRepository();
     private PDFTransformer pdfTransformer = new PDFTransformer();
-    private PatentDTOUtils dtoUtils = new PatentDTOUtils();
+    private PatentDTOMapper dtoUtils = new PatentDTOMapper();
 
     public ByteArrayInputStream getRequestForPatentRecognitionPDF(String id) {
         ByteArrayInputStream byteArrayInputStream;
