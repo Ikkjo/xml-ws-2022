@@ -37,7 +37,7 @@ public class CopyrightSubmissionRequestFusekiOperations {
 
     public boolean save(CopyrightSubmissionRequest copyrightSubmissionRequest) {
 
-        String requestNumber = copyrightSubmissionRequest.getInformationForInstitution().getRequestNumber();
+        String requestNumber = copyrightSubmissionRequest.getRequestNumber();
         String rdfFile = "gen/rdf/" + requestNumber + ".rdf";
         try {
             generateRdf(copyrightSubmissionRequest);
@@ -63,7 +63,7 @@ public class CopyrightSubmissionRequestFusekiOperations {
     }
 
     private void generateRdf(CopyrightSubmissionRequest copyrightSubmissionRequest) throws Exception {
-        String requestNumber = copyrightSubmissionRequest.getInformationForInstitution().getRequestNumber();
+        String requestNumber = copyrightSubmissionRequest.getRequestNumber();
         String rdfFile = "gen/rdf/" + requestNumber + ".rdf";
         String xslFile = "data/metadata.xsl";
 
