@@ -6,7 +6,7 @@
 //
 
 
-package rs.ac.uns.ftn.xmlproject.solution;
+package models.solution;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

@@ -6,7 +6,7 @@
 //
 
 
-package rs.ac.uns.ftn.xmlproject.systemuser;
+package models.systemuser;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
