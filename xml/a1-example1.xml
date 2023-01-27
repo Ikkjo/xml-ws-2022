@@ -25,15 +25,15 @@
             <user:City>City1</user:City>
             <user:Zip_code>25500</user:Zip_code>
         </user:Address>
-        <user:Last_name>Last_name0</user:Last_name>
-        <user:First_name>First_name0</user:First_name>
+        <user:Last_name>Attorney Last_name0</user:Last_name>
+        <user:First_name>Attorney First_name0</user:First_name>
     </a1:Attorney>
     <a1:Work_title>
         <a1:Main_title>Main_title0</a1:Main_title>
     </a1:Work_title>
-    <a1:Work_type>A</a1:Work_type>
-    <a1:Form_of_recording_work>A</a1:Form_of_recording_work>
-    <a1:Author>
+    <a1:Work_type>Work Type</a1:Work_type>
+    <a1:Form_of_recording_work>Form of recording work</a1:Form_of_recording_work>
+    <a1:Author anonymous="false">
         <a1:Author_surname>Author_surname0</a1:Author_surname>
         <a1:Author_name>Author_name0</a1:Author_name>
     </a1:Author>

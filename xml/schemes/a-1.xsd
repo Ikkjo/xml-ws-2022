@@ -12,7 +12,7 @@
             <xs:element name="Citizenship" type="xs:string" minOccurs="0"/>
             <xs:element name="Date_of_death" nillable="true" type="xs:date" minOccurs="0"/>
         </xs:sequence>
-        <xs:attribute name="anonymous" type="xs:boolean"/>
+        <xs:attribute name="anonymous" type="xs:boolean" form="unqualified" use="required"/>
         <xs:attribute name="is_alive" type="xs:boolean"/>
     </xs:complexType>
     <xs:element name="Copyright_submission_request">
@@ -38,20 +38,8 @@
                         </xs:choice>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="Work_type">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:pattern value="[A-Za-z]+"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="Form_of_recording_work">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:pattern value="[A-z]+"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
+                <xs:element name="Work_type" type="xs:string"> </xs:element>
+                <xs:element name="Form_of_recording_work" type="xs:string"> </xs:element>
                 <xs:element name="Author" type="a1:TAuthor"/>
                 <xs:element name="Work_made_in_business_relationship" type="xs:boolean"/>
                 <xs:element name="Way_of_using_work" minOccurs="0" type="xs:string"/>
