@@ -9,7 +9,6 @@ import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
-import util.AuthenticationUtilities;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;

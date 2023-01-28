@@ -28,7 +28,7 @@ public class PDFTransformer {
 
     private static final TransformerFactory transformerFactory;
 
-    private static final String XSL_REQUEST_FILEPATH = "data/p-1.xsl";
+    private static final String XSL_REQUEST_FILEPATH = "patent/src/main/java/backend/patent/data/p-1.xsl";
     private static final String XSL_SOLUTION_FILEPATH = "data/solution.xsl";
     private static final String XSL_REPORT_FILEPATH = "data/report.xsl";
 
