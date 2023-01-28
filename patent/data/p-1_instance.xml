@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request_for_patent_recognition institution="Zavod za intelektualnu svojinu" address="Kneginje Ljubice 5, 11000 Beograd, Republika Srbija"
+    xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition p-1.xsd"
+    xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
+    <Information_for_institution>
+        <Application_number>P-12345</Application_number>
+        <Receipt_date>2022-12-21</Receipt_date>
+        <Submission_date>2022-12-21</Submission_date>
+        <Stamp_and_signature></Stamp_and_signature>
+    </Information_for_institution>
+    <Patent_name>
+        <Serbian_patent_name>Patent</Serbian_patent_name>
+        <English_patent_name>Patent</English_patent_name>
+    </Patent_name>
+    <Applicant xsi:type="user:TIndividual">
+        <user:Phone_number>066153786</user:Phone_number>
+        <user:Email>pera@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Tolstojeva</user:Street>
+            <user:Street_number>50</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Fax_number>12345</user:Fax_number>
+        <user:Last_name>ZIKIC</user:Last_name>
+        <user:Citizenship>srpsko</user:Citizenship>
+        <user:First_name>Zika</user:First_name>
+    </Applicant>
+    <Inventor does_not_want_to_be_listed="">
+        <user:Phone_number>0649294080</user:Phone_number>
+        <user:Email>pera123@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Tolstojeva</user:Street>
+            <user:Street_number>50</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Fax_number>54321</user:Fax_number>
+        <user:Last_name>PERIC</user:Last_name>
+        <user:First_name>Pera</user:First_name>
+    </Inventor>
+    <Proxy proxy_for_representation="" attorney_for_receiving_letters="">
+        <user:Phone_number>0645678444</user:Phone_number>
+        <user:Email>mika@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Tolstojeva</user:Street>
+            <user:Street_number>50</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Last_name>MIKIC</user:Last_name>
+        <user:First_name>Mika</user:First_name>
+    </Proxy>
+    <Delivery_address>
+        <Address>
+            <user:Street>Puskinova</user:Street>
+            <user:Street_number>10</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </Address>
+    </Delivery_address>
+    <Delivery_type>
+        <Electronic_delivery></Electronic_delivery>
+        <Delivery_in_paper_form></Delivery_in_paper_form>
+    </Delivery_type>
+    <Application_information supplementary_application="" separate_application="">
+        <Original_application_number></Original_application_number>
+        <Original_application_submission_date>2022-12-21</Original_application_submission_date>
+    </Application_information>
+    <Priority_rights_recognition_from_earlier_applications>
+        <Earlier_applications>
+            <Earlier_application>
+                <Earlier_application_submission_date>2022-12-10</Earlier_application_submission_date>
+                <Earlier_application_number></Earlier_application_number>
+                <Country_or_organization_designation></Country_or_organization_designation>
+            </Earlier_application>
+        </Earlier_applications>
+    </Priority_rights_recognition_from_earlier_applications>
+</Request_for_patent_recognition>
