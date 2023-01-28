@@ -1,0 +1,150 @@
+
+<div class="container">
+  <h1>ЗАХТЕВ ЗА УНОШЕЊЕ У ЕВИДЕНЦИЈУ И ДЕПОНОВАЊЕ АУТОРСКИХ ДЕЛА</h1>
+  <hr/>
+  <form class="form" [formGroup]="copyrightRequestForm">
+    <h3>Подносилац</h3>
+            <mat-form-field appearance="fill">
+              <mat-label>Подносилац је</mat-label>
+              <mat-select formControlName="applicantType" required>
+                <mat-option *ngFor="let type of types" [value]="type.value">
+                  {{type.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>    
+            <br/>
+            <label>Име и презиме:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Име*" formControlName="applicantName" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Презиме*" formControlName="applicantSurname" />
+            </mat-form-field>
+            <br /><label>Контакт:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Телефон*" formControlName="applicantPhoneNumber" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="e-mail*" formControlName="applicantEmail" />
+            </mat-form-field>
+            <br /><label>Адреса:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Улица*" formControlName="applicantStreet" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Број улице*" formControlName="applicantStreetNumber" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Град*" formControlName="applicantCity" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Поштански број*" formControlName="applicantZipCode" />
+            </mat-form-field>
+          <hr/>
+          <h3>Пуномоћник</h3>
+            <label>Име и презиме:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Име*" formControlName="attorneyName" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Презиме*" formControlName="attorneySurname" />
+            </mat-form-field>
+            <br /><label>Контакт:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Телефон*" formControlName="attorneyPhoneNumber" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="e-mail*" formControlName="attorneyEmail" />
+            </mat-form-field>
+            <br /><label>Адреса:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Улица*" formControlName="attorneyStreet" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Број улице*" formControlName="attorneyStreetNumber" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Град*" formControlName="attorneyCity" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Поштански број*" formControlName="attorneyZipCode" />
+            </mat-form-field>
+            <hr/>
+            <h3>Аутор</h3>
+            <label>Име и презиме аутора:</label><br />
+            <mat-checkbox formControlName="isAuthorApplicant">Аутор је подносилац</mat-checkbox><br/>
+            <mat-form-field>
+              <input matInput placeholder="Име" formControlName="authorName" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Презиме" formControlName="authorSurname" />
+            </mat-form-field>
+            <mat-checkbox formControlName="authorAnonymous">Аутор је анониман</mat-checkbox><br/>
+            <label>Псеудоним аутора:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Псеудоним" formControlName="authorPseudonym" />
+            </mat-form-field>
+            <br/><mat-label>Датум смрти:</mat-label><br/>
+            <mat-form-field appearance="fill">
+              <input matInput [matDatepicker]="picker" formControlName="authorDateOfDeath">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>  
+            <hr/>
+            <h3>Ауторско дело</h3>
+            <label>Наслов дела:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Главни наслов" formControlName="workMainTitle" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Алтернативни наслов" formControlName="workAlternativeTitle" />
+            </mat-form-field>
+            <br /><label>Форма записа ауторског дела:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Штампани текст, оптички диск..." formControlName="workFormOfRecording" />
+            </mat-form-field>
+            <br /><label>Врста ауторског дела:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Књижевно дело, музичко дело..." formControlName="workType" />
+            </mat-form-field>
+            <br /><label>Начин коришћења ауторског дела:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Начин коришћења" formControlName="workWayOfUsing" />
+            </mat-form-field>
+            <br>
+            <mat-checkbox matInput class="example-margin" formControlName="workMadeInBusinessRelationship">Ауторско дело створено у радном односу</mat-checkbox>
+            <hr/>
+            <h3>Дело прераде</h3>
+            <br/><mat-checkbox matInput formControlName="derivativeWork" class="example-margin">Приложено дело је дело прераде</mat-checkbox><br/> 
+            <label>Наслов оригиналног дела:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Главни наслов" formControlName="originalWorkMainTitle" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Алтернативни наслов" formControlName="originalWorkAlternativeTitle" />
+            </mat-form-field>
+             <br/><label>Име и презиме оригиналног аутора:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Име" formControlName="originalAuthorName" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Презиме" formControlName="originalAuthorSurname" />
+            </mat-form-field>
+            <mat-checkbox matInput class="example-margin" formControlName="originalAuthorAnonymous">Аутор је анониман</mat-checkbox><br/>
+            <label>Псеудоним аутора:</label><br />
+            <mat-form-field>
+              <input matInput placeholder="Псеудоним" formControlName="originalAuthorPseudonym" />
+            </mat-form-field>
+            <br/><mat-label>Датум смрти:</mat-label><br/>
+            <mat-form-field appearance="fill">
+              <input matInput [matDatepicker]="origAuthorDODpicker" formControlName="originalAuthorDateOfDeath">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="origAuthorDODpicker"></mat-datepicker-toggle>
+              <mat-datepicker #origAuthorDODpicker></mat-datepicker>
+            </mat-form-field>  
+          <button mat-raised-button type="submit" color="green">
+            Пошаљи захтев
+          </button>
+  </form>
+</div>
