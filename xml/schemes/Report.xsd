@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.XMLproject.ftn.uns.ac.rs/Report"
+    xmlns="http://www.XMLproject.ftn.uns.ac.rs/Report">
+
+    <xs:element name="Report">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Start_date" type="xs:date"/>
+                <xs:element name="End_date" type="xs:date"/>
+                <xs:element name="Submitted_requests_number" type="xs:unsignedInt"/>
+                <xs:element name="Accepted_requests_number" type="xs:unsignedInt"/>
+                <xs:element name="Rejected_requests_number" type="xs:unsignedInt"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

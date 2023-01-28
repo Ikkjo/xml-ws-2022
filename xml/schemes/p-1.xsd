@@ -50,6 +50,7 @@
             </xs:sequence>
             <xs:attribute name="address" type="xs:string"/>
             <xs:attribute name="institution" type="xs:string"/>
+            <xs:attribute name="is_accepted" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="Information_for_institution">

@@ -3,10 +3,11 @@ package service;
 import models.p.RequestForPatentRecognition;
 import models.p.dto.CreatePatentRecognitionRequestDTO;
 import models.p.dto.RequestForPatentRecognitionDTO;
+import org.springframework.stereotype.Service;
 import repository.RequestForPatentRecognitionRepository;
 import util.PDFTransformer;
 import org.apache.commons.io.FileUtils;
-import util.PatentDTOUtils;
+import util.PatentDTOMapper;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -18,18 +19,19 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@Service
 public class PatentService {
 
     private RequestForPatentRecognitionRepository repository = new RequestForPatentRecognitionRepository();
     private PDFTransformer pdfTransformer = new PDFTransformer();
-    private PatentDTOUtils dtoUtils = new PatentDTOUtils();
+    private PatentDTOMapper dtoUtils = new PatentDTOMapper();
 
     public ByteArrayInputStream getRequestForPatentRecognitionPDF(String id) {
         ByteArrayInputStream byteArrayInputStream;
 
         try {
 
-            pdfTransformer.generateHTML(repository.findById(id));
+            pdfTransformer.generateHTMLRequest(repository.findById(id));
             pdfTransformer.generatePDF(id);
 
             File pdfFile = new File("gen/pdf/" + id + ".pdf");
@@ -52,7 +54,7 @@ public class PatentService {
 
         try {
 
-            pdfTransformer.generateHTML(repository.findById(id));
+            pdfTransformer.generateHTMLRequest(repository.findById(id));
 
             File htmlFile = new File("gen/html/" + id + ".html");
             File xmlFile = new File("gen/xml/" + id + ".xml");
@@ -93,11 +95,25 @@ public class PatentService {
     }
 
     private XMLGregorianCalendar getCurrentDate() throws DatatypeConfigurationException {
-
         Date now = new Date();
         GregorianCalendar c = new GregorianCalendar();
         c.setTime(now);
         return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
 
+    }
+
+    public String getRdfMetadata(String id) {
+        try {
+            String rdfString = repository.createRdfString(id);
+            deleteFile("gen/rdf/" + id + ".rdf");
+            return rdfString;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void deleteFile(String filePath) {
+        File file = new File(filePath);
+        file.delete();
     }
 }
