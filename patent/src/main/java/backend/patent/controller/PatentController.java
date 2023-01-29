@@ -60,8 +60,8 @@ public class PatentController {
         return new ResponseEntity<>(patentService.getRdfMetadata(id), HttpStatus.OK);
     }
 
-    /*@GetMapping(path = "/{id}/json", produces = "application/json")
+    @GetMapping(path = "/{id}/json", produces = "application/json")
     public ResponseEntity<String>  getMetadataJson(@PathVariable String id) {
         return new ResponseEntity<>(patentService.getJsonMetadata(id), HttpStatus.OK);
-    }*/
+    }
 }

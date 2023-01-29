@@ -40,4 +40,12 @@ public class RequestForPatentRecognitionRepository {
         exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "backend.patent.model.p");
         fuseki.save(request, "update_metadata.xsl");
     }
+
+    public String getJsonString(String id) {
+        try {
+            return fuseki.getJsonString(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
