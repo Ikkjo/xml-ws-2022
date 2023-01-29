@@ -1,13 +1,13 @@
-package service;
+package backend.patent.service;
 
-import models.p.RequestForPatentRecognition;
-import models.p.dto.CreatePatentRecognitionRequestDTO;
-import models.p.dto.RequestForPatentRecognitionDTO;
+import backend.patent.model.p.RequestForPatentRecognition;
+import backend.patent.model.p.dto.CreatePatentRecognitionRequestDTO;
+import backend.patent.model.p.dto.RequestForPatentRecognitionDTO;
 import org.springframework.stereotype.Service;
-import repository.RequestForPatentRecognitionRepository;
-import util.PDFTransformer;
+import backend.patent.repository.RequestForPatentRecognitionRepository;
+import backend.patent.util.PDFTransformer;
 import org.apache.commons.io.FileUtils;
-import util.PatentDTOMapper;
+import backend.patent.util.PatentDTOMapper;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;

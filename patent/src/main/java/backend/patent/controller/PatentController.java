@@ -1,8 +1,7 @@
-package controller;
+package backend.patent.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import models.p.dto.CreatePatentRecognitionRequestDTO;
-import models.p.dto.RequestForPatentRecognitionDTO;
+import backend.patent.model.p.dto.CreatePatentRecognitionRequestDTO;
+import backend.patent.model.p.dto.RequestForPatentRecognitionDTO;
 import org.apache.catalina.connector.Response;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -10,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.PatentService;
+import backend.patent.service.PatentService;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;

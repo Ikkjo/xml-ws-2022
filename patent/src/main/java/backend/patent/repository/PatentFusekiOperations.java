@@ -1,14 +1,18 @@
-package repository;
+package backend.patent.repository;
 
-import models.p.RequestForPatentRecognition;
+import backend.patent.model.p.RequestForPatentRecognition;
+import backend.patent.util.AuthenticationUtilitiesRDF;
 import org.apache.commons.io.FileUtils;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
-import util.SparqlUtil;
+import backend.patent.util.SparqlUtil;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.util.JAXBSource;
@@ -49,8 +53,8 @@ public class PatentFusekiOperations {
     }
 
     public void generateRdf(RequestForPatentRecognition requestForPatentRecognition, String xslFile) throws Exception {
-        String brojPrijave = requestForPatentRecognition.getInformationForInstitution().getApplicationNumber();
-        String rdfFilePath = "gen/rdf/" + brojPrijave + ".rdf";
+        String applicationNumber = requestForPatentRecognition.getInformationForInstitution().getApplicationNumber();
+        String rdfFilePath = "gen/rdf/" + applicationNumber + ".rdf";
         String xslFilePath = "data/" + xslFile;
 
         TransformerFactory factory = TransformerFactory.newInstance();
@@ -76,5 +80,35 @@ public class PatentFusekiOperations {
         model.write(out, syntax);
 
         return out.toString();
+    }
+
+    public long countSubmitted(String startDate, String endDate) throws Exception {
+
+        int res = 0;
+        AuthenticationUtilitiesRDF.ConnectionProperties conn = AuthenticationUtilitiesRDF.loadProperties();
+        String sparqlQuery = SparqlUtil.selectSubmitted(conn.dataEndpoint + GRAPH_URI, startDate, endDate);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        res = results.getRowNumber();
+
+        query.close();
+        return res;
+
+    }
+
+    public long countSubmittedResponded(String startDate, String endDate, String condition) throws Exception {
+
+        int res = 0;
+        AuthenticationUtilitiesRDF.ConnectionProperties conn = AuthenticationUtilitiesRDF.loadProperties();
+        String sparqlQuery = SparqlUtil.selectSubmittedResponded(conn.dataEndpoint + GRAPH_URI, condition, startDate, endDate);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        res = results.getRowNumber();
+
+        query.close();
+        return res;
+
     }
 }

@@ -1,13 +1,13 @@
-package util;
+package backend.patent.util;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-import models.p.RequestForPatentRecognition;
-import models.report.Report;
-import models.solution.PatentSolution;
+import backend.patent.model.p.RequestForPatentRecognition;
+import backend.patent.model.report.Report;
+import backend.patent.model.solution.PatentSolution;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

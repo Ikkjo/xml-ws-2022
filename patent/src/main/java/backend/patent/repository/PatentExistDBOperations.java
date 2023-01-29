@@ -1,7 +1,8 @@
-package repository;
+package backend.patent.repository;
 
-import models.p.RequestForPatentRecognition;
-import models.solution.PatentSolution;
+import backend.patent.model.p.RequestForPatentRecognition;
+import backend.patent.model.solution.PatentSolution;
+import backend.patent.util.AuthenticationUtilities;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -51,7 +52,7 @@ public class PatentExistDBOperations {
                 System.out.println("[WARNING] Document '" + documentId + "' can not be found!");
             } else {
 
-                JAXBContext context = JAXBContext.newInstance("models.p");
+                JAXBContext context = JAXBContext.newInstance("backend.patent.model.p");
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -247,7 +248,7 @@ public class PatentExistDBOperations {
 
             if(res != null) {
 
-                JAXBContext context = JAXBContext.newInstance("models.solution");
+                JAXBContext context = JAXBContext.newInstance("backend.patent.model.solution");
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 

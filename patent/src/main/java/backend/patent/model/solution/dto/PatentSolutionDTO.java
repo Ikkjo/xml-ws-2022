@@ -1,4 +1,4 @@
-package models.solution.dto;
+package backend.patent.model.solution.dto;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

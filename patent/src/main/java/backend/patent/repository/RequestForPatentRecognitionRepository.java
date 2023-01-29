@@ -1,6 +1,6 @@
-package repository;
+package backend.patent.repository;
 
-import models.p.RequestForPatentRecognition;
+import backend.patent.model.p.RequestForPatentRecognition;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ public class RequestForPatentRecognitionRepository {
     }
 
     public void save(RequestForPatentRecognition request) throws Exception {
-        exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "models.p");
+        exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "backend.patent.model.p");
         fuseki.save(request, "metadata.xsl");
     }
 
@@ -37,7 +37,7 @@ public class RequestForPatentRecognitionRepository {
     }
 
     public void update(RequestForPatentRecognition request) throws Exception {
-        exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "models.p");
+        exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "backend.patent.model.p");
         fuseki.save(request, "update_metadata.xsl");
     }
 }

@@ -1,4 +1,4 @@
-package util;
+package backend.patent.util;
 
 import java.io.IOException;
 import java.io.InputStream;

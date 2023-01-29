@@ -1,13 +1,17 @@
-package controller;
+package backend.patent.controller;
 
-import models.solution.dto.PatentSolutionDTO;
+import backend.patent.model.solution.dto.PatentSolutionDTO;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.PatentSolutionService;
+import backend.patent.service.PatentSolutionService;
+
+import java.io.ByteArrayInputStream;
 
 @RestController()
 @RequestMapping(value = "/api/solution")
@@ -30,4 +34,13 @@ public class PatentSolutionController {
         return new ResponseEntity<>(solutionService.getSolutionHTML(id), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/report/{startDate}/{endDate}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> getReportPDF(@PathVariable String startDate, @PathVariable String endDate) {
+
+        ByteArrayInputStream byteFile = solutionService.getReportPDF(startDate, endDate);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=report.pdf");
+
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(byteFile));
+    }
 }

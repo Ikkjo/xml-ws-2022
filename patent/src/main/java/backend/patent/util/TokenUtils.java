@@ -1,4 +1,4 @@
-package util;
+package backend.patent.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
