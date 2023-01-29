@@ -6,6 +6,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.update.UpdateExecutionFactory;
@@ -109,6 +110,20 @@ public class PatentFusekiOperations {
 
         query.close();
         return res;
+
+    }
+
+    public String getJsonString(String applicationNumber) throws Exception {
+
+        AuthenticationUtilitiesRDF.ConnectionProperties conn = AuthenticationUtilitiesRDF.loadProperties();
+        String sparqlQuery = SparqlUtil.selectDataByApplicationNumber(conn.dataEndpoint + GRAPH_URI, applicationNumber);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ResultSetFormatter.outputAsJSON(outputStream, results);
+
+        return outputStream.toString();
 
     }
 }

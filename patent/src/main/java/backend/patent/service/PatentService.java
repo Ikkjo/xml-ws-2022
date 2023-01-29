@@ -116,4 +116,13 @@ public class PatentService {
         File file = new File(filePath);
         file.delete();
     }
+
+    public String getJsonMetadata(String id) {
+
+        try {
+            return repository.getJsonString(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
