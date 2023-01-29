@@ -6,7 +6,7 @@
 //
 
 
-package models.p;
+package backend.patent.model.p;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -49,8 +49,8 @@ import javax.xml.bind.annotation.XmlType;
     "firstName"
 })
 @XmlSeeAlso({
-    models.p.RequestForPatentRecognition.Inventor.class,
-    models.p.RequestForPatentRecognition.Proxy.class
+    RequestForPatentRecognition.Inventor.class,
+    RequestForPatentRecognition.Proxy.class
 })
 public class TIndividual
     extends TPerson

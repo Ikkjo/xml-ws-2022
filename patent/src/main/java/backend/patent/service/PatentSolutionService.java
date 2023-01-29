@@ -1,17 +1,19 @@
-package service;
+package backend.patent.service;
 
-import models.p.RequestForPatentRecognition;
-import models.solution.PatentSolution;
-import models.solution.dto.PatentSolutionDTO;
+import backend.patent.model.p.RequestForPatentRecognition;
+import backend.patent.model.report.Report;
+import backend.patent.model.solution.PatentSolution;
+import backend.patent.model.solution.dto.PatentSolutionDTO;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
-import repository.PatentSolutionRepository;
-import repository.RequestForPatentRecognitionRepository;
-import util.PDFTransformer;
-import util.PatentSolutionDTOMapper;
+import backend.patent.repository.PatentSolutionRepository;
+import backend.patent.repository.RequestForPatentRecognitionRepository;
+import backend.patent.util.PDFTransformer;
+import backend.patent.util.PatentSolutionDTOMapper;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -66,5 +68,33 @@ public class PatentSolutionService {
         cal.setTime(date);
 
         return DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
+    }
+
+    public ByteArrayInputStream getReportPDF(String startDate, String endDate) {
+        ByteArrayInputStream byteArrayInputStream;
+
+        try {
+            Report report = new Report();
+
+            report.setStartDate(convertStringToDate(startDate));
+            report.setEndDate(convertStringToDate(endDate));
+            report.setSubmittedRequestsNumber(solutionRepository.countSubmitted(startDate, endDate));
+            report.setAcceptedRequestsNumber(solutionRepository.countSubmittedResponded(startDate,endDate, "true"));
+            report.setRejectedRequestsNumber(solutionRepository.countSubmittedResponded(startDate, endDate, "false"));
+
+            pdfTransformer.generateHTMLReport(report);
+            pdfTransformer.generatePDF("report");
+
+            File pdfFile = new File("gen/pdf/report.pdf");
+            byteArrayInputStream = new ByteArrayInputStream(FileUtils.readFileToByteArray(pdfFile));
+            pdfFile.delete();
+            deleteFile("gen/html/report.html");
+            deleteFile("gen/xml/report.xml");
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return byteArrayInputStream;
     }
 }

@@ -6,4 +6,4 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package models.p;
+package backend.patent.model.p;

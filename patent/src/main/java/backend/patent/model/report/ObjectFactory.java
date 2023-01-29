@@ -6,7 +6,7 @@
 //
 
 
-package models.report;
+package backend.patent.model.report;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

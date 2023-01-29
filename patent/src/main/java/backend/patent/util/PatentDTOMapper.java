@@ -1,7 +1,7 @@
-package util;
+package backend.patent.util;
 
-import models.p.*;
-import models.p.dto.*;
+import backend.patent.model.p.*;
+import backend.patent.model.p.dto.*;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
