@@ -97,26 +97,26 @@ import javax.xml.bind.annotation.XmlType;
     "applicationInformation",
     "priorityRightsRecognitionFromEarlierApplications"
 })
-@XmlRootElement(name = "Request_for_patent_recognition")
+@XmlRootElement(name = "Request_for_patent_recognition", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition")
 public class RequestForPatentRecognition {
 
-    @XmlElement(name = "Information_for_institution", required = true)
+    @XmlElement(name = "Information_for_institution", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
     protected InformationForInstitution informationForInstitution;
-    @XmlElement(name = "Patent_name", required = true)
+    @XmlElement(name = "Patent_name", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
     protected RequestForPatentRecognition.PatentName patentName;
-    @XmlElement(name = "Applicant", required = true)
+    @XmlElement(name = "Applicant", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
     protected TPerson applicant;
-    @XmlElement(name = "Inventor", required = true)
+    @XmlElement(name = "Inventor", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
     protected RequestForPatentRecognition.Inventor inventor;
-    @XmlElement(name = "Proxy", required = true)
+    @XmlElement(name = "Proxy", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
     protected RequestForPatentRecognition.Proxy proxy;
-    @XmlElement(name = "Delivery_address", required = true)
+    @XmlElement(name = "Delivery_address", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
     protected RequestForPatentRecognition.DeliveryAddress deliveryAddress;
-    @XmlElement(name = "Delivery_type", required = true)
+    @XmlElement(name = "Delivery_type", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
     protected DeliveryType deliveryType;
-    @XmlElement(name = "Application_information", required = true)
+    @XmlElement(name = "Application_information", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
     protected ApplicationInformation applicationInformation;
-    @XmlElement(name = "Priority_rights_recognition_from_earlier_applications", required = true)
+    @XmlElement(name = "Priority_rights_recognition_from_earlier_applications", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
     protected PriorityRightsRecognitionFromEarlierApplications priorityRightsRecognitionFromEarlierApplications;
     @XmlAttribute(name = "address")
     protected String address;
@@ -438,7 +438,7 @@ public class RequestForPatentRecognition {
     })
     public static class DeliveryAddress {
 
-        @XmlElement(name = "Address", required = true)
+        @XmlElement(name = "Address", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
         protected Address address;
 
         /**
@@ -549,9 +549,9 @@ public class RequestForPatentRecognition {
     })
     public static class PatentName {
 
-        @XmlElement(name = "Serbian_patent_name", required = true)
+        @XmlElement(name = "Serbian_patent_name", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
         protected String serbianPatentName;
-        @XmlElement(name = "English_patent_name", required = true)
+        @XmlElement(name = "English_patent_name", namespace = "http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition", required = true)
         protected String englishPatentName;
 
         /**
