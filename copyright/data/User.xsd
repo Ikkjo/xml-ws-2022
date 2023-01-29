@@ -23,26 +23,33 @@
             <xs:element minOccurs="0" name="Fax_number" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="TIndividual">
-        <xs:complexContent>
-            <xs:extension base="user:TPerson">
-                <xs:sequence>
-                    <xs:element name="Last_name" type="xs:string"/>
-                    <xs:element name="Citizenship" type="xs:string" minOccurs="0"/>
-                    <xs:element name="First_name" type="xs:string"/>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="TLegal_entity">
-        <xs:complexContent>
-            <xs:extension base="user:TPerson">
-                <xs:sequence>
-                    <xs:element name="Business_name" type="xs:string"/>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
+
+    <xs:element name="TIndividual">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="user:TPerson">
+                    <xs:sequence>
+                        <xs:element name="Last_name" type="xs:string"/>
+                        <xs:element name="Citizenship" type="xs:string" minOccurs="0"/>
+                        <xs:element name="First_name" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="TLegal_entity">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="user:TPerson">
+                    <xs:sequence>
+                        <xs:element name="Business_name" type="xs:string"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
     <xs:complexType name="Address">
         <xs:sequence>
             <xs:element name="Street" type="xs:string"/>
@@ -59,4 +66,5 @@
             <xs:element name="Drzava" type="xs:string" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
+
 </xs:schema>
