@@ -1,4 +1,4 @@
-import xml.ATest;
+import java.rs.ac.uns.ftn.XMLProject.Copyright.ATest;
 import xml.PTest;
 
 public class TestMain {

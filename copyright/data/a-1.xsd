@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User"
+    targetNamespace="http://www.XMLproject.ftn.uns.ac.rs/a-1"
+    xmlns:a1="http://www.XMLproject.ftn.uns.ac.rs/a-1">
+
+    <xs:import namespace="http://www.XMLproject.ftn.uns.ac.rs/User" schemaLocation="../../xml/schemes/User.xsd"/>
+    <xs:complexType name="TAuthor">
+        <xs:sequence>
+            <xs:element name="Author_surname" type="xs:string"/>
+            <xs:element name="Author_name" type="xs:string"/>
+            <xs:element name="Citizenship" type="xs:string" minOccurs="0"/>
+            <xs:element name="Date_of_death" nillable="true" type="xs:date" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="anonymous" type="xs:boolean" form="unqualified" use="required"/>
+        <xs:attribute name="is_alive" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:element name="Copyright_submission_request">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Applicant" type="user:TPerson"> </xs:element>
+                <xs:element name="Attorney" type="user:TIndividual" minOccurs="1"/>
+                <xs:element name="Author_pseudonym" type="xs:string" minOccurs="0"/>
+                <xs:element name="Work_title" nillable="true">
+                    <xs:complexType>
+                        <xs:sequence id="Naslov_autorskog_dela">
+                            <xs:element name="Main_title" type="xs:string"/>
+                            <xs:element name="Alternative_title" minOccurs="0" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Adaptation_work_information" minOccurs="0">
+                    <xs:complexType>
+                        <xs:choice>
+                            <xs:element name="Original_work_title" type="xs:string"/>
+                            <xs:element name="Original_work_author" type="a1:TAuthor"
+                                nillable="true"/>
+                        </xs:choice>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Work_type" type="xs:string"> </xs:element>
+                <xs:element name="Form_of_recording_work" type="xs:string"> </xs:element>
+                <xs:element name="Author" type="a1:TAuthor"/>
+                <xs:element name="Work_made_in_business_relationship" type="xs:boolean"/>
+                <xs:element name="Way_of_using_work" minOccurs="0" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="institution" type="xs:string"/>
+            <xs:attribute name="address" type="xs:string"/>
+            <xs:attribute name="request_number" type="xs:string" use="required"/>
+            <xs:attribute name="request_submission_date" type="xs:date" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
