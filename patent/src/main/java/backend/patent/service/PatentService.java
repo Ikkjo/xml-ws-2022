@@ -3,6 +3,7 @@ package backend.patent.service;
 import backend.patent.model.p.RequestForPatentRecognition;
 import backend.patent.model.p.dto.CreatePatentRecognitionRequestDTO;
 import backend.patent.model.p.dto.RequestForPatentRecognitionDTO;
+import org.apache.regexp.RE;
 import org.springframework.stereotype.Service;
 import backend.patent.repository.RequestForPatentRecognitionRepository;
 import backend.patent.util.PDFTransformer;
@@ -15,9 +16,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PatentService {
@@ -123,6 +122,23 @@ public class PatentService {
             return repository.getJsonString(id);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public List<RequestForPatentRecognitionDTO> searchByContent(String role, String content) {
+        return filterByRole(role, repository.searchByContent(content));
+    }
+
+    private List<RequestForPatentRecognitionDTO> filterByRole(String role, ArrayList<RequestForPatentRecognition> requests) {
+        if (Objects.equals(role, "Sluzbenik")) {
+            return dtoUtils.patentRecognitionRequestsToDTOList(requests);
+        }
+        else {
+            ArrayList<RequestForPatentRecognition> filtered = new ArrayList<>();
+            for (RequestForPatentRecognition request : requests)
+                if (request.getIsAccepted() != null)
+                    filtered.add(request);
+            return dtoUtils.patentRecognitionRequestsToDTOList(filtered);
         }
     }
 }

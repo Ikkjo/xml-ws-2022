@@ -4,9 +4,7 @@ import backend.patent.model.p.RequestForPatentRecognition;
 import backend.patent.model.solution.PatentSolution;
 import backend.patent.util.AuthenticationUtilities;
 import org.xmldb.api.DatabaseManager;
-import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.Database;
-import org.xmldb.api.base.XMLDBException;
+import org.xmldb.api.base.*;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
@@ -259,5 +257,54 @@ public class PatentExistDBOperations {
             cleanup(col);
         }
         return solution;
+    }
+
+    public ArrayList<RequestForPatentRecognition> search(String content) throws Exception {
+        AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
+        String filter = "/*[contains(., '" + content + "')] | " +
+                "/*[contains(@Application_number, '" + content + "')] | " +
+                "/*[contains(@Receipt_date, '" + content + "')] | " +
+                "/*[contains(@Submission_date, '" + content + "')] | " +
+                "/*[contains(@Citizenship, '" + content + "')]";
+
+        // initialize collection and document identifiers
+        String collectionId = "/db/xml-project/patent";
+
+        Class<?> cl = Class.forName(conn.driver);
+
+        Database database = (Database) cl.newInstance();
+        database.setProperty("create-database", "true");
+
+        DatabaseManager.registerDatabase(database);
+
+        Collection col = null;
+
+        RequestForPatentRecognition requestForPatentRecognition;
+        ArrayList<RequestForPatentRecognition> requestsForPatentRecognition;
+        try {
+            // get the collection
+            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+            XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            xPathQueryService.setProperty("indent", "yes");
+            ResourceSet result = xPathQueryService.query(filter);
+            ResourceIterator iterator = result.getIterator();
+
+            requestsForPatentRecognition = new ArrayList<>();
+            XMLResource res;
+            while (iterator.hasMoreResources()) {
+                res = (XMLResource) iterator.nextResource();
+                JAXBContext context = JAXBContext.newInstance(RequestForPatentRecognition.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                requestForPatentRecognition = (RequestForPatentRecognition) unmarshaller.unmarshal(res.getContentAsDOM());
+                requestsForPatentRecognition.add(requestForPatentRecognition);
+            }
+        } finally {
+            if (col != null) {
+                col.close();
+            }
+        }
+        return requestsForPatentRecognition;
     }
 }
