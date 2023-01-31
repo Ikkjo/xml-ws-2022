@@ -48,4 +48,12 @@ public class RequestForPatentRecognitionRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public ArrayList<RequestForPatentRecognition> searchByContent(String content) {
+        try {
+            return exist.search(content);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
