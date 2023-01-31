@@ -79,4 +79,9 @@ public class PatentController {
         String role = tokenUtils.getRoleFromHeader(request);
         return patentService.search(role, condition);
     }
+
+    @GetMapping(path = "/{id}/linked-document", produces = "application/json")
+    public ResponseEntity<String>  getLinkedDocument(@PathVariable String id) {
+        return new ResponseEntity<>(patentService.getLinkedDocuments(id), HttpStatus.OK);
+    }
 }

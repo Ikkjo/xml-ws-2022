@@ -145,4 +145,21 @@ public class PatentService {
     public List<RequestForPatentRecognitionDTO> search(String role, String condition) {
         return filterByRole(role, repository.search(condition));
     }
+
+    public String getLinkedDocuments(String id) {
+        try {
+            ArrayList<String> idList = new ArrayList<>();
+            RequestForPatentRecognition request = repository.findById(id);
+            List<RequestForPatentRecognition> requests = repository.searchByContent(id);
+            if (request.getIsAccepted() != null)
+                idList.add(request.getInformationForInstitution().getApplicationNumber());
+            for (RequestForPatentRecognition singleRequest: requests) {
+                if (!Objects.equals(singleRequest.getInformationForInstitution().getApplicationNumber(), request.getInformationForInstitution().getApplicationNumber()))
+                    idList.add(singleRequest.getInformationForInstitution().getApplicationNumber());
+            }
+            return String.join(",", idList);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
