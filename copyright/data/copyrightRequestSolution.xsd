@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.XMLproject.ftn.uns.ac.rs/copyrightRequestSolution"
+    xmlns:sol="http://www.XMLproject.ftn.uns.ac.rs/copyrightRequestSolution">
+
+    <xs:element name="Copyright_request_solution">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="request_number" type="xs:string"/>
+                <xs:element name="accepted" type="xs:boolean"/>
+                <xs:element name="official" type="sol:official"/>
+                <xs:element name="solution_date" type="xs:date"/>
+                <xs:element minOccurs="0" name="motivation" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="official">
+        <xs:sequence>
+            <xs:element name="first_name" type="xs:string"/>
+            <xs:element name="last_name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
