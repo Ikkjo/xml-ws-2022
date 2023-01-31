@@ -73,4 +73,10 @@ public class PatentController {
         String role = tokenUtils.getRoleFromHeader(request);
         return patentService.searchByContent(role, content);
     }
+
+    @GetMapping(path = "/search/metadata/{condition}", produces = "application/xml")
+    public List<RequestForPatentRecognitionDTO> searchByMetadata(@PathVariable String condition, HttpServletRequest request) {
+        String role = tokenUtils.getRoleFromHeader(request);
+        return patentService.search(role, condition);
+    }
 }

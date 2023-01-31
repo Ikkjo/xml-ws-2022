@@ -56,4 +56,12 @@ public class RequestForPatentRecognitionRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public ArrayList<RequestForPatentRecognition> search(String condition) {
+        try {
+            return exist.search(fuseki.executeRdfQuery(condition));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

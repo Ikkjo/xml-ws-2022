@@ -3,10 +3,7 @@ package backend.patent.repository;
 import backend.patent.model.p.RequestForPatentRecognition;
 import backend.patent.util.AuthenticationUtilitiesRDF;
 import org.apache.commons.io.FileUtils;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.update.UpdateExecutionFactory;
@@ -24,6 +21,8 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PatentFusekiOperations {
 
@@ -124,6 +123,28 @@ public class PatentFusekiOperations {
         ResultSetFormatter.outputAsJSON(outputStream, results);
 
         return outputStream.toString();
+
+    }
+
+    public ArrayList<String> executeRdfQuery(String condition) throws Exception {
+
+        String varName;
+        ArrayList<String> ids = new ArrayList<>();
+
+        AuthenticationUtilitiesRDF.ConnectionProperties conn = AuthenticationUtilitiesRDF.loadProperties();
+        String sparqlQuery = SparqlUtil.selectData(conn.dataEndpoint + GRAPH_URI, condition);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        while(results.hasNext()) {
+
+            QuerySolution querySolution = results.next() ;
+            Iterator<String> variableBindings = querySolution.varNames();
+
+            varName = variableBindings.next();
+            ids.add(querySolution.get(varName).asLiteral() + ".xml");
+        }
+        return ids;
 
     }
 }
