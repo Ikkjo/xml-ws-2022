@@ -141,4 +141,8 @@ public class PatentService {
             return dtoUtils.patentRecognitionRequestsToDTOList(filtered);
         }
     }
+
+    public List<RequestForPatentRecognitionDTO> search(String role, String condition) {
+        return filterByRole(role, repository.search(condition));
+    }
 }

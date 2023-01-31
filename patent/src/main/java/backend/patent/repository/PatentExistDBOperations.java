@@ -25,7 +25,7 @@ public class PatentExistDBOperations {
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml/patent/";
+        String collectionId = "/db/xml/patent/request";
         String documentId = id + ".xml";
 
         // initialize database driver
@@ -177,7 +177,7 @@ public class PatentExistDBOperations {
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml/patent/";
+        String collectionId = "/db/xml/patent/request";
 
         Class<?> cl = Class.forName(conn.driver);
 
@@ -268,7 +268,7 @@ public class PatentExistDBOperations {
                 "/*[contains(@Citizenship, '" + content + "')]";
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml-project/patent";
+        String collectionId = "/db/xml-project/patent/request";
 
         Class<?> cl = Class.forName(conn.driver);
 
@@ -299,6 +299,51 @@ public class PatentExistDBOperations {
                 Unmarshaller unmarshaller = context.createUnmarshaller();
                 requestForPatentRecognition = (RequestForPatentRecognition) unmarshaller.unmarshal(res.getContentAsDOM());
                 requestsForPatentRecognition.add(requestForPatentRecognition);
+            }
+        } finally {
+            if (col != null) {
+                col.close();
+            }
+        }
+        return requestsForPatentRecognition;
+    }
+
+    public ArrayList<RequestForPatentRecognition> search( ArrayList<String> ids) throws Exception {
+        AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
+
+        // initialize collection and document identifiers
+        String collectionId = "/db/xml-project/patent/request";
+
+        Class<?> cl = Class.forName(conn.driver);
+
+        Database database = (Database) cl.newInstance();
+        database.setProperty("create-database", "true");
+
+        DatabaseManager.registerDatabase(database);
+
+        Collection col = null;
+
+        RequestForPatentRecognition requestForPatentRecognition;
+        ArrayList<RequestForPatentRecognition> requestsForPatentRecognition;
+        try {
+            // get the collection
+            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+            XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            xPathQueryService.setProperty("indent", "yes");
+
+            requestsForPatentRecognition = new ArrayList<>();
+            String[] resources = col.listResources();
+            XMLResource res;
+            for (String resourceId : resources) {
+                if (ids.contains(resourceId)) {
+                    res = (XMLResource) col.getResource(resourceId);
+                    JAXBContext context = JAXBContext.newInstance(RequestForPatentRecognition.class);
+                    Unmarshaller unmarshaller = context.createUnmarshaller();
+                    requestForPatentRecognition = (RequestForPatentRecognition) unmarshaller.unmarshal(res.getContentAsDOM());
+                    requestsForPatentRecognition.add(requestForPatentRecognition);
+                }
             }
         } finally {
             if (col != null) {
