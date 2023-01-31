@@ -16,7 +16,7 @@ public class RequestForPatentRecognitionRepository {
 
     public void save(RequestForPatentRecognition request) throws Exception {
         exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "backend.patent.model.p");
-        fuseki.save(request, "metadata.xsl");
+        fuseki.save(request, "MetaData.xsl");
     }
 
     public ArrayList<RequestForPatentRecognition> getAll() throws Exception {
@@ -27,9 +27,9 @@ public class RequestForPatentRecognitionRepository {
         try {
             RequestForPatentRecognition request = exist.findById(id);
             if (request.getIsAccepted() == null)
-                fuseki.generateRdf(request, "metadata.xsl");
+                fuseki.generateRdf(request, "MetaData.xsl");
             else
-                fuseki.generateRdf(request, "update_metadata.xsl");
+                fuseki.generateRdf(request, "UpdateMetaData.xsl");
             return fuseki.getRdfString(request.getInformationForInstitution().getApplicationNumber());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -38,7 +38,7 @@ public class RequestForPatentRecognitionRepository {
 
     public void update(RequestForPatentRecognition request) throws Exception {
         exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "backend.patent.model.p");
-        fuseki.save(request, "update_metadata.xsl");
+        fuseki.save(request, "UpdateMetaData.xsl");
     }
 
     public String getJsonString(String id) {

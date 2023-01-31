@@ -77,7 +77,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;/sequence>
  *       &lt;attribute name="address" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="institution" type="{http://www.w3.org/2001/XMLSchema}string" />
- *        *       &lt;attribute name="is_accepted" type="{http://www.w3.org/2001/XMLSchema}boolean" />
+ *       &lt;attribute name="is_accepted" type="{http://www.w3.org/2001/XMLSchema}boolean" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -123,7 +123,7 @@ public class RequestForPatentRecognition {
     @XmlAttribute(name = "institution")
     protected String institution;
     @XmlAttribute(name = "is_accepted")
-    protected  Boolean isAccepted;
+    protected Boolean isAccepted;
 
     /**
      * Gets the value of the informationForInstitution property.

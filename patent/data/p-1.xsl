@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
+                xmlns:p1="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
                 xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User"
                 version="2.0">
     <xsl:template match="/">
@@ -236,7 +236,7 @@
                             </td>
                             <td style="width: 264pt">
                                 <p style="min-height: 16pt; font-size: 16pt;">
-                                    П-<xsl:value-of select="//@applicationNumber"/>
+                                    П-<xsl:value-of select="//p1:Information_for_institution/p1:Application_number"/>
                                 </p>
                             </td>
                         </tr>
@@ -249,11 +249,11 @@
                         <tr style="height: 19.35pt;">
                             <td style="width: 176pt">
                                 <p>Датум пријема</p>
-                                <p style="margin: 3pt 0 0 15pt"><xsl:value-of select="//@receiptDate"/></p>
+                                <p style="margin: 3pt 0 0 15pt"><xsl:value-of select="//p1:Information_for_institution/p1:Receipt_date"/></p>
                             </td>
                             <td style="width: 176pt">
                                 <p>Признати датум подношења</p>
-                                <p style="margin: 3pt 0 0 15pt"><xsl:value-of select="//@submissionDate"/></p>
+                                <p style="margin: 3pt 0 0 15pt"><xsl:value-of select="//p1:Information_for_institution/p1:Submission_date"/></p>
                             </td>
                         </tr>
 
@@ -288,8 +288,8 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                <p>На српском језику: <xsl:value-of select="//patentName"/></p>
-                                <p>На енглеском језику: <xsl:value-of select="//patentName"/></p>
+                                <p>На српском језику: <xsl:value-of select="//p1:Patent_name/p1:Serbian_patent_name"/></p>
+                                <p>На енглеском језику: <xsl:value-of select="//p1:Patent_name/p1:English_patent_name"/></p>
                             </td>
                         </tr>
                         <!--                POLJE BROJ II                -->
@@ -297,6 +297,7 @@
                             <td colspan="3" style="font-weight: bold; border: 1.5px solid black;">
                                 <p>
                                     Поље број II : ПОДНОСИЛАЦ ПРИЈАВЕ
+                                    <!-- Nedostaje atribut applicantIsInventor u klasi -->
                                     (<xsl:choose>
                                     <xsl:when test="//@applicantIsInventor = 'true'"><span style="min-height: 9pt; font-size: 9pt;"> Подносилац пријаве је и проналазач</span></xsl:when>
                                     <xsl:otherwise><span style="min-height: 9pt; font-size: 9pt;"> Подносилац пријаве није проналазач</span></xsl:otherwise>
@@ -307,36 +308,47 @@
                         <tr style="height: 40pt;">
                             <td  rowspan="2">
                                 <p>Име и презиме / Пословно име: </p>
-                                <p><xsl:value-of select="//applicant/user:TIndividual/firstName"/></p>
+                                <p><xsl:choose>
+                                    <xsl:when test="//p1:Applicant//user:TIndividual">
+                                        <xsl:value-of select="//p1:Applicant/user:First_name"/>
+                                        <xsl:text> </xsl:text>
+                                        <xsl:value-of select="//p1:Applicant/user:Last_name"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="//p1:Applicant/user:Business_name"/>
+                                    </xsl:otherwise>
+                                </xsl:choose></p>
                             </td>
                             <td rowspan="2">
                                 <p>Улица и број, поштански број, место и држава:</p>
-                                <p><xsl:value-of select="//applicant/user:TPerson/user:address/user:street"/></p>
-                                <p><xsl:value-of select="//applicant/user:TPerson/user:address/user:zipCode"/></p>
-                                <p><xsl:value-of select="//applicant/user:TPerson/user:address/user:city"/></p>
-                                <p><xsl:value-of select="//applicant/user:TPerson/user:address/user:drzava"/></p>
+                                <p><xsl:value-of select="//p1:Applicant/user:Address/user:Street"/>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:value-of select="//p1:Applicant/user:Address/user:Street_number"/></p>
+                                <p><xsl:value-of select="//p1:Applicant//user:Address/user:Zip_code"/></p>
+                                <p><xsl:value-of select="//p1:Applicant/user:Address/user:City"/></p>
+                                <p><xsl:value-of select="//p1:Applicant/user:Address/user:Drzava"/></p>
                             </td>
                             <td>
                                 <p>Број телефона:</p>
-                                <p><xsl:value-of select="//applicant/user:TPerson/user:phoneNumber"/></p>
+                                <p><xsl:value-of select="//p1:Applicant/user:Phone_number"/></p>
                             </td>
                         </tr>
                         <tr style="height: 40pt;">
                             <td>
                                 <p>Број факса: </p>
-                            <!--<p><xsl:value-of select=""/></p> -->
+                            <p><xsl:value-of select="//p1:Applicant/user:Fax_number"/></p>
                     </td>
                 </tr>
                 <tr style="height: 40pt;">
                     <td colspan="2">
                         <p>
                             Држављанство:
-                            <xsl:value-of select="//applicant/user:TIndividual/user:citizenship"/>
+                            <xsl:value-of select="//p1:Applicant/user:Citizenship"/>
                         </p>
                     </td>
                     <td>
                         <p>Е-пошта: </p>
-                        <p><xsl:value-of select="//applicant/user:TPerson/user:email"/></p>
+                        <p><xsl:value-of select="//p1:Applicant/user:Email"/></p>
                     </td>
                 </tr>
                 <!--                POLJE BROJ III                -->
@@ -345,7 +357,7 @@
                                 <p>
                                     Поље број III : ПРОНАЛАЗАЧ
                                     <xsl:choose>
-                                        <xsl:when test="//@doesNotWantToBeListed">
+                                        <xsl:when test="//@does_not_want_to_be_listed">
                                             Проналазач не жели да буде наведен у пријави
                                         </xsl:when>
                                         <xsl:otherwise> </xsl:otherwise>
@@ -355,31 +367,36 @@
                         </tr>
                         <tr style="height: 40pt;">
                             <td  rowspan="3">
-                                <p>Име и презиме / Пословно име: </p>
-                                <p><xsl:value-of select="//inventor/user:TIndividual/firstName"/></p>
+                                <p>Име и презиме: </p>
+                                <p><xsl:value-of select="//p1:Inventor/user:First_name"/>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:value-of select="//p1:Inventor/user:Last_name"/>
+                                </p>
                             </td>
                             <td rowspan="3">
                                 <p>Улица и број, поштански број, место и држава:</p>
-                                <p><xsl:value-of select="//inventor/user:TPerson/user:address/user:street"/></p>
-                                <p><xsl:value-of select="//inventor/user:TPerson/user:address/user:zipCode"/></p>
-                                <p><xsl:value-of select="//user:TPerson/user:address/user:city"/></p>
-                                <p><xsl:value-of select="//inventor/user:TPerson/user:address/user:drzava"/></p>
+                                <p><xsl:value-of select="//p1:Inventor/user:Address/user:Street"/>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:value-of select="//p1:Inventor/user:Address/user:Street_number"/></p>
+                                <p><xsl:value-of select="//p1:Inventor/user:Address/user:Zip_code"/></p>
+                                <p><xsl:value-of select="//p1:Inventor/user:Address/user:City"/></p>
+                                <p><xsl:value-of select="//p1:Inventor/user:Address/user:Drzava"/></p>
                             </td>
                             <td>
                                 <p>Број телефона:</p>
-                                <p><xsl:value-of select="//inventor/user:TPerson/user:phoneNumber"/></p>
+                                <p><xsl:value-of select="//p1:Inventor/user:Phone_number"/></p>
                             </td>
                         </tr>
                         <tr style="height: 40pt;">
                             <td>
                                 <p>Број факса: </p>
-                                <!--<p><xsl:value-of select=""/></p>-->
+                                <p><xsl:value-of select="//p1:Inventor/user:Fax_number"/></p>
                             </td>
                         </tr>
                         <tr style="height: 40pt;">
                             <td>
                                 <p>Е-пошта: </p>
-                                <p><xsl:value-of select="//inventor/user:TPerson/user:email"/></p>
+                                <p><xsl:value-of select="//p1:Inventor/user:Email"/></p>
                             </td>
                         </tr>
                         <!--                POLJE BROJ IV                -->
@@ -387,43 +404,51 @@
                             <td colspan="3" style="font-weight: bold; border: 1.5px solid black;">
                                 <p>
                                     Поље број IV :
-                                    <!--<xsl:choose>
-                                        <xsl:when test="">
+                                    <xsl:choose>
+                                        <xsl:when test="//@proxy_for_representation = 'true'">
                                             ПУНОМОЋНИК ЗА ЗАСТУПАЊЕ
                                         </xsl:when>
-                                        <xsl:otherwise>
-                                            ПУНОМОЋНИК ЗА ПРИЈЕМ ПИСМЕНА
-                                        </xsl:otherwise>
                                     </xsl:choose>
                                     <xsl:choose>
-                                        <xsl:when test="//@je_zajednicki_predstavnik = 'true'">
-                                            (ЗАЈЕДНИЧКИ ПРЕДСТАВНИК)
+                                        <xsl:when test="//@attorney_for_receiving_letters = 'true'">
+                                            ПУНОМОЋНИК ЗА ПРИЈЕМ ПИСМЕНА
                                         </xsl:when>
-                                    </xsl:choose>-->
+                                    </xsl:choose>
                                 </p>
                             </td>
                         </tr>
                         <tr style="height: 40pt;">
                             <td  rowspan="3">
                                 <p>Име и презиме / Пословно име: </p>
-                                <!--<p><xsl:value-of select="//p1:punomocnik/p1:ime"/></p>-->
+                                <p><xsl:choose>
+                                    <xsl:when test="//p1:Proxy//user:TIndividual">
+                                        <xsl:value-of select="//p1:Proxy/user:First_name"/>
+                                        <xsl:text> </xsl:text>
+                                        <xsl:value-of select="//p1:Proxy/user:Last_name"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="//p1:Proxy/user:Business_name"/>
+                                    </xsl:otherwise>
+                                </xsl:choose></p>
                             </td>
                             <td rowspan="3">
                                 <p>Улица и број, поштански број, место и држава:</p>
-                        <!--<p><xsl:value-of select="//p1:punomocnik/p1:adresa/p1:ulica"/></p>
-                        <p><xsl:value-of select="//p1:punomocnik/p1:adresa/p1:postanski_broj"/></p>
-                        <p><xsl:value-of select="//p1:punomocnik/p1:adresa/p1:mesto"/></p>
-                        <p><xsl:value-of select="//p1:punomocnik/p1:adresa/p1:drzava"/></p>-->
-                    </td>
-                    <td>
-                        <p>Број телефона:</p>
-                        <!--<p><xsl:value-of select="//p1:punomocnik/p1:kontakt/p1:broj_telefona"/></p>-->
-                    </td>
-                </tr>
+                                <p><xsl:value-of select="//p1:Proxy/user:Address/user:Street"/>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:value-of select="//p1:Proxy/user:Address/user:Street_number"/></p>
+                                <p><xsl:value-of select="//p1:Proxy/user:Address/user:Zip_code"/></p>
+                                <p><xsl:value-of select="//p1:Proxy/user:Address/user:City"/></p>
+                                <p><xsl:value-of select="//p1:Proxy/user:Address/user:Drzava"/></p>
+                            </td>
+                            <td>
+                                <p>Број телефона:</p>
+                                <p><xsl:value-of select="//p1:Proxy/user:Phone_number"/></p>
+                            </td>
+                        </tr>
                 <tr style="height: 40pt;">
                     <td>
                         <p>Е-пошта: </p>
-                        <!--<p><xsl:value-of select="//p1:punomocnik/p1:kontakt/p1:e_posta"/></p>-->
+                        <p><xsl:value-of select="//p1:Proxy/user:Email"/></p>
                     </td>
                 </tr>
                 <!--                POLJE BROJ V                -->
@@ -443,10 +468,12 @@
                             <td colspan="3">
                                 <p>
                                     Улица и број, поштански број и место:
-                                    <xsl:value-of select="//user:address/user:street"/>,
-                                    <xsl:value-of select="//user:address/user:zipCode"/>,
-                                    <xsl:value-of select="//user:address/user:city"/>,
-                                    <xsl:value-of select="//user:address/user:drzava"/>
+                                    <xsl:value-of select="//p1:Delivery_address/user:Address/user:Street"/>
+                                    <xsl:text> </xsl:text>
+                                    <xsl:value-of select="//p1:Delivery_address/user:Address/user:Street_number"/>,
+                                    <xsl:value-of select="//p1:Delivery_address/user:Address/user:Zip_code"/>,
+                                    <xsl:value-of select="//p1:Delivery_address/user:Address/user:City"/>,
+                                    <xsl:value-of select="//p1:Delivery_address/user:Address/user:Drzava"/>
                                 </p>
                             </td>
                         </tr>
@@ -460,13 +487,13 @@
                             <td colspan="3">
                                 <p>
                                     <xsl:choose>
-                                        <xsl:when test="//electronicDelivery = 'true'"><span style="min-height: 9pt; font-size: 9pt;">Подносилац пријаве је сагласан да Завод врши достављање писмена електронским путем у форми електронског документа </span></xsl:when>
+                                        <xsl:when test="//p1:Delivery_type/p1:Electronic_delivery = 'true'"><span style="min-height: 9pt; font-size: 9pt;">Подносилац пријаве је сагласан да Завод врши достављање писмена електронским путем у форми електронског документа </span></xsl:when>
                                         <xsl:otherwise><span style="min-height: 9pt; font-size: 9pt;">Подносилац пријаве није сагласан да Завод врши достављање писмена електронским путем у форми електронског документа </span></xsl:otherwise>
                                     </xsl:choose>
                                 </p>
                                 <p>
                                     <xsl:choose>
-                                        <xsl:when test="//deliveryInPaperForm = 'true'"><span style="min-height: 9pt; font-size: 9pt;">Подносилац пријаве је сагласан да Завод врши достављање писмена у папирној форми </span></xsl:when>
+                                        <xsl:when test="//p1:Delivery_type/p1:Delivery_in_paper_form = 'true'"><span style="min-height: 9pt; font-size: 9pt;">Подносилац пријаве је сагласан да Завод врши достављање писмена у папирној форми </span></xsl:when>
                                         <xsl:otherwise><span style="min-height: 9pt; font-size: 9pt;">Подносилац пријаве није сагласан да Завод врши достављање писмена у папирној форми </span></xsl:otherwise>
                                     </xsl:choose>
                                 </p>
@@ -481,7 +508,7 @@
                         <tr>
                             <td colspan="3">
                                 <p>
-                                    Број првобитне пријаве / основне пријаве, односно основног патента: П-<xsl:value-of select="//originalApplicationNumber"/>
+                                    Број првобитне пријаве / основне пријаве, односно основног патента: П-<xsl:value-of select="//p1:Application_information/p1:Original_application_number"/>
                                 </p>
                             </td>
                         </tr>
@@ -489,7 +516,7 @@
                             <td colspan="3">
                                 <p>
                                     Датум подношења првобитнe пријаве / основне пријаве:
-                                    <xsl:value-of select="//originalApplicationSubmissionDate"/>
+                                    <xsl:value-of select="/p1:Application_information/p1:Original_application_submission_date"/>
                                 </p>
                             </td>
                         </tr>
@@ -508,19 +535,19 @@
                                         <col style="width: 30%;"/>
                                         <col style="width: 30%;"/>
                                     </colgroup>
-                                    <xsl:for-each select="//earlierApplication">
+                                    <xsl:for-each select="//p1:Priority_rights_recognition_from_earlier_applications/p1:Earlier_applications">
                                         <tr style="height: 17pt;">
                                             <td>
                                                 <p><xsl:value-of select="position()"/>.</p>
                                             </td>
                                             <td>
-                                                <p><xsl:value-of select="//earlierApplicationSubmissionDate"/></p>
+                                                <p><xsl:value-of select="//p1:Earlier_application/p1:Earlier_application_submission_date"/></p>
                                             </td>
                                             <td>
-                                                <p><xsl:value-of select="//earlierApplicationNumber"/></p>
+                                                <p><xsl:value-of select="//p1:Earlier_application/p1:Earlier_application_number"/></p>
                                             </td>
                                             <td>
-                                                <p><xsl:value-of select="//countryOrOrganizationDesignation"/></p>
+                                                <p><xsl:value-of select="//p1:Earlier_application/p1:Country_or_organization_designation"/></p>
                                             </td>
                                         </tr>
                                     </xsl:for-each>
