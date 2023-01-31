@@ -12,6 +12,12 @@
             <xsl:variable name="Receipt_date">
                 <xsl:value-of select="//p1:Information_for_institution/p1:Receipt_date" />
             </xsl:variable>
+            <xsl:variable name="Submission_date">
+                <xsl:value-of select="//p1:Information_for_institution/p1:Submission_date" />
+            </xsl:variable>
+            <xsl:variable name="is_accepted">
+                <xsl:value-of select="//@is_accepted" />
+            </xsl:variable>
             <xsl:variable name="Serbian_patent_name">
                 <xsl:value-of select="//p1:Patent_name/p1:Serbian_patent_name" />
             </xsl:variable>
@@ -31,7 +37,6 @@
                 </xsl:choose>
             </xsl:variable>
             <rdf:Description rdf:about="{$Application_number}">
-
                 <p1:Request_for_patent_recognition>
                     <p1:Information_for_institution>
                         <p1:Application_number>
@@ -40,7 +45,14 @@
                         <p1:Receipt_date>
                             <xsl:value-of select="$Receipt_date" />
                         </p1:Receipt_date>
+                        <p1:Submission_date>
+                            <xsl:value-of select="$Submission_date" />
+                        </p1:Submission_date>
                     </p1:Information_for_institution>
+                    <!-- Treba dodati atribut is_accepted-->
+                    <p1:is_accepted>
+                        <xsl:value-of select="$is_accepted" />
+                    </p1:is_accepted>
                     <p1:Patent_name>
                         <p1:Serbian_patent_name>
                             <xsl:value-of select="$Serbian_patent_name" />
