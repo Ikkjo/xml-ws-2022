@@ -535,6 +535,12 @@
                                         <col style="width: 30%;"/>
                                         <col style="width: 30%;"/>
                                     </colgroup>
+                                    <tr  style="height: 17pt;">
+                                        <td><p>Редни број</p></td>
+                                        <td><p>Датум подношења раније пријаве</p></td>
+                                        <td><p>Број раније пријаве</p></td>
+                                        <td><p>Двословна ознака државе или организације</p></td>
+                                    </tr>
                                     <xsl:for-each select="//p1:Priority_rights_recognition_from_earlier_applications/p1:Earlier_applications">
                                         <tr style="height: 17pt;">
                                             <td>
