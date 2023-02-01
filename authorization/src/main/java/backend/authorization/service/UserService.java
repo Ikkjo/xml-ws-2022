@@ -46,4 +46,10 @@ public class UserService {
         }
         return userDto;
     }
+
+    public SystemUserDTO getUserDTOFromToken(String token) throws Exception {
+        String email = jwtUtil.getEmailFromToken(token);
+        SystemUser user = repository.findUserByEmail(email);
+        return dtoMapper.convertToDTO(user);
+    }
 }
