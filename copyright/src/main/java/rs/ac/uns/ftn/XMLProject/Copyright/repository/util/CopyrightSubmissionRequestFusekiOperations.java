@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.XMLProject.Copyright.repository;
+package rs.ac.uns.ftn.XMLProject.Copyright.repository.util;
 
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.RDFAuthUtils.ConnectionProperties;
