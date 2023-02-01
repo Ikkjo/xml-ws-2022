@@ -9,6 +9,7 @@ import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
+import org.xmldb.api.modules.XPathQueryService;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -16,6 +17,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.OutputKeys;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class AuthorizationExistDBOperations {
 
@@ -106,6 +108,45 @@ public class AuthorizationExistDBOperations {
         } finally {
             cleanup(col);
         }
+    }
+
+    public ArrayList<SystemUser> getAll() throws Exception {
+        AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
+
+        Class<?> cl = Class.forName(conn.driver);
+
+        Database database = (Database) cl.newInstance();
+        database.setProperty("create-database", "true");
+
+        DatabaseManager.registerDatabase(database);
+
+        Collection col = null;
+
+        ArrayList<SystemUser> users;
+        try {
+            // get the collection
+            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+            XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            xPathQueryService.setProperty("indent", "yes");
+
+            users = new ArrayList<>();
+            String[] resources = col.listResources();
+
+            for (String resourceId : resources) {
+                XMLResource res = (XMLResource) col.getResource(resourceId);
+                JAXBContext context = JAXBContext.newInstance(SystemUser.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                SystemUser user = (SystemUser) unmarshaller.unmarshal(res.getContentAsDOM());
+                users.add(user);
+            }
+        } finally {
+            if (col != null) {
+                col.close();
+            }
+        }
+        return users;
     }
 
     private Collection getOrCreateCollection(AuthenticationUtilities.ConnectionProperties conn, String collectionUri) throws XMLDBException {
