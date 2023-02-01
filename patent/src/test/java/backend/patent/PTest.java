@@ -1,6 +1,6 @@
-package xml;
+package backend.patent;
 
-import models.p.*;
+import backend.patent.model.p.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -16,7 +16,7 @@ public class PTest {
             System.out.println("\n\n[INFO] P-1 unmarshalling example.");
 
             // Definiše se JAXB kontekst (putanja do paketa sa JAXB bean-ovima)
-            JAXBContext context = JAXBContext.newInstance("models.p");
+            JAXBContext context = JAXBContext.newInstance("backend.patent.model.p");
 
             // Unmarshaller je objekat zadužen za konverziju iz XML-a u objektni model
             Unmarshaller unmarshaller = context.createUnmarshaller();
