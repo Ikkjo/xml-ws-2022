@@ -29,8 +29,8 @@ public class PDFTransformer {
     private static final TransformerFactory transformerFactory;
 
     private static final String XSL_REQUEST_FILEPATH = "patent/src/main/java/backend/patent/data/p-1.xsl";
-    private static final String XSL_SOLUTION_FILEPATH = "data/solution.xsl";
-    private static final String XSL_REPORT_FILEPATH = "data/report.xsl";
+    private static final String XSL_SOLUTION_FILEPATH = "data/Solution.xsl";
+    private static final String XSL_REPORT_FILEPATH = "data/Report.xsl";
 
     static {
 
@@ -127,7 +127,7 @@ public class PDFTransformer {
 
     private void writeToXMLFile(RequestForPatentRecognition request, String filename) throws JAXBException, IOException {
 
-        JAXBContext context = JAXBContext.newInstance("model.p");
+        JAXBContext context = JAXBContext.newInstance("backend.patent.model.p");
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(request, Files.newOutputStream(Paths.get(filename)));
@@ -136,7 +136,7 @@ public class PDFTransformer {
 
     private void writeToXMLFile(PatentSolution solution, String filename) throws JAXBException, IOException {
 
-        JAXBContext context = JAXBContext.newInstance("backend.patent.jaxb.resenje");
+        JAXBContext context = JAXBContext.newInstance("backend.patent.model.solution");
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(solution, Files.newOutputStream(Paths.get(filename)));
@@ -145,7 +145,7 @@ public class PDFTransformer {
 
     private void writeToXMLFile(Report report) throws Exception {
 
-        JAXBContext context = JAXBContext.newInstance("backend.patent.jaxb.izvestaj");
+        JAXBContext context = JAXBContext.newInstance("backend.patent.model.report");
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(report, Files.newOutputStream(Paths.get("gen/xml/report.xml")));
