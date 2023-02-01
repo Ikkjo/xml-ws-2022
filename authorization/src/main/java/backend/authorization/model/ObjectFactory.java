@@ -6,7 +6,7 @@
 //
 
 
-package models.systemuser;
+package backend.authorization.model;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
