@@ -27,12 +27,14 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 
-public class CopyrightPDFTransformer {
-    private static DocumentBuilderFactory documentFactory;
 
-    private static TransformerFactory transformerFactory;
+public class CopyrightPDFTransformer {
+    private static final DocumentBuilderFactory documentFactory;
+
+    private static final TransformerFactory transformerFactory;
 
     public static final String A1_XSL_FILE = "data/A-1.xsl";
 

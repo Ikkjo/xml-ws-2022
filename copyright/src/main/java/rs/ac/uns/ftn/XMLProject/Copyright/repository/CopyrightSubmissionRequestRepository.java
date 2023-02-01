@@ -1,8 +1,14 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.repository;
 
+import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
+import rs.ac.uns.ftn.XMLProject.Copyright.repository.util.CopyrightSubmissionRequestExistDBOperations;
+import rs.ac.uns.ftn.XMLProject.Copyright.repository.util.CopyrightSubmissionRequestFusekiOperations;
 
 import java.util.List;
+import java.util.Optional;
+
+@Component
 public class CopyrightSubmissionRequestRepository {
 
     private final CopyrightSubmissionRequestExistDBOperations existDB;
@@ -21,17 +27,17 @@ public class CopyrightSubmissionRequestRepository {
         }
     }
 
-    public CopyrightSubmissionRequest findById(String id) {
+    public Optional<CopyrightSubmissionRequest> findById(String id) {
         try {
-            return existDB.findById(id);
+            return Optional.ofNullable(existDB.findById(id));
         } catch (Exception e) {
-            return null;
+            return Optional.empty();
         }
     }
 
     public boolean save(CopyrightSubmissionRequest copyrightSubmissionRequest) {
-        boolean dbSuccess = false;
-        boolean rdfSuccess = false;
+        boolean dbSuccess;
+        boolean rdfSuccess;
         try {
             dbSuccess = existDB.save(copyrightSubmissionRequest);
             rdfSuccess = rdf.save(copyrightSubmissionRequest);

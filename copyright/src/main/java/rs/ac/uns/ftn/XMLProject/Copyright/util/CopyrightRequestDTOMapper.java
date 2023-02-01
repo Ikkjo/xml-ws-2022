@@ -7,7 +7,7 @@ import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CopyrightDTOMapper {
+public class CopyrightRequestDTOMapper {
 
     private static final ObjectFactory factory = new ObjectFactory();
 
@@ -37,7 +37,7 @@ public class CopyrightDTOMapper {
     public static List<CopyrightSubmissionRequestDTO> copyrightSubmissionRequestToDTOList(
             List<CopyrightSubmissionRequest> copyrightSubmissionRequests) {
         return copyrightSubmissionRequests.stream().map(
-                        CopyrightDTOMapper::copyrightSubmissionRequestToDTO)
+                        CopyrightRequestDTOMapper::copyrightSubmissionRequestToDTO)
                 .collect(Collectors.toList());
     }
 
