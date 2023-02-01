@@ -97,7 +97,6 @@
                     }
                 </style>
             </head>
-
             <body>
                 <div class="docx-wrapper">
                     <section class="docx">
@@ -152,8 +151,8 @@
                                     </td>
                                 </tr>
                             </table>
-                            <br/>
                             <xsl:if test="//sol:accepted = 'false'">
+                                <br/>
                                 <h4>Образложење:</h4>
                                 <p>
                                     <xsl:value-of select="//sol:motivation"/>
