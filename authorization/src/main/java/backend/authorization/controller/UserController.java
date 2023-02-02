@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/authorization", produces= MediaType.APPLICATION_XML_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 public class UserController {
 
-    private final UserService service = new UserService();
+    private final UserService service;
+
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @PostMapping(value = "/login")
     public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
