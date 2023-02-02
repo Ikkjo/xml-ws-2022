@@ -3,6 +3,7 @@ package backend.authorization.repository;
 import backend.authorization.exceptions.UserNotFoundException;
 import backend.authorization.model.SystemUser;
 import backend.authorization.util.AuthenticationUtilities;
+import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -19,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+@Component
 public class AuthorizationExistDBOperations {
 
     private final String collectionId = "/db/xml-project/users";

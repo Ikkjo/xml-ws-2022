@@ -3,7 +3,9 @@ package backend.authorization.util;
 import backend.authorization.dto.RegistrationDTO;
 import backend.authorization.dto.SystemUserDTO;
 import backend.authorization.model.SystemUser;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDTOMapper {
 
     public SystemUser convertFromDTO(RegistrationDTO registrationDTO) {

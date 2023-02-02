@@ -10,14 +10,21 @@ import backend.authorization.model.SystemUser;
 import backend.authorization.repository.SystemUserRepository;
 import backend.authorization.util.JWTUtil;
 import backend.authorization.util.UserDTOMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    private final SystemUserRepository repository = new SystemUserRepository();
-    private final UserDTOMapper dtoMapper = new UserDTOMapper();
-    private final JWTUtil jwtUtil = new JWTUtil();
+    private final SystemUserRepository repository;
+    private final UserDTOMapper dtoMapper;
+    private final JWTUtil jwtUtil;
+
+    public UserService(SystemUserRepository repository, UserDTOMapper dtoMapper, JWTUtil jwtUtil) {
+        this.repository = repository;
+        this.dtoMapper = dtoMapper;
+        this.jwtUtil = jwtUtil;
+    }
 
     public TokenDTO getTokenDto(LoginDTO dto) throws Exception {
         SystemUser user = login(dto);

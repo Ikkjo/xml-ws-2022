@@ -1,11 +1,17 @@
 package backend.authorization.repository;
 
 import backend.authorization.model.SystemUser;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+@Repository
 public class SystemUserRepository {
-    AuthorizationExistDBOperations exist = new AuthorizationExistDBOperations();
+    private final AuthorizationExistDBOperations exist;
+
+    public SystemUserRepository(AuthorizationExistDBOperations exist) {
+        this.exist = exist;
+    }
 
     public SystemUser findUserByEmail(String email) throws Exception {
         return exist.findUserByEmail(email);
