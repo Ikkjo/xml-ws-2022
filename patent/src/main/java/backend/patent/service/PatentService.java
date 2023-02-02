@@ -1,13 +1,14 @@
-package service;
+package backend.patent.service;
 
-import models.p.RequestForPatentRecognition;
-import models.p.dto.CreatePatentRecognitionRequestDTO;
-import models.p.dto.RequestForPatentRecognitionDTO;
+import backend.patent.model.p.RequestForPatentRecognition;
+import backend.patent.model.p.dto.CreatePatentRecognitionRequestDTO;
+import backend.patent.model.p.dto.RequestForPatentRecognitionDTO;
+import org.apache.regexp.RE;
 import org.springframework.stereotype.Service;
-import repository.RequestForPatentRecognitionRepository;
-import util.PDFTransformer;
+import backend.patent.repository.RequestForPatentRecognitionRepository;
+import backend.patent.util.PDFTransformer;
 import org.apache.commons.io.FileUtils;
-import util.PatentDTOMapper;
+import backend.patent.util.PatentDTOMapper;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -15,9 +16,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PatentService {
@@ -115,5 +114,52 @@ public class PatentService {
     private void deleteFile(String filePath) {
         File file = new File(filePath);
         file.delete();
+    }
+
+    public String getJsonMetadata(String id) {
+
+        try {
+            return repository.getJsonString(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<RequestForPatentRecognitionDTO> searchByContent(String role, String content) {
+        return filterByRole(role, repository.searchByContent(content));
+    }
+
+    private List<RequestForPatentRecognitionDTO> filterByRole(String role, ArrayList<RequestForPatentRecognition> requests) {
+        if (Objects.equals(role, "Sluzbenik")) {
+            return dtoUtils.patentRecognitionRequestsToDTOList(requests);
+        }
+        else {
+            ArrayList<RequestForPatentRecognition> filtered = new ArrayList<>();
+            for (RequestForPatentRecognition request : requests)
+                if (request.getIsAccepted() != null)
+                    filtered.add(request);
+            return dtoUtils.patentRecognitionRequestsToDTOList(filtered);
+        }
+    }
+
+    public List<RequestForPatentRecognitionDTO> search(String role, String condition) {
+        return filterByRole(role, repository.search(condition));
+    }
+
+    public String getLinkedDocuments(String id) {
+        try {
+            ArrayList<String> idList = new ArrayList<>();
+            RequestForPatentRecognition request = repository.findById(id);
+            List<RequestForPatentRecognition> requests = repository.searchByContent(id);
+            if (request.getIsAccepted() != null)
+                idList.add(request.getInformationForInstitution().getApplicationNumber());
+            for (RequestForPatentRecognition singleRequest: requests) {
+                if (!Objects.equals(singleRequest.getInformationForInstitution().getApplicationNumber(), request.getInformationForInstitution().getApplicationNumber()))
+                    idList.add(singleRequest.getInformationForInstitution().getApplicationNumber());
+            }
+            return String.join(",", idList);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

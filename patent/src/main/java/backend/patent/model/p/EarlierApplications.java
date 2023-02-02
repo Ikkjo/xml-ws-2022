@@ -6,7 +6,7 @@
 //
 
 
-package models.p;
+package backend.patent.model.p;
 
 import java.util.ArrayList;
 import java.util.List;

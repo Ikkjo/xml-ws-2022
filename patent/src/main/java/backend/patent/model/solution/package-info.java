@@ -6,4 +6,4 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.XMLproject.ftn.uns.ac.rs/Solution", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package rs.ac.uns.ftn.xmlproject.solution;
+package backend.patent.model.solution;

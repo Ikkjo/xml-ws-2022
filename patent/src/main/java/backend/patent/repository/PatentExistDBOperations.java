@@ -1,11 +1,10 @@
-package repository;
+package backend.patent.repository;
 
-import models.p.RequestForPatentRecognition;
-import models.solution.PatentSolution;
+import backend.patent.model.p.RequestForPatentRecognition;
+import backend.patent.model.solution.PatentSolution;
+import backend.patent.util.AuthenticationUtilities;
 import org.xmldb.api.DatabaseManager;
-import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.Database;
-import org.xmldb.api.base.XMLDBException;
+import org.xmldb.api.base.*;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
@@ -26,7 +25,7 @@ public class PatentExistDBOperations {
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml/patent/";
+        String collectionId = "/db/xml/patent/request";
         String documentId = id + ".xml";
 
         // initialize database driver
@@ -51,7 +50,7 @@ public class PatentExistDBOperations {
                 System.out.println("[WARNING] Document '" + documentId + "' can not be found!");
             } else {
 
-                JAXBContext context = JAXBContext.newInstance("models.p");
+                JAXBContext context = JAXBContext.newInstance("backend.patent.model.p");
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -178,7 +177,7 @@ public class PatentExistDBOperations {
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml/patent/";
+        String collectionId = "/db/xml/patent/request";
 
         Class<?> cl = Class.forName(conn.driver);
 
@@ -247,7 +246,7 @@ public class PatentExistDBOperations {
 
             if(res != null) {
 
-                JAXBContext context = JAXBContext.newInstance("models.solution");
+                JAXBContext context = JAXBContext.newInstance("backend.patent.model.solution");
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -258,5 +257,99 @@ public class PatentExistDBOperations {
             cleanup(col);
         }
         return solution;
+    }
+
+    public ArrayList<RequestForPatentRecognition> search(String content) throws Exception {
+        AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
+        String filter = "/*[contains(., '" + content + "')] | " +
+                "/*[contains(@Application_number, '" + content + "')] | " +
+                "/*[contains(@Receipt_date, '" + content + "')] | " +
+                "/*[contains(@Submission_date, '" + content + "')] | " +
+                "/*[contains(@Citizenship, '" + content + "')]";
+
+        // initialize collection and document identifiers
+        String collectionId = "/db/xml-project/patent/request";
+
+        Class<?> cl = Class.forName(conn.driver);
+
+        Database database = (Database) cl.newInstance();
+        database.setProperty("create-database", "true");
+
+        DatabaseManager.registerDatabase(database);
+
+        Collection col = null;
+
+        RequestForPatentRecognition requestForPatentRecognition;
+        ArrayList<RequestForPatentRecognition> requestsForPatentRecognition;
+        try {
+            // get the collection
+            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+            XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            xPathQueryService.setProperty("indent", "yes");
+            ResourceSet result = xPathQueryService.query(filter);
+            ResourceIterator iterator = result.getIterator();
+
+            requestsForPatentRecognition = new ArrayList<>();
+            XMLResource res;
+            while (iterator.hasMoreResources()) {
+                res = (XMLResource) iterator.nextResource();
+                JAXBContext context = JAXBContext.newInstance(RequestForPatentRecognition.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                requestForPatentRecognition = (RequestForPatentRecognition) unmarshaller.unmarshal(res.getContentAsDOM());
+                requestsForPatentRecognition.add(requestForPatentRecognition);
+            }
+        } finally {
+            if (col != null) {
+                col.close();
+            }
+        }
+        return requestsForPatentRecognition;
+    }
+
+    public ArrayList<RequestForPatentRecognition> search( ArrayList<String> ids) throws Exception {
+        AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
+
+        // initialize collection and document identifiers
+        String collectionId = "/db/xml-project/patent/request";
+
+        Class<?> cl = Class.forName(conn.driver);
+
+        Database database = (Database) cl.newInstance();
+        database.setProperty("create-database", "true");
+
+        DatabaseManager.registerDatabase(database);
+
+        Collection col = null;
+
+        RequestForPatentRecognition requestForPatentRecognition;
+        ArrayList<RequestForPatentRecognition> requestsForPatentRecognition;
+        try {
+            // get the collection
+            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+            XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            xPathQueryService.setProperty("indent", "yes");
+
+            requestsForPatentRecognition = new ArrayList<>();
+            String[] resources = col.listResources();
+            XMLResource res;
+            for (String resourceId : resources) {
+                if (ids.contains(resourceId)) {
+                    res = (XMLResource) col.getResource(resourceId);
+                    JAXBContext context = JAXBContext.newInstance(RequestForPatentRecognition.class);
+                    Unmarshaller unmarshaller = context.createUnmarshaller();
+                    requestForPatentRecognition = (RequestForPatentRecognition) unmarshaller.unmarshal(res.getContentAsDOM());
+                    requestsForPatentRecognition.add(requestForPatentRecognition);
+                }
+            }
+        } finally {
+            if (col != null) {
+                col.close();
+            }
+        }
+        return requestsForPatentRecognition;
     }
 }
