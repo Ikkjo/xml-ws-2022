@@ -2,6 +2,7 @@ package backend.patent.util;
 
 import backend.patent.model.p.*;
 import backend.patent.model.p.dto.*;
+import org.springframework.stereotype.Component;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+@Component
 public class PatentDTOMapper {
 
     public ArrayList<RequestForPatentRecognitionDTO> patentRecognitionRequestsToDTOList(

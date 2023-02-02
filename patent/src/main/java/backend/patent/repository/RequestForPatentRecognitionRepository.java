@@ -1,14 +1,21 @@
 package backend.patent.repository;
 
 import backend.patent.model.p.RequestForPatentRecognition;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+@Repository
 @SuppressWarnings("deprecation")
 public class RequestForPatentRecognitionRepository {
 
-    PatentExistDBOperations exist = new PatentExistDBOperations();
-    PatentFusekiOperations fuseki = new PatentFusekiOperations();
+    private final PatentExistDBOperations exist;
+    private final PatentFusekiOperations fuseki;
+
+    public RequestForPatentRecognitionRepository(PatentExistDBOperations exist, PatentFusekiOperations fuseki) {
+        this.exist = exist;
+        this.fuseki = fuseki;
+    }
 
     public RequestForPatentRecognition findById(String id) throws Exception {
         return exist.findById(id);

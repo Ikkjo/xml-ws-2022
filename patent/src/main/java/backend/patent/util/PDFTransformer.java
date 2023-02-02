@@ -8,6 +8,7 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
 import backend.patent.model.p.RequestForPatentRecognition;
 import backend.patent.model.report.Report;
 import backend.patent.model.solution.PatentSolution;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -22,6 +23,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+@Component
 public class PDFTransformer {
 
     private static final DocumentBuilderFactory documentFactory;

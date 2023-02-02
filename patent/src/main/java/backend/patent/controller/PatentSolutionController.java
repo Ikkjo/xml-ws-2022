@@ -2,7 +2,6 @@ package backend.patent.controller;
 
 import backend.patent.model.solution.dto.PatentSolutionDTO;
 import org.apache.catalina.connector.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,8 +15,12 @@ import java.io.ByteArrayInputStream;
 @RestController()
 @RequestMapping(value = "/api/solution")
 public class PatentSolutionController {
-    @Autowired
-    private PatentSolutionService solutionService;
+
+    private final PatentSolutionService solutionService;
+
+    public PatentSolutionController(PatentSolutionService solutionService) {
+        this.solutionService = solutionService;
+    }
 
     @PostMapping(value = "/create", consumes = "application/xml", produces = "application/xml")
     public int createPatentSolution(@RequestBody PatentSolutionDTO solutionDTO) {

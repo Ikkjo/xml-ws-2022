@@ -24,10 +24,18 @@ import java.util.GregorianCalendar;
 @Service
 public class PatentSolutionService {
 
-    private final PatentSolutionRepository solutionRepository = new PatentSolutionRepository();
-    private final RequestForPatentRecognitionRepository requestRepository = new RequestForPatentRecognitionRepository();
-    private final PatentSolutionDTOMapper dtoMapper = new PatentSolutionDTOMapper();
-    private final PDFTransformer pdfTransformer = new PDFTransformer();
+    private final PatentSolutionRepository solutionRepository;
+    private final RequestForPatentRecognitionRepository requestRepository;
+    private final PatentSolutionDTOMapper dtoMapper;
+    private final PDFTransformer pdfTransformer;
+
+    public PatentSolutionService(PatentSolutionRepository solutionRepository, RequestForPatentRecognitionRepository requestRepository,
+                                 PatentSolutionDTOMapper dtoMapper, PDFTransformer pdfTransformer) {
+        this.solutionRepository = solutionRepository;
+        this.requestRepository = requestRepository;
+        this.dtoMapper = dtoMapper;
+        this.pdfTransformer = pdfTransformer;
+    }
 
     public String getSolutionHTML(String id) {
         String fileContent = "";
