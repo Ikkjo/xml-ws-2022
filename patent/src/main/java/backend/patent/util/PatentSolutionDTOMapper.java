@@ -2,6 +2,7 @@ package backend.patent.util;
 
 import backend.patent.model.solution.PatentSolution;
 import backend.patent.model.solution.dto.PatentSolutionDTO;
+import org.springframework.stereotype.Component;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -9,6 +10,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+@Component
 public class PatentSolutionDTOMapper {
 
     public PatentSolution convertSolutionFromDTO(PatentSolutionDTO solutionDTO) throws DatatypeConfigurationException {

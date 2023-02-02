@@ -3,6 +3,7 @@ package backend.patent.repository;
 import backend.patent.model.p.RequestForPatentRecognition;
 import backend.patent.model.solution.PatentSolution;
 import backend.patent.util.AuthenticationUtilities;
+import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.*;
 import org.xmldb.api.modules.CollectionManagementService;
@@ -17,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+@Component
 public class PatentExistDBOperations {
 
     public RequestForPatentRecognition findById(String id) throws Exception {

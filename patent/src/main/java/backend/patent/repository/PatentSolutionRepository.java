@@ -1,10 +1,17 @@
 package backend.patent.repository;
 
 import backend.patent.model.solution.PatentSolution;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PatentSolutionRepository {
-    PatentExistDBOperations exist = new PatentExistDBOperations();
-    PatentFusekiOperations fuseki = new PatentFusekiOperations();
+    private final PatentExistDBOperations exist;
+    private final PatentFusekiOperations fuseki;
+
+    public PatentSolutionRepository(PatentExistDBOperations exist, PatentFusekiOperations fuseki) {
+        this.exist = exist;
+        this.fuseki = fuseki;
+    }
 
     public void save(PatentSolution solution) throws Exception {
         exist.save(solution, solution.getApplicationNumber(),"/db/xml-project/patent/solution", "backend.patent.model.solution");

@@ -4,7 +4,6 @@ import backend.patent.model.p.dto.CreatePatentRecognitionRequestDTO;
 import backend.patent.model.p.dto.RequestForPatentRecognitionDTO;
 import backend.patent.util.TokenUtils;
 import org.apache.catalina.connector.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,11 +20,13 @@ import java.util.List;
 @RequestMapping(value = "/api/patent")
 public class PatentController {
 
-    @Autowired
-    private PatentService patentService;
+    private final PatentService patentService;
+    private final TokenUtils tokenUtils;
 
-    @Autowired
-    private TokenUtils tokenUtils;
+    public PatentController(PatentService patentService, TokenUtils tokenUtils) {
+        this.patentService = patentService;
+        this.tokenUtils = tokenUtils;
+    }
 
     @GetMapping(value = "/{id}", produces = "application/xml")
     public RequestForPatentRecognitionDTO getPatentRecognitionRequest(@PathVariable("id") String id) throws Exception {

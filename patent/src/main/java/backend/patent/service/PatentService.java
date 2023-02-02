@@ -3,7 +3,6 @@ package backend.patent.service;
 import backend.patent.model.p.RequestForPatentRecognition;
 import backend.patent.model.p.dto.CreatePatentRecognitionRequestDTO;
 import backend.patent.model.p.dto.RequestForPatentRecognitionDTO;
-import org.apache.regexp.RE;
 import org.springframework.stereotype.Service;
 import backend.patent.repository.RequestForPatentRecognitionRepository;
 import backend.patent.util.PDFTransformer;
@@ -21,9 +20,15 @@ import java.util.*;
 @Service
 public class PatentService {
 
-    private RequestForPatentRecognitionRepository repository = new RequestForPatentRecognitionRepository();
-    private PDFTransformer pdfTransformer = new PDFTransformer();
-    private PatentDTOMapper dtoUtils = new PatentDTOMapper();
+    private final RequestForPatentRecognitionRepository repository;
+    private final PDFTransformer pdfTransformer;
+    private final PatentDTOMapper dtoUtils;
+
+    public PatentService(RequestForPatentRecognitionRepository repository, PDFTransformer pdfTransformer, PatentDTOMapper dtoUtils) {
+        this.repository = repository;
+        this.pdfTransformer = pdfTransformer;
+        this.dtoUtils = dtoUtils;
+    }
 
     public ByteArrayInputStream getRequestForPatentRecognitionPDF(String id) {
         ByteArrayInputStream byteArrayInputStream;
