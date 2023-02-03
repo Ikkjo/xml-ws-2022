@@ -117,11 +117,11 @@ public class CopyrightPDFTransformer {
         generateHTML(xmlFilename, SOLUTION_XSL_FILE, htmlFilename);
     }
 
-    public void generateReportHTML(CopyrightSubmissionRequest copyrightSubmissionRequest) throws JAXBException, IOException {
-        String xmlFilename = XML_PATH + copyrightSubmissionRequest.getRequestNumber() + "-report.xml";
-        String htmlFilename = HTML_PATH + copyrightSubmissionRequest.getRequestNumber() + "-report.html";
+    public void generateReportHTML(CopyrightReport copyrightReport) throws JAXBException, IOException {
+        String xmlFilename = XML_PATH + copyrightReport.getStartDate() + "-" + copyrightReport.getEndDate() + "-report.xml";
+        String htmlFilename = HTML_PATH + copyrightReport.getStartDate() + "-" + copyrightReport.getEndDate() + "-report.html";
 
-        writeToXMLFile(copyrightSubmissionRequest, xmlFilename);
+        writeToXMLFile(copyrightReport, xmlFilename);
 
         generateHTML(xmlFilename, REPORT_XSL_FILE, htmlFilename);
     }

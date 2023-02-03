@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.util;
 
+import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.*;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest.WorkTitle;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.*;
@@ -7,6 +8,7 @@ import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class CopyrightRequestDTOMapper {
 
     private static final ObjectFactory factory = new ObjectFactory();

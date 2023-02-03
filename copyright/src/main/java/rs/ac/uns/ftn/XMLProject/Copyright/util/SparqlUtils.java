@@ -50,4 +50,19 @@ public class SparqlUtils {
         return String.format(SELECT_NAMED_GRAPH_TEMPLATE, graphURI, sparqlCondition);
     }
 
+    public static String selectDataByRequestNumber(String s, String requestNumber) {
+        return "";
+    }
+
+    public static String selectSubmitted(String s, String startDate, String endDate) {
+        return "";
+    }
+
+    public static String selectSubmittedResponded(String s, String condition, String startDate, String endDate) {
+        return "";
+    }
+
+    public static String selectSubmissionResponses(String s, String condition, String startDate, String endDate) {
+        return "";
+    }
 }

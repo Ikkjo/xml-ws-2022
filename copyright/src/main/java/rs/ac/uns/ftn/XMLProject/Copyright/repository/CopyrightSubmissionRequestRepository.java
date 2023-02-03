@@ -5,6 +5,7 @@ import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.repository.util.CopyrightSubmissionRequestExistDBOperations;
 import rs.ac.uns.ftn.XMLProject.Copyright.repository.util.CopyrightSubmissionRequestFusekiOperations;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,5 +47,9 @@ public class CopyrightSubmissionRequestRepository {
         }
 
         return dbSuccess && rdfSuccess;
+    }
+
+    public BigInteger countSubmitted(String startDate, String endDate) {
+        return null;
     }
 }

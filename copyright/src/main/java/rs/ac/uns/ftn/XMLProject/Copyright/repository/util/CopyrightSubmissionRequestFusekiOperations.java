@@ -1,5 +1,9 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.repository.util;
 
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.RDFAuthUtils.ConnectionProperties;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.RDFAuthUtils;
@@ -78,5 +82,51 @@ public class CopyrightSubmissionRequestFusekiOperations {
         StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(rdfFile)));
 
         transformer.transform(source, result);
+    }
+
+    public String getRdfString(String brojPrijave) {
+
+        Model model = ModelFactory.createDefaultModel();
+        model.read("gen/rdf/" + brojPrijave + ".rdf");
+
+        String syntax = "RDF/XML-ABBREV";
+        StringWriter out = new StringWriter();
+        model.write(out, syntax);
+
+        return out.toString();
+
+    }
+
+    public String getJsonString(String brojPrijave) throws Exception {
+
+
+        RDFAuthUtils.ConnectionProperties conn = RDFAuthUtils.loadProperties();
+        String sparqlQuery = SparqlUtils.selectDataByRequestNumber(conn.dataEndpoint + GRAPH_URI, brojPrijave);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ResultSetFormatter.outputAsJSON(outputStream, results);
+
+        return outputStream.toString();
+
+    }
+
+    public long countSubmitted(String pocetniDatum, String krajnjiDatum) throws Exception {
+
+        int res = 0;
+        RDFAuthUtils.ConnectionProperties conn = RDFAuthUtils.loadProperties();
+        String sparqlQuery = SparqlUtils.selectSubmitted(conn.dataEndpoint + GRAPH_URI, pocetniDatum, krajnjiDatum);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        while(results.hasNext()) {
+            res++;
+            results.next();
+        }
+
+        query.close();
+        return res;
+
     }
 }

@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.service;
 
+import org.springframework.http.ResponseEntity;
 import rs.ac.uns.ftn.XMLProject.Copyright.exception.ResourceNotFoundException;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.CopyrightSubmissionRequestDTO;
@@ -116,5 +117,25 @@ public class CopyrightRequestService {
         GregorianCalendar c = new GregorianCalendar();
         c.setTime(now);
         return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+    }
+
+    public String getLinkedDocuments(String id) {
+        return null;
+    }
+
+    public String getRdfMetadata(String id) {
+        return null;
+    }
+
+    public String getJsonMetadata(String id) {
+        return null;
+    }
+
+    public List<CopyrightSubmissionRequestDTO> search(String content) {
+        return null;
+    }
+
+    public List<CopyrightSubmissionRequestDTO> searchMetadata(String condition) {
+        return null;
     }
 }

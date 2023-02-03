@@ -1,6 +1,9 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.repository.util;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.update.UpdateExecutionFactory;
@@ -80,5 +83,23 @@ public class CopyrightRequestSolutionFusekiOperations {
         StreamResult result = new StreamResult(Files.newOutputStream(Paths.get(rdfFile)));
 
         transformer.transform(source, result);
+    }
+
+    public long countSubmittedResponded(String pocetniDatum, String krajnjiDatum, String condition) throws Exception {
+
+        int res = 0;
+        RDFAuthUtils.ConnectionProperties conn = RDFAuthUtils.loadProperties();
+        String sparqlQuery = SparqlUtils.selectSubmissionResponses(conn.dataEndpoint + GRAPH_URI, condition, pocetniDatum, krajnjiDatum);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        while(results.hasNext()) {
+            res++;
+            results.next();
+        }
+
+        query.close();
+        return res;
+
     }
 }

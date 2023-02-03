@@ -56,4 +56,5 @@ public class CopyrightSolutionController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
 }
