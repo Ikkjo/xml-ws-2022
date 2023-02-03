@@ -64,14 +64,14 @@ public class CopyrightPDFTransformer {
 
     /**
      * Creates a PDF using iText Java API
-     * @param id
+     * @param file
      * @throws IOException
      * @throws DocumentException
      */
-    public void generatePDF(String id) throws IOException, DocumentException {
+    public void generatePDF(String file) throws IOException, DocumentException {
 
-        String inputFile = "gen/html/" + id + ".html";
-        String outputFile = "gen/pdf/" + id + ".pdf";
+        String inputFile = "gen/html/" + file + ".html";
+        String outputFile = "gen/pdf/" + file + ".pdf";
 
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outputFile));
         pdfDocument.setDefaultPageSize(new PageSize(2480,3508));

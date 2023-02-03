@@ -119,16 +119,16 @@ public class CopyrightRequestService {
         return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
     }
 
-    public String getLinkedDocuments(String id) {
+    public String getLinkedDocuments(String requestNumber) {
         return null;
     }
 
-    public String getRdfMetadata(String id) {
-        return null;
+    public String getRdfMetadata(String requestNumber) {
+        return copyrightSubmissionRequestRepository.getRdfMetadata(requestNumber);
     }
 
-    public String getJsonMetadata(String id) {
-        return null;
+    public String getJsonMetadata(String requestNumber) {
+        return copyrightSubmissionRequestRepository.getJsonMetadata(requestNumber);
     }
 
     public List<CopyrightSubmissionRequestDTO> search(String content) {

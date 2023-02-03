@@ -19,6 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CopyrightSubmissionRequestExistDBOperations {
@@ -220,5 +221,13 @@ public class CopyrightSubmissionRequestExistDBOperations {
         } else {
             return col;
         }
+    }
+
+    public List<CopyrightSubmissionRequest> search(String content) {
+        return null;
+    }
+
+    public List<CopyrightSubmissionRequest> search(List<String> rdfQuery) {
+        return null;
     }
 }

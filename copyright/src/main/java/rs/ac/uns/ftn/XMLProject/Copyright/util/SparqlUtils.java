@@ -65,4 +65,8 @@ public class SparqlUtils {
     public static String selectSubmissionResponses(String s, String condition, String startDate, String endDate) {
         return "";
     }
+
+    public static String selectSolutions(String s, String condition, String startDate, String endDate) {
+        return null;
+    }
 }

@@ -5,6 +5,7 @@ import rs.ac.uns.ftn.XMLProject.Copyright.models.solution.CopyrightRequestSoluti
 import rs.ac.uns.ftn.XMLProject.Copyright.repository.util.CopyrightRequestSolutionExistDBOperations;
 import rs.ac.uns.ftn.XMLProject.Copyright.repository.util.CopyrightRequestSolutionFusekiOperations;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
@@ -48,11 +49,11 @@ public class CopyrightRequestSolutionRepository {
         return dbSuccess && rdfSuccess;
     }
 
-    public BigInteger countAccepted(String startDate, String endDate) {
-        return null;
+    public BigInteger countAccepted(String startDate, String endDate) throws IOException {
+        return rdf.countAccepted(startDate, endDate);
     }
 
-    public BigInteger countDeclined(String startDate, String endDate) {
-        return null;
+    public BigInteger countDeclined(String startDate, String endDate) throws IOException {
+        return rdf.countDeclined(startDate, endDate);
     }
 }

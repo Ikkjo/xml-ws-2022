@@ -24,6 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -101,5 +102,30 @@ public class CopyrightRequestSolutionFusekiOperations {
         query.close();
         return res;
 
+    }
+
+    public BigInteger countAccepted(String startDate, String endDate) throws IOException {
+        return BigInteger.valueOf(countSolutions(startDate, endDate, true));
+    }
+
+    public BigInteger countDeclined(String startDate, String endDate) throws IOException {
+        return BigInteger.valueOf(countSolutions(startDate, endDate, false));
+    }
+
+    private long countSolutions(String startDate, String endDate, Boolean accepted) throws IOException {
+        long res = 0;
+        RDFAuthUtils.ConnectionProperties conn = RDFAuthUtils.loadProperties();
+        String sparqlQuery = SparqlUtils.selectSolutions(conn.dataEndpoint + GRAPH_URI, accepted.toString(), startDate, endDate);
+        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
+        ResultSet results = query.execSelect();
+
+        while(results.hasNext()) {
+            res++;
+            results.next();
+        }
+
+        query.close();
+
+        return res;
     }
 }
