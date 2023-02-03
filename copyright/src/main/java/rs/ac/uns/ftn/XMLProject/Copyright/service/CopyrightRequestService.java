@@ -16,9 +16,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CopyrightRequestService {
@@ -119,8 +117,25 @@ public class CopyrightRequestService {
         return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
     }
 
-    public String getLinkedDocuments(String requestNumber) {
-        return null;
+    public String getLinkedDocuments(String requestNumber) throws ResourceNotFoundException {
+
+        List<String> linkedDocs = new ArrayList<>();
+
+        CopyrightSubmissionRequest request = copyrightSubmissionRequestRepository.findById(requestNumber)
+                .orElseThrow(ResourceNotFoundException::new);
+
+        if (request.isAccepted() != null) {
+            linkedDocs.add(request.getRequestNumber());
+        }
+
+        copyrightSubmissionRequestRepository.search(requestNumber).stream()
+                .forEach((copyrightSubmissionRequest -> {
+                    if(!Objects.equals(request.getRequestNumber(), copyrightSubmissionRequest.getRequestNumber())) {
+                        linkedDocs.add(copyrightSubmissionRequest.getRequestNumber());
+                    }
+                }));
+
+        return String.join(",", linkedDocs);
     }
 
     public String getRdfMetadata(String requestNumber) {
@@ -132,10 +147,12 @@ public class CopyrightRequestService {
     }
 
     public List<CopyrightSubmissionRequestDTO> search(String content) {
-        return null;
+        return CopyrightRequestDTOMapper.copyrightSubmissionRequestToDTOList(
+                copyrightSubmissionRequestRepository.search(content));
     }
 
     public List<CopyrightSubmissionRequestDTO> searchMetadata(String condition) {
-        return null;
+        return CopyrightRequestDTOMapper.copyrightSubmissionRequestToDTOList(
+                copyrightSubmissionRequestRepository.searchMetadata(condition));
     }
 }

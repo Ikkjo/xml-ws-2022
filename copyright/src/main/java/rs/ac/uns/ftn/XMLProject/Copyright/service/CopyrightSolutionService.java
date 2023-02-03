@@ -40,7 +40,7 @@ public class CopyrightSolutionService {
         CopyrightSubmissionRequest request = copyrightSubmissionRequestRepository.findById(
                 solutionDTO.getRequestNumber()).orElseThrow(ResourceNotFoundException::new);
 
-//       TODO: add request.setAccepted(solutionDTO.isAccepted());
+        request.setAccepted(solutionDTO.isAccepted());
         copyrightSubmissionRequestRepository.update(request);
 
         copyrightPDFTransformer.generateSolutionHTML(copyrightRequestDTOMapper.getSolutionEntity(solutionDTO));

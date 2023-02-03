@@ -140,7 +140,6 @@ public class CopyrightSubmissionRequestFusekiOperations {
         model.write(out, syntax);
 
         return out.toString();
-
     }
 
     public String getJsonString(String requestNumber) throws Exception {

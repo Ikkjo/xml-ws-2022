@@ -81,7 +81,11 @@ public class CopyrightRequestController {
 
     @GetMapping(path = "/{id}/linked", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getLinkedSolution(@PathVariable String id) {
-        return ResponseEntity.ok(copyrightRequestService.getLinkedDocuments(id));
+        try {
+            return ResponseEntity.ok(copyrightRequestService.getLinkedDocuments(id));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping(path = "/{id}/rdf")

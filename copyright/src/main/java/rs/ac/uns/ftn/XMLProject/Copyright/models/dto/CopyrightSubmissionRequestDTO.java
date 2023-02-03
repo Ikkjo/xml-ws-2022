@@ -42,6 +42,8 @@ public class CopyrightSubmissionRequestDTO {
     public String address;
     @XmlAttribute(name = "request_number")
     public String requestNumber;
+    @XmlAttribute(name = "accepted")
+    public Boolean accepted;
     @XmlAttribute(name = "request_submission_date")
     @XmlSchemaType(name = "date")
     public XMLGregorianCalendar requestSubmissionDate;

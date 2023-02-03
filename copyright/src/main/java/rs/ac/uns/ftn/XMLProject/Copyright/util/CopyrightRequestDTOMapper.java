@@ -32,6 +32,7 @@ public class CopyrightRequestDTOMapper {
         request.setRequestSubmissionDate(copyrightSubmissionRequestDTO.getRequestSubmissionDate());
         request.setInstitution(copyrightSubmissionRequestDTO.getInstitution());
         request.setAddress(copyrightSubmissionRequestDTO.getAddress());
+        request.setAccepted(copyrightSubmissionRequestDTO.getAccepted());
 
         return request;
     }
@@ -83,7 +84,7 @@ public class CopyrightRequestDTOMapper {
         authorDTO.setAuthorName(author.getAuthorName());
         authorDTO.setAuthorSurname(author.getAuthorSurname());
         authorDTO.setCitizenship(author.getCitizenship());
-        authorDTO.setIsAlive(author.isAlive());
+        authorDTO.setIsAlive(author.isIsAlive());
         authorDTO.setDateOfDeath(author.getDateOfDeath().getValue());
 
         return authorDTO;
@@ -196,8 +197,13 @@ public class CopyrightRequestDTOMapper {
 
     public static CopyrightSubmissionRequest.AdaptationWorkInformation AdaptationWorkInformationFromDTO(
             AdaptationWorkInformationDTO adaptationWorkInformationDTO) {
+
         CopyrightSubmissionRequest.AdaptationWorkInformation adaptationWorkInformation =
                 factory.createCopyrightSubmissionRequestAdaptationWorkInformation();
+
+        if (adaptationWorkInformationDTO == null) {
+            return adaptationWorkInformation;
+        }
 
         adaptationWorkInformation.setOriginalWorkAuthor(
                 factory.createCopyrightSubmissionRequestAdaptationWorkInformationOriginalWorkAuthor
@@ -209,6 +215,10 @@ public class CopyrightRequestDTOMapper {
 
     public static TAuthor TAuthorFromDTO(AuthorDTO authorDTO) {
         TAuthor author = factory.createTAuthor();
+
+        if (authorDTO == null) {
+            return author;
+        }
 
         author.setAuthorName(authorDTO.getAuthorName());
         author.setAuthorSurname(authorDTO.getAuthorSurname());

@@ -1,12 +1,10 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.repository.util;
 
+import org.xmldb.api.base.*;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.ExistDBAuthUtils;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.ExistDBAuthUtils.ConnectionProperties;
 import org.xmldb.api.DatabaseManager;
-import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.Database;
-import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
@@ -223,11 +221,92 @@ public class CopyrightSubmissionRequestExistDBOperations {
         }
     }
 
-    public List<CopyrightSubmissionRequest> search(String content) {
-        return null;
+    public List<CopyrightSubmissionRequest> search(String content) throws Exception {
+        ExistDBAuthUtils.ConnectionProperties conn = ExistDBAuthUtils.loadProperties();
+
+        String query = "/*[contains(., '" + content + "')] | " +
+                "/*[contains(@request_number, '" + content + "')] | " +
+                "/*[contains(@submission_date, '" + content + "')] | "+
+                "/*[contains(/Work_title/Main_title, '" + content + "')]";
+
+        Class<?> cl = Class.forName(conn.driver);
+
+        Database database = (Database) cl.newInstance();
+        database.setProperty("create-database", "true");
+
+        DatabaseManager.registerDatabase(database);
+
+        Collection col = null;
+
+        CopyrightSubmissionRequest request;
+        List<CopyrightSubmissionRequest> requests;
+        try {
+            // get the collection
+            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+            XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            xPathQueryService.setProperty("indent", "yes");
+            ResourceSet result = xPathQueryService.query(query);
+            ResourceIterator iterator = result.getIterator();
+
+            requests = new ArrayList<>();
+            XMLResource res;
+            while (iterator.hasMoreResources()) {
+                res = (XMLResource) iterator.nextResource();
+                JAXBContext context = JAXBContext.newInstance(CopyrightSubmissionRequest.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                request = (CopyrightSubmissionRequest) unmarshaller.unmarshal(res.getContentAsDOM());
+                requests.add(request);
+            }
+        } finally {
+            if (col != null) {
+                col.close();
+            }
+        }
+        return requests;
     }
 
-    public List<CopyrightSubmissionRequest> search(List<String> rdfQuery) {
-        return null;
+    public List<CopyrightSubmissionRequest> search(List<String> rdfQuery) throws Exception{
+        ExistDBAuthUtils.ConnectionProperties conn = ExistDBAuthUtils.loadProperties();
+
+        Class<?> cl = Class.forName(conn.driver);
+
+        Database database = (Database) cl.newInstance();
+        database.setProperty("create-database", "true");
+
+        DatabaseManager.registerDatabase(database);
+
+        Collection col = null;
+
+        CopyrightSubmissionRequest request;
+        List<CopyrightSubmissionRequest> requests;
+        try {
+            // get the collection
+            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col.setProperty(OutputKeys.INDENT, "yes");
+
+            XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
+            xPathQueryService.setProperty("indent", "yes");
+
+            requests = new ArrayList<>();
+            String[] resources = col.listResources();
+            XMLResource res;
+            for (String resourceId : resources) {
+                if (rdfQuery.contains(resourceId)) {
+                    res = (XMLResource) col.getResource(resourceId);
+                    JAXBContext context =
+                            JAXBContext.newInstance(CopyrightSubmissionRequest.class);
+                    Unmarshaller unmarshaller = context.createUnmarshaller();
+                    request = (CopyrightSubmissionRequest) unmarshaller.unmarshal(res.getContentAsDOM());
+                    requests.add(request);
+                }
+            }
+        } finally {
+            if (col != null) {
+                col.close();
+            }
+        }
+        return requests;
     }
 }
