@@ -7,11 +7,13 @@ import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { CopyrightRequestFormComponent } from './forms/copyright-request-form/copyright-request-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PatentRequestFormComponent } from './forms/patent-request-form/patent-request-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CopyrightRequestFormComponent
+    CopyrightRequestFormComponent,
+    PatentRequestFormComponent
   ],
   imports: [
     MaterialModule,

@@ -1,0 +1,178 @@
+<div class="container">
+  <h1>ЗАХТЕВ ЗА ПРИЗНАЊЕ ПАТЕНТА</h1>
+  <hr/>
+  <form class="form" [formGroup]="patentRequestForm">
+    <h3>Назив проналаска:</h3>
+    <mat-form-field>
+      <input matInput placeholder="На српском*" formControlName="serbianPatentName" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="На енглеском*" formControlName="englishPatentName" />
+    </mat-form-field>
+    <hr/>
+    <h3>Подносилац</h3>
+    <mat-form-field appearance="fill">
+      <mat-label>Подносилац је</mat-label>
+      <mat-select formControlName="applicantType" required>
+        <mat-option *ngFor="let type of types" [value]="type.value">
+          {{type.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br/>
+    <label>Име и презиме:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Име*" formControlName="applicantFirstName" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Презиме*" formControlName="applicantLastName" />
+    </mat-form-field>
+    <br /><label>Контакт:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Телефон*" formControlName="applicantPhoneNumber" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Е-пошта*" formControlName="applicantEmail" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Број факса*" formControlName="applicantFaxNumber" />
+    </mat-form-field>
+    <br /><label>Адреса:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Улица*" formControlName="applicantStreet" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Број улице*" formControlName="applicantStreetNumber" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Град*" formControlName="applicantCity" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Поштански број*" formControlName="applicantZipCode" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Држава*" formControlName="applicantCountry" />
+    </mat-form-field>
+    <br /><label>Држављанство:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Држављанство*" formControlName="applicantCitizenship" />
+    </mat-form-field>
+    <hr/>
+    <h3>Проналазач</h3>
+    <mat-checkbox formControlName="doesNotWantToBeListed">Не жели да буде наведен</mat-checkbox><br/>
+    <label>Име и презиме:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Име*" formControlName="inventorFirstName" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Презиме*" formControlName="inventorLastName" />
+    </mat-form-field>
+    <br /><label>Контакт:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Телефон*" formControlName="inventorPhoneNumber" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Е-пошта*" formControlName="inventorEmail" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Број факса*" formControlName="inventorFaxNumber" />
+    </mat-form-field>
+    <br /><label>Адреса:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Улица*" formControlName="inventorStreet" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Број улице*" formControlName="inventorStreetNumber" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Град*" formControlName="inventorCity" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Поштански број*" formControlName="inventorZipCode" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Држава*" formControlName="inventorCountry" />
+    </mat-form-field>
+    <hr/>
+    <h3>Пуномоћник</h3>
+    <mat-checkbox formControlName="proxyForRepresentation">Пуномоћник за заступање</mat-checkbox>
+    <mat-checkbox formControlName="proxyForReceivingLetters">Пуномоћник за пријем писама</mat-checkbox><br/>
+    <label>Име и презиме:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Име" formControlName="proxyFirstName" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Презиме" formControlName="proxyLastName" />
+    </mat-form-field>
+    <br /><label>Контакт:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Телефон*" formControlName="proxyPhoneNumber" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Е-пошта*" formControlName="proxyEmail" />
+    </mat-form-field>
+    <br /><label>Адреса:</label><br />
+    <mat-form-field>
+      <input matInput placeholder="Улица*" formControlName="proxyStreet" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Број улице*" formControlName="proxyStreetNumber" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Град*" formControlName="proxyCity" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Поштански број*" formControlName="proxyZipCode" />
+    </mat-form-field>
+    <hr/>
+    <h3>Адреса за достављање:</h3>
+    <mat-form-field>
+      <input matInput placeholder="Улица*" formControlName="street" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Број улице*" formControlName="streetNumber" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Град*" formControlName="city" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Поштански број*" formControlName="zipCode" />
+    </mat-form-field>
+    <hr/>
+    <h3>Начин достављања:</h3>
+    <mat-checkbox formControlName="electronically">Достављање електронским путем</mat-checkbox>
+    <mat-checkbox formControlName="inPaperForm">Достављање у папирној форми</mat-checkbox><br/>
+    <hr/>
+    <h3>Првобитна пријава:</h3>
+    <mat-checkbox formControlName="supplementaryApplication">Допунска пријава</mat-checkbox>
+    <mat-checkbox formControlName="separateApplication">Издвојена пријава</mat-checkbox><br/>
+    <mat-form-field>
+      <input matInput placeholder="Број пријаве" formControlName="applicationNumber" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Датум подношења" [matDatepicker]="datepicker" formControlName="submissionDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
+    </mat-form-field>
+    <hr/>
+    <h3>Захтев за признање права првенства из ранијих пријава:</h3>
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Датум подношења" [matDatepicker]="earlierDatepicker" formControlName="earlierSubmissionDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="earlierDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #earlierDatepicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Број раније пријаве" formControlName="earlierApplicationNumber" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Ознака државе/организације" formControlName="countryOrOrganizationDesignation" />
+    </mat-form-field><br/>
+    <hr/>
+    <br/><button mat-raised-button type="submit" color="green">
+      Пошаљи захтев
+    </button>
+  </form>
+</div>
+
