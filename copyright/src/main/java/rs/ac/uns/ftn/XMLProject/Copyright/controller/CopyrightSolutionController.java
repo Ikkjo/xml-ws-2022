@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.controller;
 
+import com.itextpdf.text.DocumentException;
 import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -10,6 +11,8 @@ import rs.ac.uns.ftn.XMLProject.Copyright.exception.ResourceNotFoundException;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.CopyrightRequestSolutionDTO;
 import rs.ac.uns.ftn.XMLProject.Copyright.service.CopyrightSolutionService;
 
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -32,8 +35,8 @@ public class CopyrightSolutionController {
                             solutionService.getSolutionById(solutionDTO.getRequestNumber()), HttpStatus.CREATED)
                     :
                     ResponseEntity.badRequest().build();
-        } catch (ResourceNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (ResourceNotFoundException | IOException | DocumentException | JAXBException e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -56,5 +59,4 @@ public class CopyrightSolutionController {
             return ResponseEntity.internalServerError().build();
         }
     }
-
 }
