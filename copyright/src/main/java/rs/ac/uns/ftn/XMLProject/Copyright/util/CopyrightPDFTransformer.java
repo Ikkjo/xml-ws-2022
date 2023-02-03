@@ -29,6 +29,8 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
+import rs.ac.uns.ftn.XMLProject.Copyright.models.solution.CopyrightRequestSolution;
+import rs.ac.uns.ftn.XMLProject.Copyright.models.report.CopyrightReport;
 
 
 public class CopyrightPDFTransformer {
@@ -37,6 +39,9 @@ public class CopyrightPDFTransformer {
     private static final TransformerFactory transformerFactory;
 
     public static final String A1_XSL_FILE = "data/A-1.xsl";
+    public static final String SOLUTION_XSL_FILE = "data/copyrightRequestSolution.xsl";
+
+    public static final String REPORT_XSL_FILE = "data/copyrightReport.xsl";
 
     public static final String HTML_PATH = "gen/html/";
 
@@ -69,7 +74,7 @@ public class CopyrightPDFTransformer {
         String outputFile = "gen/pdf/" + id + ".pdf";
 
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outputFile));
-        pdfDocument.setDefaultPageSize(new PageSize(780,2000));
+        pdfDocument.setDefaultPageSize(new PageSize(2480,3508));
         HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(inputFile)), pdfDocument);
     }
 
@@ -101,6 +106,24 @@ public class CopyrightPDFTransformer {
         writeToXMLFile(copyrightSubmissionRequest, xmlFilename);
 
         generateHTML(xmlFilename, A1_XSL_FILE, htmlFilename);
+    }
+
+    public void generateSolutionHTML(CopyrightRequestSolution solution) throws JAXBException, IOException {
+        String xmlFilename = XML_PATH + solution.getRequestNumber() + "-solution.xml";
+        String htmlFilename = HTML_PATH + solution.getRequestNumber() + "-solution.html";
+
+        writeToXMLFile(solution, xmlFilename);
+
+        generateHTML(xmlFilename, SOLUTION_XSL_FILE, htmlFilename);
+    }
+
+    public void generateReportHTML(CopyrightSubmissionRequest copyrightSubmissionRequest) throws JAXBException, IOException {
+        String xmlFilename = XML_PATH + copyrightSubmissionRequest.getRequestNumber() + "-report.xml";
+        String htmlFilename = HTML_PATH + copyrightSubmissionRequest.getRequestNumber() + "-report.html";
+
+        writeToXMLFile(copyrightSubmissionRequest, xmlFilename);
+
+        generateHTML(xmlFilename, REPORT_XSL_FILE, htmlFilename);
     }
 
     public void generateHTML(String xmlPath, String xslPath, String outputHtmlPath) throws FileNotFoundException {
@@ -138,6 +161,23 @@ public class CopyrightPDFTransformer {
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(copyrightSubmissionRequest, Files.newOutputStream(Paths.get(filename)));
+    }
 
+    private void writeToXMLFile(CopyrightRequestSolution solution, String filename)
+            throws JAXBException, IOException {
+
+        JAXBContext context = JAXBContext.newInstance("models.solution");
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.marshal(solution, Files.newOutputStream(Paths.get(filename)));
+    }
+
+    private void writeToXMLFile(CopyrightReport copyrightSubmissionRequest, String filename)
+            throws JAXBException, IOException {
+
+        JAXBContext context = JAXBContext.newInstance("models.report");
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.marshal(copyrightSubmissionRequest, Files.newOutputStream(Paths.get(filename)));
     }
 }

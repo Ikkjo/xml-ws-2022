@@ -37,8 +37,8 @@ public class CopyrightSolutionController {
         }
     }
 
-    @PostMapping (value = "/{id}")
-    public ResponseEntity<CopyrightRequestSolutionDTO> getCopyrightSolution(@RequestParam String id) {
+    @GetMapping (value = "/{id}")
+    public ResponseEntity<CopyrightRequestSolutionDTO> getCopyrightSolution(@PathVariable String id) {
         try {
             return ResponseEntity.ok(solutionService.getSolutionById(id));
         } catch (ResourceNotFoundException e) {
@@ -48,7 +48,7 @@ public class CopyrightSolutionController {
         }
     }
 
-    @PostMapping
+    @GetMapping(value="/all")
     public ResponseEntity<List<CopyrightRequestSolutionDTO>> getAll() {
         try {
             return ResponseEntity.ok(solutionService.getAllSolutions());

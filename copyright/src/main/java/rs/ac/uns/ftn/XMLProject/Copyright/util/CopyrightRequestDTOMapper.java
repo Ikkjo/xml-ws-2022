@@ -24,7 +24,7 @@ public class CopyrightRequestDTOMapper {
                 AdaptationWorkInformationFromDTO(copyrightSubmissionRequestDTO.getAdaptationWorkInformation()));
         request.setWorkType(copyrightSubmissionRequestDTO.getWorkType());
         request.setAuthor(TAuthorFromDTO(copyrightSubmissionRequestDTO.getAuthor()));
-        request.setWorkMadeInBusinessRelationship(copyrightSubmissionRequestDTO.getWorkMadeInBusinessRelationship());
+        request.setWorkMadeInBusinessRelationship(copyrightSubmissionRequestDTO.isWorkMadeInBusinessRelationship());
         request.setWayOfUsingWork(copyrightSubmissionRequestDTO.getWayOfUsingWork());
         request.setRequestNumber(copyrightSubmissionRequestDTO.getRequestNumber());
         request.setRequestSubmissionDate(copyrightSubmissionRequestDTO.getRequestSubmissionDate());

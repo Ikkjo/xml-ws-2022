@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a1:Copyright_submission_request xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User"
+ xmlns:a1="http://www.XMLproject.ftn.uns.ac.rs/a-1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.XMLproject.ftn.uns.ac.rs/a-1 file:/home/ikkjo/School/Semestar%207/XML%20i%20Web%20Servisi/xml-ws-2022/copyright/data/a-1.xsd" request_number="request_number0" request_submission_date="2006-05-04">
+    <a1:Applicant>
+    </a1:Applicant>
+    <a1:Attorney>
+    </a1:Attorney>
+    <a1:Work_title>
+        <a1:Main_title>Main_title0</a1:Main_title>
+    </a1:Work_title>
+    <a1:Work_type>Work_type0</a1:Work_type>
+    <a1:Form_of_recording_work>Form_of_recording_work0</a1:Form_of_recording_work>
+    <a1:Author anonymous="false">
+        <a1:Author_surname>Author_surname0</a1:Author_surname>
+        <a1:Author_name>Author_name0</a1:Author_name>
+    </a1:Author>
+    <a1:Work_made_in_business_relationship>false</a1:Work_made_in_business_relationship>
+</a1:Copyright_submission_request>

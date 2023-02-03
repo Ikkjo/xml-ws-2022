@@ -1,47 +1,48 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.models.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
+import rs.ac.uns.ftn.XMLProject.Copyright.models.a.TAuthor;
+import rs.ac.uns.ftn.XMLProject.Copyright.models.a.TIndividual;
+import rs.ac.uns.ftn.XMLProject.Copyright.models.a.TPerson;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+
+
+@XmlRootElement(name = "Copyright_submission_request")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class CopyrightSubmissionRequestDTO {
-    @XmlElement(name = "applicant")
+    @XmlElement(name = "Applicant")
     public PersonDTO applicant;
-    @XmlElement(name = "attorney")
+    @XmlElement(name = "Attorney")
     public IndividualDTO attorney;
-    @XmlElement(name = "authorPseudonym")
+    @XmlElement(name = "Author_pseudonym")
     public String authorPseudonym;
-    @XmlElement(name = "workTitle")
+    @XmlElement(name = "Work_title")
     public WorkTitleDTO workTitle;
-    @XmlElement(name = "adaptationWorkInformation")
+    @XmlElement(name = "Adaptation_work_information")
     public AdaptationWorkInformationDTO adaptationWorkInformation;
-    @XmlElement(name = "workType")
+    @XmlElement(name = "Work_type")
     public String workType;
-    @XmlElement(name = "formOfRecordingWork")
+    @XmlElement(name = "Form_of_recording_work")
     public String formOfRecordingWork;
-    @XmlElement(name = "authorInformation")
+    @XmlElement(name = "Author")
     public AuthorDTO author;
-    @XmlElement(name = "workMadeInBusinessRelationship")
-    public Boolean workMadeInBusinessRelationship;
-    @XmlElement(name = "wayOfUsingWork")
+    @XmlElement(name = "Work_made_in_business_relationship")
+    public boolean workMadeInBusinessRelationship;
+    @XmlElement(name = "Way_of_using_work")
     public String wayOfUsingWork;
+    @XmlAttribute(name = "institution")
+    public String institution;
+    @XmlAttribute(name = "address")
+    public String address;
     @XmlAttribute(name = "request_number")
-    protected String requestNumber;
+    public String requestNumber;
     @XmlAttribute(name = "request_submission_date")
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar requestSubmissionDate;
-    @XmlAttribute(name = "institution")
-    protected String institution;
-    @XmlAttribute(name = "address")
-    protected String address;
+    public XMLGregorianCalendar requestSubmissionDate;
 }

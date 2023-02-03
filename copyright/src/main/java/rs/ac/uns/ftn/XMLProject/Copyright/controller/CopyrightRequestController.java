@@ -9,15 +9,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.XMLProject.Copyright.service.CopyrightRequestService;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/copyright/request")
+@RequestMapping(value = "/api/copyright/request", consumes = MediaType.APPLICATION_XML_VALUE)
 public class CopyrightRequestController {
 
     private final CopyrightRequestService copyrightRequestService;
+
+    private static final Logger logger = LoggerFactory.getLogger(CopyrightRequestController.class);
 
     public CopyrightRequestController(CopyrightRequestService copyrightRequestService) {
         this.copyrightRequestService = copyrightRequestService;
@@ -39,10 +42,11 @@ public class CopyrightRequestController {
         }
     }
 
-    @PostMapping(consumes = "application/xml", produces = "application/xml")
+    @PostMapping
     public ResponseEntity<String> createCopyrightSubmissionRequest(@RequestBody CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
+        logger.info(copyrightSubmissionRequestDTO.toString());
         copyrightRequestService.createCopyrightSubmissionRequest(copyrightSubmissionRequestDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)

@@ -13,9 +13,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CopyrightSolutionService {
-    CopyrightRequestSolutionRepository copyrightRequestSolutionRepository;
+    private final CopyrightRequestSolutionRepository copyrightRequestSolutionRepository;
 
-    CopyrightSolutionDTOMapper copyrightRequestDTOMapper;
+    private final CopyrightSolutionDTOMapper copyrightRequestDTOMapper;
+
 
     public CopyrightRequestSolutionDTO getSolutionById(String id) throws ResourceNotFoundException {
         return copyrightRequestDTOMapper.getSolutionDto(copyrightRequestSolutionRepository.findById(id)

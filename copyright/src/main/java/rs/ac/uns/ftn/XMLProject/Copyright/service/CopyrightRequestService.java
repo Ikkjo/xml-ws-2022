@@ -31,7 +31,11 @@ public class CopyrightRequestService {
 
     public boolean createCopyrightSubmissionRequest(CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
         List<CopyrightSubmissionRequest> copyrightSubmissionRequests = copyrightSubmissionRequestRepository.findAll();
-        int id = copyrightSubmissionRequests.size() + 1;
+        int id = 0;
+
+        if(copyrightSubmissionRequests != null) {
+            id += copyrightSubmissionRequests.size();
+        }
 
         try {
             CopyrightSubmissionRequest request = CopyrightRequestDTOMapper.copyrightSubmissionRequestFromDTO(copyrightSubmissionRequestDTO);
