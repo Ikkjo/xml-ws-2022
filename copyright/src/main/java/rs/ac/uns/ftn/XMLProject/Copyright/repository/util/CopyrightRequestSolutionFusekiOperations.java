@@ -86,24 +86,6 @@ public class CopyrightRequestSolutionFusekiOperations {
         transformer.transform(source, result);
     }
 
-    public long countSubmittedResponded(String pocetniDatum, String krajnjiDatum, String condition) throws Exception {
-
-        int res = 0;
-        RDFAuthUtils.ConnectionProperties conn = RDFAuthUtils.loadProperties();
-        String sparqlQuery = SparqlUtils.selectSubmissionResponses(conn.dataEndpoint + GRAPH_URI, condition, pocetniDatum, krajnjiDatum);
-        QueryExecution query = QueryExecutionFactory.sparqlService(conn.queryEndpoint, sparqlQuery);
-        ResultSet results = query.execSelect();
-
-        while(results.hasNext()) {
-            res++;
-            results.next();
-        }
-
-        query.close();
-        return res;
-
-    }
-
     public BigInteger countAccepted(String startDate, String endDate) throws IOException {
         return BigInteger.valueOf(countSolutions(startDate, endDate, true));
     }
