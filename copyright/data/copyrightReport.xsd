@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.XMLproject.ftn.uns.ac.rs/copyrightReport"
+    xmlns:rep="http://www.XMLproject.ftn.uns.ac.rs/copyrightReport">
+
+    <xs:element name="copyrightReport">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="startDate" type="xs:date"/>
+                <xs:element name="endDate" type="xs:date"/>
+                <xs:element name="numberOfRequests" type="xs:nonNegativeInteger"/>
+                <xs:element name="numberOfAcceptedRequests" type="xs:nonNegativeInteger"/>
+                <xs:element name="numberOfDeclinedRequests" type="xs:nonNegativeInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

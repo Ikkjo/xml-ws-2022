@@ -1,0 +1,23 @@
+<div class="registration-container">
+    <form class="registration-form" [formGroup]="registrationForm">
+        <h1 style="font-size: 35pt;">Регистрација</h1>
+        <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input type="email" matInput required formControlName="email"
+                   placeholder="mail@example.com">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Лозинка</mat-label>
+            <input type="password" matInput required formControlName="password">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Име</mat-label>
+            <input type="email" matInput required formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Презиме</mat-label>
+            <input type="email" matInput required formControlName="lastName">
+        </mat-form-field>
+        <button mat-raised-button class="register-button" (click)="register()" type="reset">Региструј се</button>
+    </form>
+</div>

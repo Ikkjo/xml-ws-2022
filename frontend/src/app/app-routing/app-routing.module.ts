@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CopyrightRequestFormComponent } from '../forms/copyright-request-form/copyright-request-form.component';
 import {PatentRequestFormComponent} from "../forms/patent-request-form/patent-request-form.component";
+import { LoginPageComponent } from '../pages/login-page/login-page.component';
+import { RegsitrationPageComponent } from '../pages/regsitration-page/regsitration-page.component';
 
 const routes: Routes = [
   {
@@ -11,6 +13,14 @@ const routes: Routes = [
   {
     path: 'patent/request-form',
     component: PatentRequestFormComponent,
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent
+  },
+  {
+    path: 'register',
+    component: RegsitrationPageComponent
   }
 ];
 

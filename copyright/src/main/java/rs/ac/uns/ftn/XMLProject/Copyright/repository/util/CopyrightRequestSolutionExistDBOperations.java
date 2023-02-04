@@ -1,8 +1,5 @@
-package rs.ac.uns.ftn.XMLProject.Copyright.repository;
+package rs.ac.uns.ftn.XMLProject.Copyright.repository.util;
 
-import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
-import rs.ac.uns.ftn.XMLProject.Copyright.util.ExistDBAuthUtils;
-import rs.ac.uns.ftn.XMLProject.Copyright.util.ExistDBAuthUtils.ConnectionProperties;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -10,6 +7,8 @@ import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
+import rs.ac.uns.ftn.XMLProject.Copyright.models.solution.CopyrightRequestSolution;
+import rs.ac.uns.ftn.XMLProject.Copyright.util.ExistDBAuthUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -20,14 +19,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+public class CopyrightRequestSolutionExistDBOperations {
+    private static final String collectionId = "/db/xml/copyright/solutions";
 
-public class CopyrightSubmissionRequestExistDBOperations {
+    private ExistDBAuthUtils.ConnectionProperties conn;
 
-    private static final String collectionId = "/db/xml/copyright/";
-
-    private ConnectionProperties conn;
-
-    public CopyrightSubmissionRequestExistDBOperations() {
+    public CopyrightRequestSolutionExistDBOperations() {
         try {
             conn = ExistDBAuthUtils.loadProperties();
 
@@ -38,14 +35,14 @@ public class CopyrightSubmissionRequestExistDBOperations {
 
     }
 
-    public CopyrightSubmissionRequest findById(String id) throws Exception {
+    public CopyrightRequestSolution findById(String id) throws Exception {
 
         if (!connectToDatabase()) {
             return null;
         }
 
-        CopyrightSubmissionRequest request = null;
-        String documentId = id + ".xml";
+        CopyrightRequestSolution solution = null;
+        String documentId = id + "-solution.xml";
 
         Collection col = null;
         XMLResource res;
@@ -59,26 +56,26 @@ public class CopyrightSubmissionRequestExistDBOperations {
 
             if(res != null) {
 
-                JAXBContext context = JAXBContext.newInstance("models.a");
+                JAXBContext context = JAXBContext.newInstance("models.solution");
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
-                request = (CopyrightSubmissionRequest) unmarshaller.unmarshal(res.getContentAsDOM());
+                solution = (CopyrightRequestSolution) unmarshaller.unmarshal(res.getContentAsDOM());
 
             }
         } finally {
             cleanup(col);
         }
-        return request;
+        return solution;
     }
 
-    public boolean save(CopyrightSubmissionRequest request) throws Exception {
+    public boolean save(CopyrightRequestSolution solution) throws Exception {
 
         if (!connectToDatabase()) {
-             return false;
+            return false;
         }
 
-        String documentId =  request.getRequestNumber() + ".xml";
+        String documentId =  solution.getRequestNumber() + "-solution.xml";
 
         Class<?> cl = Class.forName(conn.driver);
 
@@ -98,13 +95,13 @@ public class CopyrightSubmissionRequestExistDBOperations {
             col = getOrCreateCollection(conn, collectionId);
             res = (XMLResource) col.createResource(documentId, XMLResource.RESOURCE_TYPE);
 
-            JAXBContext context = JAXBContext.newInstance("models.a");
+            JAXBContext context = JAXBContext.newInstance("models.solution");
 
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
             // marshal the contents to an output stream
-            marshaller.marshal(request, os);
+            marshaller.marshal(solution, os);
 
             // link the stream to the XML resource
             res.setContent(os);
@@ -116,7 +113,7 @@ public class CopyrightSubmissionRequestExistDBOperations {
         return true;
     }
 
-    public ArrayList<CopyrightSubmissionRequest> getAll() throws Exception {
+    public ArrayList<CopyrightRequestSolution> getAll() throws Exception {
 
         if (!connectToDatabase()) {
             return null;
@@ -124,8 +121,8 @@ public class CopyrightSubmissionRequestExistDBOperations {
 
         Collection col = null;
 
-        CopyrightSubmissionRequest copyrightSubmissionRequest;
-        ArrayList<CopyrightSubmissionRequest> copyrightSubmissionRequestArrayList;
+        CopyrightRequestSolution copyrightSubmissionRequest;
+        ArrayList<CopyrightRequestSolution> copyrightSubmissionRequestArrayList;
         try {
             // get the collection
             col = DatabaseManager.getCollection(conn.uri + collectionId);
@@ -139,9 +136,9 @@ public class CopyrightSubmissionRequestExistDBOperations {
             XMLResource res;
             for (String resourceId : resources) {
                 res = (XMLResource) col.getResource(resourceId);
-                JAXBContext context = JAXBContext.newInstance(CopyrightSubmissionRequest.class);
+                JAXBContext context = JAXBContext.newInstance(CopyrightRequestSolution.class);
                 Unmarshaller unmarshaller = context.createUnmarshaller();
-                copyrightSubmissionRequest = (CopyrightSubmissionRequest) unmarshaller.unmarshal(res.getContentAsDOM());
+                copyrightSubmissionRequest = (CopyrightRequestSolution) unmarshaller.unmarshal(res.getContentAsDOM());
                 copyrightSubmissionRequestArrayList.add(copyrightSubmissionRequest);
             }
         } finally {

@@ -6,18 +6,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "TPerson")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class PersonDTO {
-    @XmlElement(name = "phoneNumber")
-    protected String phoneNumber;
-    @XmlElement(name = "faxNumber")
-    protected String faxNumber;
-    @XmlElement(name = "email")
-    protected String email;
-    @XmlElement(name = "address")
-    protected AddressDTO address;
+    @XmlElement(name = "Phone_number")
+    public String phoneNumber;
+    @XmlElement(name = "Fax_umber")
+    public String faxNumber;
+    @XmlElement(name = "Email")
+    public String email;
+    @XmlElement(name = "Address")
+    public AddressDTO address;
 }

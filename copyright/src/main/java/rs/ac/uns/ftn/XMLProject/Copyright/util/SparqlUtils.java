@@ -1,5 +1,9 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.util;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class SparqlUtils {
 
     /* The following operation causes all the triples in all the graphs to be deleted */
@@ -20,8 +24,43 @@ public class SparqlUtils {
 
 
     /* Simple SPARQL query on a named graph */
-    private static final String SELECT_NAMED_GRAPH_TEMPLATE = "SELECT * FROM <%1$s> WHERE { %2$s }";
+    private static final String SELECT_NAMED_GRAPH_TEMPLATE =
+            "  SELECT ?request_number \n" +
+                    "  FROM <%1$s> WHERE { \n" +
+                    "  %2$s " +
+                    "  FILTER( %3$s )" +
+                    "  }";
 
+
+    private static final String SELECT_BY_REQUEST_NUMBER =
+            "   SELECT ?request_number ?request_submission_date ?Work_title ?Work_type ?Applicant\n" +
+                    "FROM <%1$s> WHERE { \n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_number> ?request_number .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_submission_date> ?request_submission_date .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_title> ?Main_title .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_type> ?Work_type .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Applicant> ?Applicant .\n" +
+                    "  FILTER( ?request_number = \"%2$s\" )" +
+                    "  }";
+
+    private static final String SELECT_SUBMISSION =
+            "   PREFIX a1: <http://www.XMLproject.ftn.uns.ac.rs/a-1>" +
+                    "SELECT ?request_number \n" +
+                    "FROM <%1$s> WHERE { \n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_number> ?request_number .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_submission_date> ?request_submission_date .\n" +
+                    "  FILTER( \"%2$s\" < ?request_submission_date && ?request_submission_date < \"%3$s\" )\n" +
+                    "  }";
+
+    private static final String SELECT_RESPONDED_SUBMISSION =
+            "   PREFIX a1: <http://www.XMLproject.ftn.uns.ac.rs/a-1>" +
+                    "SELECT ?request_number \n" +
+                    "FROM <%1$s> WHERE { \n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_number> ?request_number .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1accepted> ?accepted .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_submission_date> ?request_submission_date .\n" +
+                    "  FILTER( ?accepted = \"%2$s\" && \"%3$s\" < ?request_submission_date && ?request_submission_date < \"%4$s\" )\n" +
+                    "  }";
 
     /* Plain text RDF serialization format */
     public static final String NTRIPLES = "N-TRIPLES";
@@ -47,7 +86,69 @@ public class SparqlUtils {
     }
 
     public static String selectData(String graphURI, String sparqlCondition) {
-        return String.format(SELECT_NAMED_GRAPH_TEMPLATE, graphURI, sparqlCondition);
+        String selector = getSelectorFromCondition(sparqlCondition);
+        sparqlCondition = getQueryPredicateFromCondition(sparqlCondition);
+//        System.out.println(sparqlCondition);
+        sparqlCondition = operatorMapping(sparqlCondition);
+//        System.out.println(sparqlCondition);
+        return String.format(SELECT_NAMED_GRAPH_TEMPLATE, graphURI, selector, sparqlCondition);
     }
 
+    public static String selectDataByRequestNumber(String graphUri, String requestNumber) {
+        return String.format(SELECT_BY_REQUEST_NUMBER, graphUri, requestNumber);
+    }
+
+    public static String selectSubmitted(String graphUri, String startDate, String endDate) {
+        return String.format(SELECT_SUBMISSION, graphUri, startDate, endDate);
+    }
+
+    public static String selectSolutions(String graphUri, String accepted, String startDate, String endDate) {
+        return String.format(SELECT_RESPONDED_SUBMISSION, graphUri, accepted, startDate, endDate);
+    }
+
+    private static final Map<String, String> predicateSelectorMap = Stream.of(new String[][] {
+            { "Main_title", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_title> ?Main_title .\n" },
+            { "applicant", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Applicant> ?Applicant .\n" },
+            { "accepted", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1accepted> ?accepted .\n" },
+            { "request_submission_date", "?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_submission_date> ?request_submission_date .\n" },
+            { "work_type", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_type> ?Work_type .\n"},
+            { "request_number", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_number> ?request_number .\n"}
+    }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+    private static final Map<String, String> predicateMap = Stream.of(new String[][] {
+            { "request_number", "?request_number" },
+            { "request_submission_date", "?request_submission_date" },
+            { "Main_title", "?Main_title" },
+            { "Work_type", "?Work_type" },
+            { "Applicant", "?Applicant" },
+            { "accepted", "?accepted = \"true\"" },
+            { "not accepted", "?accepted = \"false\"" },
+    }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+
+    private static String getQueryPredicateFromCondition(String condition) {
+        for (Map.Entry<String, String> entry: predicateMap.entrySet()) {
+            condition = condition.replace(entry.getKey(), entry.getValue());
+        }
+        return condition;
+    }
+
+    private static String getSelectorFromCondition(String condition) {
+        StringBuilder selector = new StringBuilder(predicateSelectorMap.get("request_number"));
+        for (Map.Entry<String, String> set : predicateSelectorMap.entrySet()) {
+            if (condition.contains(set.getKey())) {
+                selector.append(set.getValue());
+            }
+        }
+        return selector.toString();
+    }
+
+    private static String operatorMapping(String condition) {
+        condition = condition.replace(" and ", " && ");
+        condition = condition.replace(" or ", " || ");
+        condition = condition.replace(" neq ", " != ");
+        condition = condition.replace(" before ", " < ");
+        condition = condition.replace(" after ", " > ");
+        condition = condition.replace(" is ", " = ");
+        condition = condition.replace(" not ", " ! ");
+        return condition;
+    }
 }

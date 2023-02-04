@@ -8,12 +8,20 @@ import { AppComponent } from './app.component';
 import { CopyrightRequestFormComponent } from './forms/copyright-request-form/copyright-request-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PatentRequestFormComponent } from './forms/patent-request-form/patent-request-form.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegsitrationPageComponent } from './pages/regsitration-page/regsitration-page.component';
+import { MainNavBarComponent } from './components/main-nav-bar/main-nav-bar.component';
+import { AuthService } from './services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     CopyrightRequestFormComponent,
-    PatentRequestFormComponent
+    PatentRequestFormComponent,
+    LoginPageComponent,
+    RegsitrationPageComponent,
+    MainNavBarComponent,
   ],
   imports: [
     MaterialModule,
@@ -21,7 +29,8 @@ import { PatentRequestFormComponent } from './forms/patent-request-form/patent-r
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
