@@ -1,11 +1,13 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.service;
 
+import org.springframework.http.ResponseEntity;
+import rs.ac.uns.ftn.XMLProject.Copyright.exception.ResourceNotFoundException;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.CopyrightSubmissionRequestDTO;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.XMLProject.Copyright.repository.CopyrightSubmissionRequestRepository;
 import org.apache.commons.io.FileUtils;
-import rs.ac.uns.ftn.XMLProject.Copyright.util.CopyrightDTOMapper;
+import rs.ac.uns.ftn.XMLProject.Copyright.util.CopyrightRequestDTOMapper;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.CopyrightPDFTransformer;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -14,22 +16,28 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CopyrightRequestService {
 
-    private CopyrightSubmissionRequestRepository copyrightSubmissionRequestRepository = new CopyrightSubmissionRequestRepository();
-    private CopyrightPDFTransformer copyrightPDFTransformer = new CopyrightPDFTransformer();
+    private final CopyrightSubmissionRequestRepository copyrightSubmissionRequestRepository;
+    private final CopyrightPDFTransformer copyrightPDFTransformer = new CopyrightPDFTransformer();
+
+    public CopyrightRequestService(CopyrightSubmissionRequestRepository copyrightSubmissionRequestRepository) {
+        this.copyrightSubmissionRequestRepository = copyrightSubmissionRequestRepository;
+    }
 
     public boolean createCopyrightSubmissionRequest(CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
         List<CopyrightSubmissionRequest> copyrightSubmissionRequests = copyrightSubmissionRequestRepository.findAll();
-        int id = copyrightSubmissionRequests.size() + 1;
+        int id = 0;
+
+        if(copyrightSubmissionRequests != null) {
+            id += copyrightSubmissionRequests.size();
+        }
 
         try {
-            CopyrightSubmissionRequest request = CopyrightDTOMapper.copyrightSubmissionRequestFromDTO(copyrightSubmissionRequestDTO);
+            CopyrightSubmissionRequest request = CopyrightRequestDTOMapper.copyrightSubmissionRequestFromDTO(copyrightSubmissionRequestDTO);
             request.setRequestNumber(String.format("A-%06d", id));
             request.setRequestSubmissionDate(getXMLGregorianCalendarNow());
             copyrightSubmissionRequestRepository.save(request);
@@ -39,24 +47,25 @@ public class CopyrightRequestService {
         return false;
     }
 
-    public CopyrightSubmissionRequestDTO getCopyrightSubmissionRequestById(String id) {
-        return CopyrightDTOMapper.copyrightSubmissionRequestToDTO(
-                copyrightSubmissionRequestRepository.findById(id)
+    public CopyrightSubmissionRequestDTO getCopyrightSubmissionRequestById(String id) throws ResourceNotFoundException {
+        return CopyrightRequestDTOMapper.copyrightSubmissionRequestToDTO(
+                copyrightSubmissionRequestRepository.findById(id).orElseThrow(ResourceNotFoundException::new)
         );
     }
 
     public List<CopyrightSubmissionRequestDTO> getAllCopyrightSubmissionRequests() {
-        return CopyrightDTOMapper.copyrightSubmissionRequestToDTOList(
+        return CopyrightRequestDTOMapper.copyrightSubmissionRequestToDTOList(
                 copyrightSubmissionRequestRepository.findAll()
         );
     }
 
-    public ByteArrayInputStream getCopyrightSubmissionRequestPDF(String id) {
+    public ByteArrayInputStream getCopyrightSubmissionRequestPDF(String id) throws ResourceNotFoundException {
         ByteArrayInputStream byteArrayInputStream;
 
         try {
 
-            copyrightPDFTransformer.generateCopyrightRequestHTML(copyrightSubmissionRequestRepository.findById(id));
+            copyrightPDFTransformer.generateCopyrightRequestHTML(copyrightSubmissionRequestRepository.findById(id)
+                    .orElseThrow(ResourceNotFoundException::new));
             copyrightPDFTransformer.generatePDF(id);
 
             File pdfFile = new File("gen/pdf/" + id + ".pdf");
@@ -69,6 +78,8 @@ public class CopyrightRequestService {
             htmlFile.delete();
             xmlFile.delete();
 
+        } catch (ResourceNotFoundException rnf) {
+            throw rnf;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -76,12 +87,13 @@ public class CopyrightRequestService {
         return byteArrayInputStream;
     }
 
-    public String getCopyrightSubmissionRequestHTML(String id) {
+    public String getCopyrightSubmissionRequestHTML(String id) throws ResourceNotFoundException {
         String fileContent = "";
 
         try {
 
-            copyrightPDFTransformer.generateCopyrightRequestHTML(copyrightSubmissionRequestRepository.findById(id));
+            copyrightPDFTransformer.generateCopyrightRequestHTML(copyrightSubmissionRequestRepository.findById(id)
+                    .orElseThrow(ResourceNotFoundException::new));
 
             File htmlFile = new File("gen/html/" + id + ".html");
             File xmlFile = new File("gen/xml/" + id + ".xml");
@@ -89,6 +101,8 @@ public class CopyrightRequestService {
             htmlFile.delete();
             xmlFile.delete();
 
+        } catch (ResourceNotFoundException rnf) {
+            throw rnf;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -101,5 +115,44 @@ public class CopyrightRequestService {
         GregorianCalendar c = new GregorianCalendar();
         c.setTime(now);
         return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+    }
+
+    public String getLinkedDocuments(String requestNumber) throws ResourceNotFoundException {
+
+        List<String> linkedDocs = new ArrayList<>();
+
+        CopyrightSubmissionRequest request = copyrightSubmissionRequestRepository.findById(requestNumber)
+                .orElseThrow(ResourceNotFoundException::new);
+
+        if (request.isAccepted() != null) {
+            linkedDocs.add(request.getRequestNumber());
+        }
+
+        copyrightSubmissionRequestRepository.search(requestNumber).stream()
+                .forEach((copyrightSubmissionRequest -> {
+                    if(!Objects.equals(request.getRequestNumber(), copyrightSubmissionRequest.getRequestNumber())) {
+                        linkedDocs.add(copyrightSubmissionRequest.getRequestNumber());
+                    }
+                }));
+
+        return String.join(",", linkedDocs);
+    }
+
+    public String getRdfMetadata(String requestNumber) {
+        return copyrightSubmissionRequestRepository.getRdfMetadata(requestNumber);
+    }
+
+    public String getJsonMetadata(String requestNumber) {
+        return copyrightSubmissionRequestRepository.getJsonMetadata(requestNumber);
+    }
+
+    public List<CopyrightSubmissionRequestDTO> search(String content) {
+        return CopyrightRequestDTOMapper.copyrightSubmissionRequestToDTOList(
+                copyrightSubmissionRequestRepository.search(content));
+    }
+
+    public List<CopyrightSubmissionRequestDTO> searchMetadata(String condition) {
+        return CopyrightRequestDTOMapper.copyrightSubmissionRequestToDTOList(
+                copyrightSubmissionRequestRepository.searchMetadata(condition));
     }
 }

@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.util;
 
+import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.*;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest.WorkTitle;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.*;
@@ -7,7 +8,8 @@ import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CopyrightDTOMapper {
+@Component
+public class CopyrightRequestDTOMapper {
 
     private static final ObjectFactory factory = new ObjectFactory();
 
@@ -24,12 +26,13 @@ public class CopyrightDTOMapper {
                 AdaptationWorkInformationFromDTO(copyrightSubmissionRequestDTO.getAdaptationWorkInformation()));
         request.setWorkType(copyrightSubmissionRequestDTO.getWorkType());
         request.setAuthor(TAuthorFromDTO(copyrightSubmissionRequestDTO.getAuthor()));
-        request.setWorkMadeInBusinessRelationship(copyrightSubmissionRequestDTO.getWorkMadeInBusinessRelationship());
+        request.setWorkMadeInBusinessRelationship(copyrightSubmissionRequestDTO.isWorkMadeInBusinessRelationship());
         request.setWayOfUsingWork(copyrightSubmissionRequestDTO.getWayOfUsingWork());
         request.setRequestNumber(copyrightSubmissionRequestDTO.getRequestNumber());
         request.setRequestSubmissionDate(copyrightSubmissionRequestDTO.getRequestSubmissionDate());
         request.setInstitution(copyrightSubmissionRequestDTO.getInstitution());
         request.setAddress(copyrightSubmissionRequestDTO.getAddress());
+        request.setAccepted(copyrightSubmissionRequestDTO.getAccepted());
 
         return request;
     }
@@ -37,7 +40,7 @@ public class CopyrightDTOMapper {
     public static List<CopyrightSubmissionRequestDTO> copyrightSubmissionRequestToDTOList(
             List<CopyrightSubmissionRequest> copyrightSubmissionRequests) {
         return copyrightSubmissionRequests.stream().map(
-                        CopyrightDTOMapper::copyrightSubmissionRequestToDTO)
+                        CopyrightRequestDTOMapper::copyrightSubmissionRequestToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -81,7 +84,7 @@ public class CopyrightDTOMapper {
         authorDTO.setAuthorName(author.getAuthorName());
         authorDTO.setAuthorSurname(author.getAuthorSurname());
         authorDTO.setCitizenship(author.getCitizenship());
-        authorDTO.setIsAlive(author.isAlive());
+        authorDTO.setIsAlive(author.isIsAlive());
         authorDTO.setDateOfDeath(author.getDateOfDeath().getValue());
 
         return authorDTO;
@@ -194,8 +197,13 @@ public class CopyrightDTOMapper {
 
     public static CopyrightSubmissionRequest.AdaptationWorkInformation AdaptationWorkInformationFromDTO(
             AdaptationWorkInformationDTO adaptationWorkInformationDTO) {
+
         CopyrightSubmissionRequest.AdaptationWorkInformation adaptationWorkInformation =
                 factory.createCopyrightSubmissionRequestAdaptationWorkInformation();
+
+        if (adaptationWorkInformationDTO == null) {
+            return adaptationWorkInformation;
+        }
 
         adaptationWorkInformation.setOriginalWorkAuthor(
                 factory.createCopyrightSubmissionRequestAdaptationWorkInformationOriginalWorkAuthor
@@ -207,6 +215,10 @@ public class CopyrightDTOMapper {
 
     public static TAuthor TAuthorFromDTO(AuthorDTO authorDTO) {
         TAuthor author = factory.createTAuthor();
+
+        if (authorDTO == null) {
+            return author;
+        }
 
         author.setAuthorName(authorDTO.getAuthorName());
         author.setAuthorSurname(authorDTO.getAuthorSurname());

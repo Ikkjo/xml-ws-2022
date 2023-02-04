@@ -15,16 +15,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @NoArgsConstructor
 public class AuthorDTO {
 
-    @XmlElement(name = "authorSurname")
-    protected String authorSurname;
-    @XmlElement(name = "authorName")
-    protected String authorName;
+    @XmlElement(name = "Author_surname")
+    public String authorSurname;
+    @XmlElement(name = "Author_name")
+    public String authorName;
     @XmlElement(name = "Citizenship", required = true)
-    protected String citizenship;
-    @XmlElement(name = "dateOfDeath")
-    protected XMLGregorianCalendar dateOfDeath;
+    public String citizenship;
+    @XmlElement(name = "Date_of_death")
+    public XMLGregorianCalendar dateOfDeath;
     @XmlAttribute(name = "anonymous")
-    protected Boolean anonymous;
-    @XmlAttribute(name = "isAlive")
-    protected Boolean isAlive;
+    public Boolean anonymous;
+    @XmlAttribute(name = "is_alive")
+    public Boolean isAlive;
 }

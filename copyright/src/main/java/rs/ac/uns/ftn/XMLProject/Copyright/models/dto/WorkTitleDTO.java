@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlElement;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkTitleDTO {
-    @XmlElement(name = "mainTitle")
-    protected String mainTitle;
-    @XmlElement(name = "alternativeTitle")
-    protected String alternativeTitle;
+    @XmlElement(name = "Main_title")
+    public String mainTitle;
+    @XmlElement(name = "Alternative_title")
+    public String alternativeTitle;
 }
