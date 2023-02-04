@@ -8,11 +8,11 @@ import {
     Validators,
   } from '@angular/forms';
   import { ErrorStateMatcher } from '@angular/material/core';
-  import { HttpClient, HttpResponse } from '@angular/common/http';
-  import { Observable } from 'rxjs';
-  import { Router, ActivatedRoute } from '@angular/router';
+  import { HttpResponse } from '@angular/common/http';
+  import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenDTO } from 'src/app/dto/TokenDTO';
+import { xmlToObject } from 'src/app/util/XmlUtil';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class EmailFormErrorStateMatcher implements ErrorStateMatcher {
@@ -58,13 +58,12 @@ export class LoginPageComponent {
             password: this.loginForm.value?.password,
         })
 
-        // TODO: post login request
-
         this.authService.login({
             email: this.loginForm.value?.email,
             password: this.loginForm.value?.password,
         }).subscribe({
             next: (token) => {
+                
                 this.handleSuccessfulLogin(token)
             },
             error: (error) => {
@@ -76,12 +75,12 @@ export class LoginPageComponent {
     }
   }
 
-  handleSuccessfulLogin(response: HttpResponse<TokenDTO>): void {
+  handleSuccessfulLogin(response: HttpResponse<string>): void {
 
     console.log(response)
 
     if(response.body) {
-        localStorage.setItem('token', response.body.token);
+        localStorage.setItem('token', JSON.stringify(xmlToObject<TokenDTO>(response.body)));
         this.router.navigate(['/']);
     } else {
         console.log(response)
