@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { MainNavBarComponent } from './main-nav-bar.component';
+import {MatMenu, MatMenuItem} from "@angular/material/menu";
 
 describe('MainNavBarComponent', () => {
   let component: MainNavBarComponent;
@@ -24,6 +25,8 @@ describe('MainNavBarComponent', () => {
         MatListModule,
         MatSidenavModule,
         MatToolbarModule,
+        MatMenu,
+        MatMenuItem
       ]
     }).compileComponents();
   }));

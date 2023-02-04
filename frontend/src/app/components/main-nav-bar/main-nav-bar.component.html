@@ -5,11 +5,23 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Мени</mat-toolbar>
     <mat-nav-list class="main-nav-list">
-      <a mat-list-item [routerLink]="['/copyright/request-form']" routerLinkActive="router-link-active">Захтев за<br><b>ауторскo делo</b></a>
+      <a mat-list-item [matMenuTriggerFor]="request">Захтев</a>
+      <mat-menu #request="matMenu">
+        <a mat-menu-item [routerLink]="['/copyright/request-form']" routerLinkActive="router-link-active">Ауторско дело</a>
+        <a mat-menu-item [routerLink]="['/patent/request-form']" routerLinkActive="router-link-active">Патент</a>
+      </mat-menu>
+      <!--<a mat-list-item [routerLink]="['/copyright/request-form']" routerLinkActive="router-link-active">Захтев за<br><b>ауторскo делo</b></a>
+      <a mat-list-item [routerLink]="['/patent/request-form']" routerLinkActive="router-link-active">Захтев за <b>патент</b></a>
+      -->
+      <a mat-list-item [matMenuTriggerFor]="search">Претрага</a>
+      <mat-menu #search="matMenu">
+        <a mat-menu-item [routerLink]="" routerLinkActive="router-link-active">Ауторско дело</a>
+        <a mat-menu-item [routerLink]="" routerLinkActive="router-link-active">Патент</a>
+      </mat-menu>
       <!-- <a mat-list-item mat-icon [routerLink]="['/account']" routerLinkActive="router-link-active">Account</a> -->
-        
+
       <!-- <a mat-list-item [routerLink]="['/logout']" class="logout-link">Logout</a> -->
-      
+
     </mat-nav-list>
     <mat-nav-list class="bottom-nav-list">
       <mat-divider></mat-divider>

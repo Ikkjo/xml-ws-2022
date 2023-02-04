@@ -13,6 +13,8 @@ import { RegsitrationPageComponent } from './pages/regsitration-page/regsitratio
 import { MainNavBarComponent } from './components/main-nav-bar/main-nav-bar.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import {MatMenuModule} from "@angular/material/menu";
+import { PatentReportComponent } from './pages/patent-report/patent-report.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginPageComponent,
     RegsitrationPageComponent,
     MainNavBarComponent,
+    PatentReportComponent,
   ],
   imports: [
     MaterialModule,
@@ -30,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
