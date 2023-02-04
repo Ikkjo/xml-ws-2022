@@ -1,4 +1,4 @@
-const { XMLParser, XMLBuilder } = require("fast-xml-parser");
+import { XMLBuilder, XMLParser } from "fast-xml-parser";
 
 const options = {
     ignoreAttributes: false,
@@ -7,8 +7,8 @@ const options = {
     ignoreDeclaration: true
 }
 
-const builder = new XMLBuilder(options);
-const parser = new XMLParser(options);
+const builder: XMLBuilder = new XMLBuilder(options);
+const parser: XMLParser = new XMLParser(options);
 
 export function xmlToObject<T extends Object>(xml: string): T{
     return builder.build(xml) as T;
