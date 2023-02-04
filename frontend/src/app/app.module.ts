@@ -9,13 +9,17 @@ import { CopyrightRequestFormComponent } from './forms/copyright-request-form/co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegsitrationPageComponent } from './pages/regsitration-page/regsitration-page.component';
+import { MainNavBarComponent } from './components/main-nav-bar/main-nav-bar.component';
+import { AuthService } from './services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     CopyrightRequestFormComponent,
     LoginPageComponent,
-    RegsitrationPageComponent
+    RegsitrationPageComponent,
+    MainNavBarComponent,
   ],
   imports: [
     MaterialModule,
@@ -23,7 +27,8 @@ import { RegsitrationPageComponent } from './pages/regsitration-page/regsitratio
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
