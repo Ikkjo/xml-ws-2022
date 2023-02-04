@@ -7,11 +7,15 @@ import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { CopyrightRequestFormComponent } from './forms/copyright-request-form/copyright-request-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegsitrationPageComponent } from './pages/regsitration-page/regsitration-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CopyrightRequestFormComponent
+    CopyrightRequestFormComponent,
+    LoginPageComponent,
+    RegsitrationPageComponent
   ],
   imports: [
     MaterialModule,
