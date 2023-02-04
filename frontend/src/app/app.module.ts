@@ -7,11 +7,19 @@ import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { CopyrightRequestFormComponent } from './forms/copyright-request-form/copyright-request-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegsitrationPageComponent } from './pages/regsitration-page/regsitration-page.component';
+import { MainNavBarComponent } from './components/main-nav-bar/main-nav-bar.component';
+import { AuthService } from './services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CopyrightRequestFormComponent
+    CopyrightRequestFormComponent,
+    LoginPageComponent,
+    RegsitrationPageComponent,
+    MainNavBarComponent,
   ],
   imports: [
     MaterialModule,
@@ -19,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
