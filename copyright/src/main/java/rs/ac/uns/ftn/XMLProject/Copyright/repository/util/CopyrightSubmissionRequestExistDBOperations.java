@@ -227,7 +227,7 @@ public class CopyrightSubmissionRequestExistDBOperations {
         String query = "/*[contains(., '" + content + "')] | " +
                 "/*[contains(@request_number, '" + content + "')] | " +
                 "/*[contains(@submission_date, '" + content + "')] | "+
-                "/*[contains(/Work_title/Main_title, '" + content + "')]";
+                "/*[contains(/Main_title, '" + content + "')]";
 
         Class<?> cl = Class.forName(conn.driver);
 
