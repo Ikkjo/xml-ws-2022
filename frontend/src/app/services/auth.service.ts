@@ -30,4 +30,14 @@ export class AuthService {
   public register(registrationFormXml: string): Observable<HttpResponse<String>> {
     return this.http.post<HttpResponse<String>>(endpoints.login, registrationFormXml, { headers: xmlContentHeader });
   }
+
+  public getLoggedInUser(): SystemUserDTO {
+    return {
+        email: "mail@example.com",
+        firstName: "John",
+        lastName: "Doe",
+        role: "official"
+    };
+  }
+
 }

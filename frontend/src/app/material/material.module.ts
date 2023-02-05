@@ -12,6 +12,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTableModule} from '@angular/material/table';
 
 const materialComponents = [
   MatCommonModule,
@@ -26,7 +28,9 @@ const materialComponents = [
   MatToolbarModule,
   MatDividerModule,
   MatListModule,
-  MatIconModule
+  MatIconModule,
+  MatDialogModule,
+  MatTableModule,
 ]
 
 @NgModule({

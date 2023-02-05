@@ -1,0 +1,29 @@
+<mat-form-field>
+    <input matInput [ngModel]="searchQuery" type="text" placeholder="Претрага"/>
+</mat-form-field>
+<button mat-raised-button (click)="search()">Претражи</button>
+<table mat-table [dataSource]="copyrightRequestSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="requestNumber">
+    <th mat-header-cell *matHeaderCellDef>Број захтева</th>
+    <td mat-cell *matCellDef="let request"> {{request.requestNumber </td>
+  </ng-container>
+
+  <ng-container matColumnDef="applicant">
+    <th mat-header-cell *matHeaderCellDef>Подносилац</th>
+    <td mat-cell *matCellDef="let request"> {{request.applicant}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="requestSubmissionDate">
+    <th mat-header-cell *matHeaderCellDef>Датум подношења</th>
+    <td mat-cell *matCellDef="let request"> {{request.requestSubmissionDate}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="accepted">
+    <th mat-header-cell *matHeaderCellDef>Прихваћен</th>
+    <td mat-cell *matCellDef="let request"> {{request.accepted}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

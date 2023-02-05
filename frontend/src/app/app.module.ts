@@ -12,6 +12,8 @@ import { RegsitrationPageComponent } from './pages/regsitration-page/regsitratio
 import { MainNavBarComponent } from './components/main-nav-bar/main-nav-bar.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SolutionModalComponent } from './components/solution-modal/solution-modal.component';
+import { CopyrightSearchPageComponent } from './pages/copyright-search-page/copyright-search-page.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginPageComponent,
     RegsitrationPageComponent,
     MainNavBarComponent,
+    SolutionModalComponent,
+    CopyrightSearchPageComponent,
   ],
   imports: [
     MaterialModule,
