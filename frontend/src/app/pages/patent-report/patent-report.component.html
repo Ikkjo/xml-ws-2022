@@ -14,7 +14,7 @@
       <mat-datepicker-toggle matIconSuffix [for]="endDatepicker"></mat-datepicker-toggle>
       <mat-datepicker #endDatepicker></mat-datepicker>
     </mat-form-field>
-    <br/><button mat-raised-button class="report-button" type="submit" color="green">
+    <br/><button mat-raised-button class="report-button" type="submit" color="green" (click)="submitForm()">
     Генериши извештај
   </button>
   </form>

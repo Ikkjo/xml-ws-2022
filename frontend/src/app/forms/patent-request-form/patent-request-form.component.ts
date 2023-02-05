@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {PatentRequestService} from "../../services/patentRequestService";
+import * as js2xml from "js2xmlparser";
 
 interface PersonType {
   value: string;
@@ -74,5 +76,13 @@ export class PatentRequestFormComponent implements OnInit {
     });
   }
 
-  constructor(private fb: FormBuilder) {};
+  constructor(private fb: FormBuilder, private ps: PatentRequestService) {};
+
+  submitForm() {
+    var xmlRequest = js2xml.parse("RequestForPatentRecognition", this.patentRequestForm.value);
+    this.ps.addRequest(xmlRequest).subscribe(
+      data => { console.log(data); },
+      error => { console.log(error); }
+    );
+  }
 }

@@ -7,11 +7,10 @@ import {
   PatentName, PriorityRightsRecognitionFromEarlierApplications, Proxy,
   RequestForPatentRecognitionDTO
 } from "../dto/RequestForPatentRecognitionDTO";
-// @ts-ignore
 import * as xml2js from 'xml2js';
 import {Address, Person} from "../dto/User";
 
-const url = "http://localhost:4200/api/patent/";
+const url = "http://localhost:4201/api/patent/";
 
 @Injectable({
   providedIn: 'root'
@@ -50,7 +49,7 @@ export class PatentRequestService {
     const xmlResponse = this.http.get(url + 'search/metadata/' + condition, {headers: new HttpHeaders().set('Content-Type', 'application/xml'), responseType: 'text'})
       .subscribe(data => {
         const parser = new xml2js.Parser({strict: true, trim: true});
-        parser.parseString(data.toString(), (err: any, result: { List: { item: any; }; }) => {
+        parser.parseString(data.toString(), (err, result) => {
           console.log(result);
           let requests = result.List.item;
           for (var req of requests) {
@@ -68,7 +67,7 @@ export class PatentRequestService {
     const xmlResponse = this.http.get(url + 'search/content/' + condition, {headers: new HttpHeaders().set('Content-Type', 'application/xml'), responseType: 'text'})
       .subscribe(data => {
         const parser = new xml2js.Parser({strict: true, trim: true});
-        parser.parseString(data.toString(), (err: any, result: { List: { item: any; }; }) => {
+        parser.parseString(data.toString(), (err, result) => {
           console.log(result);
           let requests = result.List.item;
           for (var req of requests) {
@@ -86,7 +85,7 @@ export class PatentRequestService {
     const xmlResponse = this.http.get(url + 'all', {headers: new HttpHeaders().set('Content-Type', 'application/xml'), responseType: 'text'})
       .subscribe(data => {
         const parser = new xml2js.Parser({strict: true, trim: true});
-        parser.parseString(data.toString(), (err: any, result: { List: { item: any; }; }) => {
+        parser.parseString(data.toString(), (err, result) => {
           console.log(result);
           let requests = result.List.item;
           for (var req of requests) {
