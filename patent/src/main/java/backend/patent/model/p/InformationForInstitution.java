@@ -35,7 +35,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;/element>
  *         &lt;element name="Receipt_date" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="Submission_date" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="Stamp_and_signature" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -48,8 +47,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "Information_for_institution", propOrder = {
     "applicationNumber",
     "receiptDate",
-    "submissionDate",
-    "stampAndSignature"
+    "submissionDate"
 })
 public class InformationForInstitution {
 
@@ -61,8 +59,6 @@ public class InformationForInstitution {
     @XmlElement(name = "Submission_date", required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar submissionDate;
-    @XmlElement(name = "Stamp_and_signature", required = true)
-    protected Object stampAndSignature;
 
     /**
      * Gets the value of the applicationNumber property.
@@ -144,20 +140,5 @@ public class InformationForInstitution {
      *     {@link Object }
      *     
      */
-    public Object getStampAndSignature() {
-        return stampAndSignature;
-    }
-
-    /**
-     * Sets the value of the stampAndSignature property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *     
-     */
-    public void setStampAndSignature(Object value) {
-        this.stampAndSignature = value;
-    }
 
 }

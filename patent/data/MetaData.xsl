@@ -21,12 +21,12 @@
             <xsl:variable name="Applicant">
                 <xsl:choose>
                     <xsl:when test="//p1:Applicant/user:TIndividual">
-                        <xsl:value-of select="//p1:Applicant/user:TIndividual/user:First_name"/>
+                        <xsl:value-of select="//p1:Applicant/user:First_name"/>
                         <xsl:text> </xsl:text>
-                        <xsl:value-of select="//p1:Applicant/user:TIndividual/user:Last_name"/>
+                        <xsl:value-of select="//p1:Applicant/user:Last_name"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="//p1:Applicant/user:TLegal_entity/user:Business_name"/>
+                        <xsl:value-of select="//p1:Applicant/user:Business_name"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
