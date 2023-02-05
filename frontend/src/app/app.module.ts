@@ -15,6 +15,7 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import {MatMenuModule} from "@angular/material/menu";
 import { PatentReportComponent } from './pages/patent-report/patent-report.component';
+import { PatentSearchComponent } from './pages/patent-search/patent-search.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PatentReportComponent } from './pages/patent-report/patent-report.compo
     RegsitrationPageComponent,
     MainNavBarComponent,
     PatentReportComponent,
+    PatentSearchComponent,
   ],
   imports: [
     MaterialModule,
