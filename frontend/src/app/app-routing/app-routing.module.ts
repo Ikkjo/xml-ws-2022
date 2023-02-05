@@ -5,6 +5,7 @@ import {PatentRequestFormComponent} from "../forms/patent-request-form/patent-re
 import { LoginPageComponent } from '../pages/login-page/login-page.component';
 import { RegsitrationPageComponent } from '../pages/regsitration-page/regsitration-page.component';
 import {PatentReportComponent} from "../pages/patent-report/patent-report.component";
+import {PatentSearchComponent} from "../pages/patent-search/patent-search.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'patent/report',
     component: PatentReportComponent
+  },
+  {
+    path: 'patent/search',
+    component: PatentSearchComponent
   }
 ];
 
