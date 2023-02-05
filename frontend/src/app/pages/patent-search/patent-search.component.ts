@@ -17,7 +17,9 @@ export class PatentSearchComponent {
   requestsForPatentRecognition: RequestForPatentRecognitionDTO[] = [];
   blob: Blob = new Blob();
   role: string = '';
-  
+  displayedColumns: string[] = ["requestNumber", "requestSubmissionDate", "applicant", "accepted"];
+  searchQuery: string = "";
+
 
   constructor(private fb: FormBuilder, private rs: PatentRequestService, private router: Router) { }
 
