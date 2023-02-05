@@ -3,18 +3,18 @@ import { Individual, Person } from "./User";
 export interface CopyrightRequestForm {
     applicant: Person;
     attorney: Individual;
-    authorPseudonym: string;
+    authorPseudonym?: string;
     workTitle: WorkTitle;
     workType: string;
     formOfRecordingWork: string;
-    adaptationWorkInfo: AdaptationWorkInfo;
-    author: Author;
+    adaptationWorkInfo?: AdaptationWorkInfo;
+    author?: Author;
     isWorkMadeInBusinessRelationship: boolean;
     wayOfUsingWork: string;
-    requestSubmissionDate: Date;
-    requestNumber: number;
-    institution: string;
-    address: string;
+    requestSubmissionDate?: Date;
+    requestNumber?: number;
+    institution?: string;
+    address?: string;
 }
 
 export interface WorkTitle {
@@ -25,7 +25,7 @@ export interface WorkTitle {
 export interface Author {
     firstName: string;
     lastName: string;
-    anonymous: boolean;
+    anonymous?: boolean;
 
 }
 

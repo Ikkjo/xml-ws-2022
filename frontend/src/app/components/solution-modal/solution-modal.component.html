@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Решење за документ: {{requestNumber}}</h1>
+<div mat-dialog-content>
+    <mat-checkbox [ngModel]="accepted">Аутор је подносилац</mat-checkbox><br/>
+    <p>Образложење</p>
+    <mat-form-field appearance="outline">
+        <mat-label></mat-label>
+        <textarea matInput [ngModel]="motivation"></textarea>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCloseClick()">Затвори</button>
+  <button mat-button [mat-dialog-close]="postSolution()" cdkFocusInitial>Поднеси решење</button>
+</div>
