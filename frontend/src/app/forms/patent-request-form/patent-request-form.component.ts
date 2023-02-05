@@ -24,55 +24,83 @@ export class PatentRequestFormComponent implements OnInit {
 
   ngOnInit() {
     this.patentRequestForm = this.fb.group({
-      serbianPatentName: ['', Validators.required],
-      englishPatentName: ['', Validators.required],
-      applicantType: [''],
-      applicantFirstName: ['', Validators.required],
-      applicantLastName: ['', Validators.required],
-      applicantEmail: ['', Validators.required, Validators.email],
-      applicantPhoneNumber: ['', Validators.required],
-      applicantFaxNumber: ['', Validators.required],
-      applicantStreet: ['', Validators.required],
-      applicantStreetNumber: ['', Validators.required],
-      applicantZipCode: ['', Validators.required],
-      applicantCity: ['', Validators.required],
-      applicantCountry: ['', Validators.required],
-      applicantCitizenship: ['', Validators.required],
-      doesNotWantToBeListed: [false],
-      inventorFirstName: ['', Validators.required],
-      inventorLastName: ['', Validators.required],
-      inventorEmail: ['', Validators.required, Validators.email],
-      inventorPhoneNumber: ['', Validators.required],
-      inventorFaxNumber: ['', Validators.required],
-      inventorStreet: ['', Validators.required],
-      inventorStreetNumber: ['', Validators.required],
-      inventorZipCode: ['', Validators.required],
-      inventorCity: ['', Validators.required],
-      inventorCountry: ['', Validators.required],
-      proxyForRepresentation: [false],
-      proxyForReceivingLetters: [false],
-      proxyFirstName: ['', Validators.required],
-      proxyLastName: ['', Validators.required],
-      proxyEmail: ['', Validators.required, Validators.email],
-      proxyPhoneNumber: ['', Validators.required],
-      proxyStreet: ['', Validators.required],
-      proxyStreetNumber: ['', Validators.required],
-      proxyZipCode: ['', Validators.required],
-      proxyCity: ['', Validators.required],
-      street: ['', Validators.required],
-      streetNumber: ['', Validators.required],
-      zipCode: ['', Validators.required],
-      city: ['', Validators.required],
-      electronically: [false],
-      inPaperForm: [false],
-      supplementaryApplication: [false],
-      separateApplication: [false],
-      applicationNumber: [''],
-      submissionDate: [null],
-      earlierSubmissionDate: [null],
-      earlierApplicationNumber: [''],
-      countryOrOrganizationDesignation: [''],
-
+      patentName : this.fb.group({
+        serbianPatentName: ['', Validators.required],
+        englishPatentName: ['', Validators.required],
+      }),
+      applicant : this.fb.group({
+        applicantType: [''],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
+        faxNumber: ['', Validators.required],
+        address: this.fb.group({
+          street: ['', Validators.required],
+          streetNumber: ['', Validators.required],
+          zipCode: ['', Validators.required],
+          city: ['', Validators.required],
+          country: ['', Validators.required],
+        }),
+        citizenship: ['', Validators.required],
+      }),
+      inventor : this.fb.group({
+        '@': this.fb.group({
+          doesNotWantToBeListed: [false]
+        }),
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
+        faxNumber: ['', Validators.required],
+        address: this.fb.group({
+          street: ['', Validators.required],
+          streetNumber: ['', Validators.required],
+          zipCode: ['', Validators.required],
+          city: ['', Validators.required],
+          country: ['', Validators.required],
+        })
+      }),
+      proxy : this.fb.group({
+        '@': this.fb.group({
+          proxyForRepresentation: [false],
+          proxyForReceivingLetters: [false]
+        }),
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
+        address: this.fb.group({
+          street: ['', Validators.required],
+          streetNumber: ['', Validators.required],
+          zipCode: ['', Validators.required],
+          city: ['', Validators.required],
+          country: ['', Validators.required],
+        })
+      }),
+      deliveryAddress: this.fb.group({
+        street: ['', Validators.required],
+        streetNumber: ['', Validators.required],
+        zipCode: ['', Validators.required],
+        city: ['', Validators.required]
+      }),
+      deliveryType: this.fb.group({
+        electronicDelivery: [false],
+        deliveryInPaperForm: [false]
+      }),
+      applicationInformation: this.fb.group({
+        '@': this.fb.group({
+          supplementaryApplication: [false],
+          separateApplication: [false]
+        }),
+        originalApplicationNumber: [''],
+        originalApplicationSubmissionDate: ['']
+      }),
+      earlierApplication: this.fb.group({
+        earlierSubmissionDate: [''],
+        earlierApplicationNumber: [''],
+        countryOrOrganizationDesignation: ['']
+      })
     });
   }
 
