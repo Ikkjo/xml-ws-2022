@@ -297,11 +297,6 @@
                             <td colspan="3" style="font-weight: bold; border: 1.5px solid black;">
                                 <p>
                                     Поље број II : ПОДНОСИЛАЦ ПРИЈАВЕ
-                                    <!-- Nedostaje atribut applicantIsInventor u klasi -->
-                                    (<xsl:choose>
-                                    <xsl:when test="//@applicantIsInventor = 'true'"><span style="min-height: 9pt; font-size: 9pt;"> Подносилац пријаве је и проналазач</span></xsl:when>
-                                    <xsl:otherwise><span style="min-height: 9pt; font-size: 9pt;"> Подносилац пријаве није проналазач</span></xsl:otherwise>
-                                </xsl:choose>)
                                 </p>
                             </td>
                         </tr>

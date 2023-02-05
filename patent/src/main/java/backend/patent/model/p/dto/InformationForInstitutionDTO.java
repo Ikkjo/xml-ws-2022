@@ -11,6 +11,4 @@ public class InformationForInstitutionDTO {
     public XMLGregorianCalendar receiptDate;
     @XmlElement(name = "Submission_date")
     public XMLGregorianCalendar submissionDate;
-    @XmlElement(name = "Stamp_and_signature")
-    public Object stampAndSignature;
 }

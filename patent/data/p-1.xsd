@@ -64,7 +64,6 @@
             </xs:element>
             <xs:element name="Receipt_date" type="xs:date"/>
             <xs:element name="Submission_date" type="xs:date"/>
-            <xs:element name="Stamp_and_signature"/>
         </xs:sequence>
     </xs:complexType>
     <xs:element name="Delivery_type">
