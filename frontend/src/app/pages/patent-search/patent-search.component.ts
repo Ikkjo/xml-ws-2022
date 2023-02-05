@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {PatentRequestService} from "../../services/patentRequestService";
 import {RequestForPatentRecognitionDTO} from "../../dto/RequestForPatentRecognitionDTO";
 import * as xml2js from 'xml2js';
+import { getSession } from 'src/app/util/context';
 
 @Component({
   selector: 'app-patent-search',
@@ -15,13 +16,15 @@ export class PatentSearchComponent {
   public patentSearchForm!: FormGroup;
   requestsForPatentRecognition: RequestForPatentRecognitionDTO[] = [];
   blob: Blob = new Blob();
+  role: string = '';
+  
 
   constructor(private fb: FormBuilder, private rs: PatentRequestService, private router: Router) { }
 
   ngOnInit(): void {
-    //const session = getSession();
-    //if (session !== undefined) this.role = session.role;
-    //else this.role = '';
+    const session = getSession();
+    if (session !== undefined) this.role = session.role;
+    else this.role = '';
     this.requestsForPatentRecognition = this.rs.getAllRequest();
     this.patentSearchForm = this.fb.group({
       searchQuery : ['']
