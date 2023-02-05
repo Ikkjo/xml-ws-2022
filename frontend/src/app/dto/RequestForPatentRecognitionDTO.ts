@@ -13,6 +13,7 @@ export interface RequestForPatentRecognitionDTO {
   priorityRightsRecognitionFromEarlierApplications: PriorityRightsRecognitionFromEarlierApplications;
   address: string;
   institution: string;
+  isAccepted: boolean;
 }
 
 export interface InformationForInstitution {
