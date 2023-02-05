@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatMenuModule} from "@angular/material/menu";
 import { PatentReportComponent } from './pages/patent-report/patent-report.component';
 import { PatentSearchComponent } from './pages/patent-search/patent-search.component';
+import { SolutionModalComponent } from './components/solution-modal/solution-modal.component';
+import { CopyrightSearchPageComponent } from './pages/copyright-search-page/copyright-search-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { PatentSearchComponent } from './pages/patent-search/patent-search.compo
     MainNavBarComponent,
     PatentReportComponent,
     PatentSearchComponent,
+    SolutionModalComponent,
+    CopyrightSearchPageComponent,
   ],
   imports: [
     MaterialModule,

@@ -15,7 +15,7 @@
       -->
       <a mat-list-item [matMenuTriggerFor]="search">Претрага</a>
       <mat-menu #search="matMenu">
-        <a mat-menu-item [routerLink]="" routerLinkActive="router-link-active">Ауторско дело</a>
+        <a mat-menu-item [routerLink]="['/copyright/search']" routerLinkActive="router-link-active">Ауторско дело</a>
         <a mat-menu-item [routerLink]="" routerLinkActive="router-link-active">Патент</a>
       </mat-menu>
       <!-- <a mat-list-item mat-icon [routerLink]="['/account']" routerLinkActive="router-link-active">Account</a> -->
