@@ -34,7 +34,6 @@ public class PatentDTOMapper {
         informationForInstitutionDTO.applicationNumber = request.getInformationForInstitution().getApplicationNumber();
         informationForInstitutionDTO.receiptDate = request.getInformationForInstitution().getReceiptDate();
         informationForInstitutionDTO.submissionDate = request.getInformationForInstitution().getSubmissionDate();
-        informationForInstitutionDTO.stampAndSignature = request.getInformationForInstitution().getStampAndSignature();
         requestDTO.informationForInstitution = informationForInstitutionDTO;
 
         // Naziv pronalaska
