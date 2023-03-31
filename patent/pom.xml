@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>rs.ac.uns.ftn.xml-project</groupId>
-    <artifactId>XML-Project</artifactId>
+    <artifactId>patent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>XML-Project</name>
+    <name>patent</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
