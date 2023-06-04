@@ -69,48 +69,51 @@
       <div formGroupName="@">
         <mat-checkbox formControlName="doesNotWantToBeListed">Не жели да буде наведен</mat-checkbox><br/>
       </div>
-      <label>Име и презиме:</label><br />
-      <mat-form-field>
-        <input matInput placeholder="Име*" formControlName="firstName" />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Презиме*" formControlName="lastName" />
-      </mat-form-field>
-      <br /><label>Контакт:</label><br />
-      <mat-form-field>
-        <input matInput placeholder="Телефон*" formControlName="phoneNumber" />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Е-пошта*" formControlName="email" />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Број факса*" formControlName="faxNumber" />
-      </mat-form-field>
-      <div formGroupName="address">
-        <br /><label>Адреса:</label><br />
+
+      <ng-container *ngIf="!patentRequestForm.get('inventor')?.get('@')?.get('doesNotWantToBeListed')?.value">
+        <label>Име и презиме:</label><br />
         <mat-form-field>
-          <input matInput placeholder="Улица*" formControlName="street" />
+          <input matInput placeholder="Име*" formControlName="firstName" />
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Број улице*" formControlName="streetNumber" />
+          <input matInput placeholder="Презиме*" formControlName="lastName" />
+        </mat-form-field>
+        <br /><label>Контакт:</label><br />
+        <mat-form-field>
+          <input matInput placeholder="Телефон*" formControlName="phoneNumber" />
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Град*" formControlName="city" />
+          <input matInput placeholder="Е-пошта*" formControlName="email" />
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Поштански број*" formControlName="zipCode" />
+          <input matInput placeholder="Број факса*" formControlName="faxNumber" />
         </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Држава*" formControlName="country" />
-        </mat-form-field>
-      </div>
+        <div formGroupName="address">
+          <br /><label>Адреса:</label><br />
+          <mat-form-field>
+            <input matInput placeholder="Улица*" formControlName="street" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Број улице*" formControlName="streetNumber" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Град*" formControlName="city" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Поштански број*" formControlName="zipCode" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Држава*" formControlName="country" />
+          </mat-form-field>
+        </div>
+      </ng-container>
     </div>
     <hr/>
     <div formGroupName="proxy">
       <h3>Пуномоћник</h3>
       <div formGroupName="@">
-        <mat-checkbox formControlName="proxyForRepresentation">Пуномоћник за заступање</mat-checkbox>
-        <mat-checkbox formControlName="proxyForReceivingLetters">Пуномоћник за пријем писама</mat-checkbox><br/>
+        <mat-radio-button formControlName="proxyForRepresentation">Пуномоћник за заступање</mat-radio-button>
+        <mat-radio-button formControlName="proxyForReceivingLetters">Пуномоћник за пријем писама</mat-radio-button><br/>
       </div>
       <label>Име и презиме:</label><br />
       <mat-form-field>
@@ -168,8 +171,8 @@
     <div formGroupName="applicationInformation">
       <h3>Првобитна пријава:</h3>
       <div formGroupName="@">
-        <mat-checkbox formControlName="supplementaryApplication">Допунска пријава</mat-checkbox>
-        <mat-checkbox formControlName="separateApplication">Издвојена пријава</mat-checkbox><br/>
+        <mat-radio-button formControlName="supplementaryApplication">Допунска пријава</mat-radio-button>
+        <mat-radio-button formControlName="separateApplication">Издвојена пријава</mat-radio-button><br/>
       </div>
       <mat-form-field>
         <input matInput placeholder="Број пријаве" formControlName="originalApplicationNumber" />
@@ -182,21 +185,36 @@
       </mat-form-field>
     </div>
     <hr/>
-    <div formGroupName="earlierApplication">
-      <h3>Захтев за признање права првенства из ранијих пријава:</h3>
-      <mat-form-field appearance="fill">
-        <input matInput placeholder="Датум подношења" [matDatepicker]="earlierDatepicker" formControlName="earlierSubmissionDate">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="earlierDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #earlierDatepicker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Број раније пријаве" formControlName="earlierApplicationNumber" />
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Ознака државе/организације" formControlName="countryOrOrganizationDesignation" />
-      </mat-form-field><br/>
-    </div>
+    <h3>Захтев за признање права првенства из ранијих пријава:
+      <button mat-icon-button (click)="addRequest()">
+        +
+      </button>
+    </h3>
+      <div formGroupName="earlierApplications">
+        <ng-container formArrayName="earlierApplication">
+          <ng-container
+            *ngFor="let earlierApplication of earlierApplications.controls; let i = index"
+            [formGroupName]="i">
+            <ng-container formGroupName="earlierApplication">
+              <mat-form-field appearance="fill">
+                <input matInput placeholder="Датум подношења" [matDatepicker]="earlierDatepicker" formControlName="earlierSubmissionDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="earlierDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #earlierDatepicker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Број раније пријаве" formControlName="earlierApplicationNumber" />
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Ознака државе/организације" formControlName="countryOrOrganizationDesignation" />
+              </mat-form-field>
+              <button mat-icon-button (click)="removeRequest(i)">
+                x
+              </button><br/>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
     <hr/>
     <br/><button mat-raised-button type="submit" color="green" (click)="submitForm()">
       Пошаљи захтев
