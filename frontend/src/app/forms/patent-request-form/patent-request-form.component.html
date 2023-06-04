@@ -66,11 +66,9 @@
     <hr/>
     <div formGroupName="inventor">
       <h3>Проналазач</h3>
-      <div formGroupName="@">
-        <mat-checkbox formControlName="doesNotWantToBeListed">Не жели да буде наведен</mat-checkbox><br/>
-      </div>
+      <mat-checkbox formControlName="doesNotWantToBeListed">Не жели да буде наведен</mat-checkbox><br/>
 
-      <ng-container *ngIf="!patentRequestForm.get('inventor')?.get('@')?.get('doesNotWantToBeListed')?.value">
+      <ng-container *ngIf="!patentRequestForm.get('inventor')?.get('doesNotWantToBeListed')?.value">
         <label>Име и презиме:</label><br />
         <mat-form-field>
           <input matInput placeholder="Име*" formControlName="firstName" />
@@ -111,10 +109,8 @@
     <hr/>
     <div formGroupName="proxy">
       <h3>Пуномоћник</h3>
-      <div formGroupName="@">
-        <mat-radio-button formControlName="proxyForRepresentation">Пуномоћник за заступање</mat-radio-button>
-        <mat-radio-button formControlName="proxyForReceivingLetters">Пуномоћник за пријем писама</mat-radio-button><br/>
-      </div>
+      <mat-checkbox formControlName="proxyForRepresentation">Пуномоћник за заступање</mat-checkbox>
+      <mat-checkbox formControlName="proxyForReceivingLetters">Пуномоћник за пријем писама</mat-checkbox>
       <label>Име и презиме:</label><br />
       <mat-form-field>
         <input matInput placeholder="Име*" formControlName="firstName" />
@@ -170,10 +166,8 @@
     <hr/>
     <div formGroupName="applicationInformation">
       <h3>Првобитна пријава:</h3>
-      <div formGroupName="@">
-        <mat-radio-button formControlName="supplementaryApplication">Допунска пријава</mat-radio-button>
-        <mat-radio-button formControlName="separateApplication">Издвојена пријава</mat-radio-button><br/>
-      </div>
+      <mat-checkbox formControlName="supplementaryApplication">Допунска пријава</mat-checkbox>
+      <mat-checkbox formControlName="separateApplication">Издвојена пријава</mat-checkbox>
       <mat-form-field>
         <input matInput placeholder="Број пријаве" formControlName="originalApplicationNumber" />
       </mat-form-field>

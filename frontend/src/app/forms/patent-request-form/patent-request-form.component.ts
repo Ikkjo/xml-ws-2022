@@ -46,9 +46,7 @@ export class PatentRequestFormComponent implements OnInit {
         citizenship: ['', Validators.required],
       }),
       inventor : this.fb.group({
-        '@': this.fb.group({
-          doesNotWantToBeListed: [false]
-        }),
+        doesNotWantToBeListed: [false],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', Validators.required],
@@ -63,10 +61,9 @@ export class PatentRequestFormComponent implements OnInit {
         })
       }),
       proxy : this.fb.group({
-        '@': this.fb.group({
-          proxyForRepresentation: [false],
-          proxyForReceivingLetters: [false]
-        }),
+
+        proxyForRepresentation: [false],
+        proxyForReceivingLetters: [false],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', Validators.required],
@@ -90,10 +87,8 @@ export class PatentRequestFormComponent implements OnInit {
         deliveryInPaperForm: [false]
       }),
       applicationInformation: this.fb.group({
-        '@': this.fb.group({
-          supplementaryApplication: [false],
-          separateApplication: [false]
-        }),
+        supplementaryApplication: [false],
+        separateApplication: [false],
         originalApplicationNumber: [''],
         originalApplicationSubmissionDate: ['']
       }),
