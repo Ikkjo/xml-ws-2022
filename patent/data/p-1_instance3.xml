@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request_for_patent_recognition institution="Zavod za intelektualnu svojinu" address="Kneginje Ljubice 5, 11000 Beograd, Republika Srbija" is_accepted="false"
+    xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition p-1.xsd"
+    xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
+    <Information_for_institution>
+        <Application_number>P-33333</Application_number>
+        <Receipt_date>2023-01-14</Receipt_date>
+        <Submission_date>2023-01-14</Submission_date>
+    </Information_for_institution>
+    <Patent_name>
+        <Serbian_patent_name>Teleskop</Serbian_patent_name>
+        <English_patent_name>Telescope</English_patent_name>
+    </Patent_name>
+    <Applicant xsi:type="user:TLegal_entity">
+        <user:Phone_number>0663348090</user:Phone_number>
+        <user:Email>ftn@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Trg Dositeja Obradovica</user:Street>
+            <user:Street_number>6</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Fax_number>12345</user:Fax_number>
+        <user:Business_name>FTN</user:Business_name>
+    </Applicant>
+    <Inventor does_not_want_to_be_listed="false">
+        <user:Phone_number>0649294000</user:Phone_number>
+        <user:Email>marko777@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Mise Dimitrijevica</user:Street>
+            <user:Street_number>31</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Fax_number>55555</user:Fax_number>
+        <user:Last_name>PETROVIC</user:Last_name>
+        <user:First_name>Petar</user:First_name>
+    </Inventor>
+    <Proxy proxy_for_representation="true" attorney_for_receiving_letters="false">
+        <user:Phone_number>064235666</user:Phone_number>
+        <user:Email>marina44@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Novosadskog sajma</user:Street>
+            <user:Street_number>5</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Last_name>MARIC</user:Last_name>
+        <user:First_name>Marina</user:First_name>
+    </Proxy>
+    <Delivery_address>
+        <Address>
+            <user:Street>Tolstojeva</user:Street>
+            <user:Street_number>67</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </Address>
+    </Delivery_address>
+    <Delivery_type>
+        <Electronic_delivery>true</Electronic_delivery>
+        <Delivery_in_paper_form>false</Delivery_in_paper_form>
+    </Delivery_type>
+    <Application_information supplementary_application="true" separate_application="false">
+        <Original_application_number>P-00003</Original_application_number>
+        <Original_application_submission_date>2022-10-10</Original_application_submission_date>
+    </Application_information>
+    <Priority_rights_recognition_from_earlier_applications>
+        <Earlier_applications>
+            <Earlier_application>
+                <Earlier_application_submission_date>2022-09-05</Earlier_application_submission_date>
+                <Earlier_application_number>P-10003</Earlier_application_number>
+                <Country_or_organization_designation>SRB</Country_or_organization_designation>
+            </Earlier_application>
+        </Earlier_applications>
+    </Priority_rights_recognition_from_earlier_applications>
+</Request_for_patent_recognition>
