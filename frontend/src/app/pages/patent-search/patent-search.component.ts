@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import { Router } from '@angular/router';
 import {PatentRequestService} from "../../services/patentRequestService";
@@ -11,14 +11,16 @@ import { getSession } from 'src/app/util/context';
   templateUrl: './patent-search.component.html',
   styleUrls: ['./patent-search.component.css']
 })
-export class PatentSearchComponent {
+export class PatentSearchComponent implements OnInit {
 
   public patentSearchForm!: FormGroup;
   requestsForPatentRecognition: RequestForPatentRecognitionDTO[] = [];
   blob: Blob = new Blob();
   role: string = '';
-  displayedColumns: string[] = ["requestNumber", "requestSubmissionDate", "applicant", "accepted"];
+  applicationNumber: string = '';
+  displayedColumns: string[] = ["requestNumber", "serbianPatentName", "englishPatentName", "applicant", "requestSubmissionDate"];
   searchQuery: string = "";
+  showModal: boolean = false;
 
 
   constructor(private fb: FormBuilder, private rs: PatentRequestService, private router: Router) { }
@@ -99,5 +101,18 @@ export class PatentSearchComponent {
         })
       });
   }
+
+  toggleModal(text: string){
+    this.applicationNumber = text;
+    this.showModal = !this.showModal;
+  }
+
+  /*displayDocument(index: number) {
+    const fileName = this.requestsForPatentRecognition[index].informationForInstitution.applicationNumber;
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/preview', "zahtev-za-priznanje-patenta", fileName])
+    );
+    window.open(url, '_blank');
+  }*/
 
 }

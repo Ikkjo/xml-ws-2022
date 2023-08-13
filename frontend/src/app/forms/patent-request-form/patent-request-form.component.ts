@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators, FormArray} from "@angular/forms";
 import {PatentRequestService} from "../../services/patentRequestService";
 import * as js2xml from "js2xmlparser";
+import {EarlierApplications} from "../../dto/RequestForPatentRecognitionDTO";
 
 interface PersonType {
   value: string;
@@ -45,9 +46,7 @@ export class PatentRequestFormComponent implements OnInit {
         citizenship: ['', Validators.required],
       }),
       inventor : this.fb.group({
-        '@': this.fb.group({
-          doesNotWantToBeListed: [false]
-        }),
+        doesNotWantToBeListed: [false],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', Validators.required],
@@ -62,10 +61,9 @@ export class PatentRequestFormComponent implements OnInit {
         })
       }),
       proxy : this.fb.group({
-        '@': this.fb.group({
-          proxyForRepresentation: [false],
-          proxyForReceivingLetters: [false]
-        }),
+
+        proxyForRepresentation: [false],
+        proxyForReceivingLetters: [false],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', Validators.required],
@@ -89,19 +87,35 @@ export class PatentRequestFormComponent implements OnInit {
         deliveryInPaperForm: [false]
       }),
       applicationInformation: this.fb.group({
-        '@': this.fb.group({
-          supplementaryApplication: [false],
-          separateApplication: [false]
-        }),
+        supplementaryApplication: [false],
+        separateApplication: [false],
         originalApplicationNumber: [''],
         originalApplicationSubmissionDate: ['']
       }),
-      earlierApplication: this.fb.group({
+      earlierApplications: this.fb.group({
+        earlierApplication : this.fb.array([])
+      })
+    });
+  }
+
+  get earlierApplications() {
+    return (this.patentRequestForm.controls["earlierApplications"].get("earlierApplication") as FormArray);
+  }
+
+  addRequest() : void {
+    const earlierApplications = this.fb.group({
+      earlierApplication : this.fb.group({
         earlierSubmissionDate: [''],
         earlierApplicationNumber: [''],
         countryOrOrganizationDesignation: ['']
       })
     });
+    this.earlierApplications.push(earlierApplications);
+    console.log(this.patentRequestForm.value)
+  }
+
+  removeRequest(index: number) {
+    this.earlierApplications.removeAt(index);
   }
 
   constructor(private fb: FormBuilder, private ps: PatentRequestService) {};

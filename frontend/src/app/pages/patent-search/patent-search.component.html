@@ -5,25 +5,52 @@
 <table mat-table [dataSource]="requestsForPatentRecognition" class="mat-elevation-z8">
 
   <ng-container matColumnDef="requestNumber">
-    <th mat-header-cell *matHeaderCellDef>Број захтева</th>
-    <td mat-cell *matCellDef="let request"> {{request.requestNumber </td>
+    <th mat-header-cell *matHeaderCellDef>Број пријаве</th>
+    <td mat-cell *matCellDef="let request"> {{request.informationForInstitution.applicationNumber}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="serbianPatentName">
+    <th mat-header-cell *matHeaderCellDef>Назив на српском</th>
+    <td mat-cell *matCellDef="let request"> {{request.patentName.serbianPatentName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="englishPatentName">
+    <th mat-header-cell *matHeaderCellDef>Назив на енглеском</th>
+    <td mat-cell *matCellDef="let request"> {{request.patentName.englishPatentName}} </td>
   </ng-container>
 
   <ng-container matColumnDef="applicant">
     <th mat-header-cell *matHeaderCellDef>Подносилац</th>
-    <td mat-cell *matCellDef="let request"> {{request.applicant}} </td>
+    <td mat-cell *matCellDef="let request"> {{request.applicant.firstName}} </td>
   </ng-container>
 
   <ng-container matColumnDef="requestSubmissionDate">
     <th mat-header-cell *matHeaderCellDef>Датум подношења</th>
-    <td mat-cell *matCellDef="let request"> {{request.requestSubmissionDate}} </td>
+    <td mat-cell *matCellDef="let request"> {{request.informationForInstitution.submissionDate}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="accepted">
-    <th mat-header-cell *matHeaderCellDef>Прихваћен</th>
-    <td mat-cell *matCellDef="let request"> {{request.accepted}} </td>
+  <ng-container *ngIf="role === 'Sluzbenik'">
+    <td mat-cell *matCellDef="let request">
+      <button mat-raised-button (click)="downloadHtml(request.index)">.html</button>
+      <button mat-raised-button (click)="downloadPdf(request.index)">.pdf</button>
+    </td>
+    <td mat-cell *matCellDef="let request">
+      <button mat-raised-button (click)="downloadRdf(request.index)">.rdf</button>
+      <button mat-raised-button (click)="downloadJson(request.index)">.json</button>
+    </td>
   </ng-container>
+
+  <td mat-cell *matCellDef="let request">
+    <ng-container *ngIf="request.informationForInstitution.receiptDate === '' && role === 'Sluzbenik'">
+      <button mat-raised-button (click)="toggleModal(request.informationForInstitution.applicationNumber)">Поднеси</button>
+    </ng-container>
+    <ng-container>
+      <ng-container *ngIf="request.isAccepted">Прихваћен</ng-container>
+      <ng-container *ngIf="!request.isAccepted">Одбијен</ng-container>
+    </ng-container>
+  </td>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
