@@ -19,6 +19,7 @@ import { PatentSearchComponent } from './pages/patent-search/patent-search.compo
 import { SolutionModalComponent } from './components/solution-modal/solution-modal.component';
 import { CopyrightSearchPageComponent } from './pages/copyright-search-page/copyright-search-page.component';
 import { XonomyFormComponent } from './forms/xonomy-form/xonomy-form.component';
+import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { XonomyFormComponent } from './forms/xonomy-form/xonomy-form.component';
     SolutionModalComponent,
     CopyrightSearchPageComponent,
     XonomyFormComponent,
+    AlertModalComponent,
   ],
   imports: [
     MaterialModule,
