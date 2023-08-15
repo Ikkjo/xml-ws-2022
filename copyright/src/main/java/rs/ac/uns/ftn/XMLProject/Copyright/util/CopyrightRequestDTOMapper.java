@@ -20,7 +20,7 @@ public class CopyrightRequestDTOMapper {
         request.setAuthorPseudonym(copyrightSubmissionRequestDTO.getAuthorPseudonym());
         request.setFormOfRecordingWork(copyrightSubmissionRequestDTO.getFormOfRecordingWork());
         request.setWorkTitle(workTitleFromDTO(copyrightSubmissionRequestDTO.getWorkTitle()));
-        request.setApplicant(TPersonFromDTO(copyrightSubmissionRequestDTO.getApplicant()));
+        request.setApplicant(TPersonFromDTO(copyrightSubmissionRequestDTO));
         request.setAttorney(TIndividualFromDTO(copyrightSubmissionRequestDTO.getAttorney()));
         request.setAdaptationWorkInformation(
                 AdaptationWorkInformationFromDTO(copyrightSubmissionRequestDTO.getAdaptationWorkInformation()));
@@ -51,7 +51,11 @@ public class CopyrightRequestDTOMapper {
         dto.setAuthorPseudonym(copyrightSubmissionRequest.getAuthorPseudonym());
         dto.setFormOfRecordingWork(copyrightSubmissionRequest.getFormOfRecordingWork());
         dto.setWorkTitle(workTitleToDTO(copyrightSubmissionRequest.getWorkTitle()));
-        dto.setApplicant(TPersonToDTO(copyrightSubmissionRequest.getApplicant()));
+        if (copyrightSubmissionRequest.getApplicant() instanceof TLegalEntity) {
+            dto.setApplicantLegalEntity(TLegalEntityToDTO((TLegalEntity) copyrightSubmissionRequest.getApplicant()));
+        } else {
+            dto.setApplicantIndividual(TIndividualToDTO((TIndividual) copyrightSubmissionRequest.getApplicant()));
+        }
         dto.setAttorney(TIndividualToDTO(copyrightSubmissionRequest.getAttorney()));
         dto.setAdaptationWorkInformation(
                 AdaptationWorkInformationToDTO(copyrightSubmissionRequest.getAdaptationWorkInformation()));
@@ -70,8 +74,8 @@ public class CopyrightRequestDTOMapper {
     private static AdaptationWorkInformationDTO AdaptationWorkInformationToDTO(
             CopyrightSubmissionRequest.AdaptationWorkInformation adaptationWorkInformation) {
         AdaptationWorkInformationDTO dto = new AdaptationWorkInformationDTO();
-
-        dto.setOriginalWorkAuthor(TAuthorToDTO(adaptationWorkInformation.getOriginalWorkAuthor().getValue()));
+        if (adaptationWorkInformation.getOriginalWorkAuthor() != null)
+            dto.setOriginalWorkAuthor(TAuthorToDTO(adaptationWorkInformation.getOriginalWorkAuthor().getValue()));
         dto.setOriginalWorkTitle(adaptationWorkInformation.getOriginalWorkTitle());
 
         return dto;
@@ -106,31 +110,28 @@ public class CopyrightRequestDTOMapper {
 
     private static AddressDTO AddressToDTO(Address address) {
         AddressDTO dto = new AddressDTO();
-
-        dto.setCity(address.getCity());
-        dto.setDrzava(address.getDrzava());
-        dto.setStreet(address.getStreet());
-        dto.setZipCode(address.getZipCode());
-        dto.setStreetNumber(address.getStreetNumber());
-
-        return null;
+        try {
+            dto.setCity(address.getCity());
+            dto.setDrzava(address.getDrzava());
+            dto.setStreet(address.getStreet());
+            dto.setZipCode(address.getZipCode());
+            dto.setStreetNumber(address.getStreetNumber());
+        } catch (Exception e) {
+            System.out.println("\n\n\tAddress is null\n\n");
+        }
+        return dto;
     }
 
-    private static PersonDTO TPersonToDTO(TPerson person) {
+    private static LegalEntityDTO TLegalEntityToDTO(TLegalEntity legalEntity) {
+        LegalEntityDTO dto = new LegalEntityDTO();
 
-        if (person instanceof TIndividual) {
-            return TIndividualToDTO((TIndividual) person);
-        } else {
-            LegalEntityDTO dto = new LegalEntityDTO();
+        dto.setAddress(AddressToDTO(legalEntity.getAddress()));
+        dto.setEmail(legalEntity.getEmail());
+        dto.setFaxNumber(legalEntity.getFaxNumber());
+        dto.setPhoneNumber(legalEntity.getPhoneNumber());
+        dto.setBusinessName(legalEntity.getBusinessName());
 
-            dto.setAddress(AddressToDTO(person.getAddress()));
-            dto.setEmail(person.getEmail());
-            dto.setFaxNumber(person.getFaxNumber());
-            dto.setPhoneNumber(person.getPhoneNumber());
-            dto.setBusinessName(((TLegalEntity) person).getBusinessName());
-
-        }
-        return null;
+        return dto;
     }
 
     private static WorkTitleDTO workTitleToDTO(WorkTitle workTitle) {
@@ -164,12 +165,13 @@ public class CopyrightRequestDTOMapper {
         return individual;
     }
     
-    public static TPerson TPersonFromDTO(PersonDTO personDTO) {
+    public static TPerson TPersonFromDTO(CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
 
-        if (personDTO instanceof IndividualDTO) {
-            return TIndividualFromDTO((IndividualDTO) personDTO);
+        if (copyrightSubmissionRequestDTO.getApplicantIndividual() != null) {
+            return TIndividualFromDTO(copyrightSubmissionRequestDTO.getApplicantIndividual());
         } else {
-            LegalEntityDTO legalEntityDTO = (LegalEntityDTO) personDTO;
+
+            LegalEntityDTO legalEntityDTO = copyrightSubmissionRequestDTO.getApplicantLegalEntity();
 
             TLegalEntity legalEntity = factory.createTLegalEntity();
 

@@ -20,7 +20,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class CopyrightRequestSolutionExistDBOperations {
-    private static final String collectionId = "/db/xml/copyright/solutions";
+    private static final String collectionId = "/db/copyright/solutions";
 
     private ExistDBAuthUtils.ConnectionProperties conn;
 
@@ -56,7 +56,7 @@ public class CopyrightRequestSolutionExistDBOperations {
 
             if(res != null) {
 
-                JAXBContext context = JAXBContext.newInstance("models.solution");
+                JAXBContext context = JAXBContext.newInstance(CopyrightRequestSolution.class);
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -95,7 +95,7 @@ public class CopyrightRequestSolutionExistDBOperations {
             col = getOrCreateCollection(conn, collectionId);
             res = (XMLResource) col.createResource(documentId, XMLResource.RESOURCE_TYPE);
 
-            JAXBContext context = JAXBContext.newInstance("models.solution");
+            JAXBContext context = JAXBContext.newInstance(CopyrightRequestSolution.class);
 
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

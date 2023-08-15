@@ -11,7 +11,16 @@ import javax.xml.bind.annotation.XmlElement;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class IndividualDTO extends PersonDTO {
+public class IndividualDTO {
+
+    @XmlElement(name = "Phone_number")
+    public String phoneNumber;
+    @XmlElement(name = "Fax_number")
+    public String faxNumber;
+    @XmlElement(name = "Email")
+    public String email;
+    @XmlElement(name = "Address")
+    public AddressDTO address;
     @XmlElement(name = "lastName")
     protected String lastName;
     @XmlElement(name = "citizenship")

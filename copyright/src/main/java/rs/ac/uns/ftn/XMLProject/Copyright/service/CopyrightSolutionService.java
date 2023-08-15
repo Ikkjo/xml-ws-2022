@@ -46,7 +46,12 @@ public class CopyrightSolutionService {
         copyrightPDFTransformer.generateSolutionHTML(copyrightRequestDTOMapper.getSolutionEntity(solutionDTO));
         copyrightPDFTransformer.generatePDF(solutionDTO.getRequestNumber() + "-solution");
 
-        emailService.send(request.getApplicant().getEmail(), solutionDTO.getRequestNumber());
+        try {
+            emailService.send(request.getApplicant().getEmail(), solutionDTO.getRequestNumber());
+        } catch (Exception e) {
+            System.out.println("\n\n\tFailed to send solution pdf to email, reason:");
+            System.out.println("\n\t\t"+e.getMessage());
+        }
 
         return saved;
     }

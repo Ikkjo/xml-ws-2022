@@ -97,7 +97,7 @@ public class CopyrightSubmissionRequest {
     protected TIndividual attorney;
     @XmlElement(name = "Author_pseudonym", namespace = "http://www.XMLproject.ftn.uns.ac.rs/a-1")
     protected String authorPseudonym;
-    @XmlElement(name = "Work_title", namespace = "http://www.XMLproject.ftn.uns.ac.rs/a-1", required = true, nillable = true)
+    @XmlElement(name = "Work_title", namespace = "http://www.XMLproject.ftn.uns.ac.rs/a-1", required = true)
     protected CopyrightSubmissionRequest.WorkTitle workTitle;
     @XmlElement(name = "Adaptation_work_information", namespace = "http://www.XMLproject.ftn.uns.ac.rs/a-1")
     protected CopyrightSubmissionRequest.AdaptationWorkInformation adaptationWorkInformation;

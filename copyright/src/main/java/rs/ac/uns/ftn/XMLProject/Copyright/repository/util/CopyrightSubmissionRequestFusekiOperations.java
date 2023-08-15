@@ -97,10 +97,11 @@ public class CopyrightSubmissionRequestFusekiOperations {
     private void updateRdf(CopyrightSubmissionRequest copyrightSubmissionRequest) throws Exception {
         String requestNumber = copyrightSubmissionRequest.getRequestNumber();
         String rdfFile = "gen/rdf/" + requestNumber + ".rdf";
-        String xslFile = "data/copyrightMetadataUpdate.xsl";
+        String xslFile = "/data/copyrightMetadata.xsl";
 
         TransformerFactory factory = TransformerFactory.newInstance();
-        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
+//        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
+        InputStream resourceAsStream = getClass().getResourceAsStream(xslFile);
         StreamSource xslt = new StreamSource(resourceAsStream);
         Transformer transformer = factory.newTransformer(xslt);
 
@@ -115,10 +116,11 @@ public class CopyrightSubmissionRequestFusekiOperations {
     private void generateRdf(CopyrightSubmissionRequest copyrightSubmissionRequest) throws Exception {
         String requestNumber = copyrightSubmissionRequest.getRequestNumber();
         String rdfFile = "gen/rdf/" + requestNumber + ".rdf";
-        String xslFile = "data/copyrightMetadata.xsl";
+        String xslFile = "/data/copyrightMetadata.xsl";
 
         TransformerFactory factory = TransformerFactory.newInstance();
-        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
+//        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
+        InputStream resourceAsStream = getClass().getResourceAsStream(xslFile);
         StreamSource xslt = new StreamSource(resourceAsStream);
         Transformer transformer = factory.newTransformer(xslt);
 

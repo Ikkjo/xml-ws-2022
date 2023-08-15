@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public abstract class PersonDTO {
     @XmlElement(name = "Phone_number")
     public String phoneNumber;
-    @XmlElement(name = "Fax_umber")
+    @XmlElement(name = "Fax_number")
     public String faxNumber;
     @XmlElement(name = "Email")
     public String email;
