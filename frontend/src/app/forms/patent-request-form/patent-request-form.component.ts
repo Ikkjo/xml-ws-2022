@@ -22,6 +22,12 @@ export class PatentRequestFormComponent implements OnInit {
     {value: 'individual', viewValue: 'Физичко лице'},
     {value: 'legal', viewValue: 'Правно лице'},
   ];
+  showAlert: boolean = false;
+
+
+  toggleAlert(){
+    this.showAlert = !this.showAlert;
+  }
 
   ngOnInit() {
     this.patentRequestForm = this.fb.group({
