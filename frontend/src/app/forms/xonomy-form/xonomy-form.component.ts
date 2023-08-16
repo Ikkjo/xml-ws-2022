@@ -27,7 +27,7 @@ export class XonomyFormComponent implements OnInit {
   ngAfterViewInit(): void {
     let element = document.getElementById("editor");
     let specification = this.xonomyService.requestForPatentRecognitionSpecification;
-    let xmlString = "<zahtevZaPriznanjePatenta></zahtevZaPriznanjePatenta>";
+    let xmlString = "<RequestForPatentRecognition></RequestForPatentRecognition>";
     Xonomy.render(xmlString, element, specification);
   }
 
