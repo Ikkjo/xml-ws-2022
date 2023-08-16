@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request_for_patent_recognition institution="Zavod za intelektualnu svojinu" address="Kneginje Ljubice 5, 11000 Beograd, Republika Srbija" is_accepted="true"
+    xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition p-1.xsd"
+    xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
+    <Information_for_institution>
+        <Application_number>P-44444</Application_number>
+        <Receipt_date>2022-09-27</Receipt_date>
+        <Submission_date>2022-09-27</Submission_date>
+    </Information_for_institution>
+    <Patent_name>
+        <Serbian_patent_name>Rendgen</Serbian_patent_name>
+        <English_patent_name>XRay</English_patent_name>
+    </Patent_name>
+    <Applicant xsi:type="user:TLegal_entity">
+        <user:Phone_number>064569344</user:Phone_number>
+        <user:Email>ntp111@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Fruskogorska</user:Street>
+            <user:Street_number>20</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Fax_number>88888</user:Fax_number>
+        <user:Business_name>NTP</user:Business_name>
+    </Applicant>
+    <Inventor does_not_want_to_be_listed="false">
+        <user:Phone_number>0649294000</user:Phone_number>
+        <user:Email>milutin@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Mise Dimitrijevica</user:Street>
+            <user:Street_number>31</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Fax_number>33333</user:Fax_number>
+        <user:Last_name>MILUTINOVIC</user:Last_name>
+        <user:First_name>Milutin</user:First_name>
+    </Inventor>
+    <Proxy proxy_for_representation="true" attorney_for_receiving_letters="false">
+        <user:Phone_number>066775644</user:Phone_number>
+        <user:Email>annaa@gmail.com</user:Email>
+        <user:Address>
+            <user:Street>Gogoljeva</user:Street>
+            <user:Street_number>55</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </user:Address>
+        <user:Last_name>LAZIC</user:Last_name>
+        <user:First_name>Ana</user:First_name>
+    </Proxy>
+    <Delivery_address>
+        <Address>
+            <user:Street>Micurinova</user:Street>
+            <user:Street_number>22</user:Street_number>
+            <user:City>Novi Sad</user:City>
+            <user:Zip_code>21000</user:Zip_code>
+        </Address>
+    </Delivery_address>
+    <Delivery_type>
+        <Electronic_delivery>false</Electronic_delivery>
+        <Delivery_in_paper_form>true</Delivery_in_paper_form>
+    </Delivery_type>
+    <Application_information supplementary_application="true" separate_application="false">
+        <Original_application_number>P-00004</Original_application_number>
+        <Original_application_submission_date>2022-08-31</Original_application_submission_date>
+    </Application_information>
+    <Priority_rights_recognition_from_earlier_applications>
+        <Earlier_applications>
+            <Earlier_application>
+                <Earlier_application_submission_date>2022-07-30</Earlier_application_submission_date>
+                <Earlier_application_number>P-10004</Earlier_application_number>
+                <Country_or_organization_designation>NS</Country_or_organization_designation>
+            </Earlier_application>
+        </Earlier_applications>
+    </Priority_rights_recognition_from_earlier_applications>
+</Request_for_patent_recognition>
+
