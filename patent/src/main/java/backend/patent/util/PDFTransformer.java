@@ -30,9 +30,9 @@ public class PDFTransformer {
 
     private static final TransformerFactory transformerFactory;
 
-    private static final String XSL_REQUEST_FILEPATH = "patent/src/main/java/backend/patent/data/p-1.xsl";
-    private static final String XSL_SOLUTION_FILEPATH = "data/Solution.xsl";
-    private static final String XSL_REPORT_FILEPATH = "data/Report.xsl";
+    private static final String XSL_REQUEST_FILEPATH = "/data/p-1.xsl";
+    private static final String XSL_SOLUTION_FILEPATH = "/data/Solution.xsl";
+    private static final String XSL_REPORT_FILEPATH = "/data/Report.xsl";
 
     static {
 
@@ -92,8 +92,11 @@ public class PDFTransformer {
 
     public void generateHTML(String xmlFile, String htmlFile, String xslPath) throws Exception {
         // Initialize Transformer instance
-        StreamSource transformSource = new StreamSource(new File(xslPath));
-        Transformer transformer = transformerFactory.newTransformer(transformSource);
+//        StreamSource transformSource = new StreamSource(new File(xslPath));
+//        Transformer transformer = transformerFactory.newTransformer(transformSource);
+        InputStream resourceAsStream = getClass().getResourceAsStream(xslPath);
+        StreamSource xslt = new StreamSource(resourceAsStream);
+        Transformer transformer = transformerFactory.newTransformer(xslt);
         transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         // Generate XHTML
@@ -129,7 +132,7 @@ public class PDFTransformer {
 
     private void writeToXMLFile(RequestForPatentRecognition request, String filename) throws JAXBException, IOException {
 
-        JAXBContext context = JAXBContext.newInstance("backend.patent.model.p");
+        JAXBContext context = JAXBContext.newInstance(RequestForPatentRecognition.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(request, Files.newOutputStream(Paths.get(filename)));
@@ -138,7 +141,7 @@ public class PDFTransformer {
 
     private void writeToXMLFile(PatentSolution solution, String filename) throws JAXBException, IOException {
 
-        JAXBContext context = JAXBContext.newInstance("backend.patent.model.solution");
+        JAXBContext context = JAXBContext.newInstance(PatentSolution.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(solution, Files.newOutputStream(Paths.get(filename)));
@@ -147,7 +150,7 @@ public class PDFTransformer {
 
     private void writeToXMLFile(Report report) throws Exception {
 
-        JAXBContext context = JAXBContext.newInstance("backend.patent.model.report");
+        JAXBContext context = JAXBContext.newInstance(Report.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(report, Files.newOutputStream(Paths.get("gen/xml/report.xml")));

@@ -30,13 +30,37 @@ public class PatentFusekiOperations {
 
     private static final String GRAPH_URI = "/patent/metadata";
 
+    private AuthenticationUtilitiesRDF.ConnectionProperties conn;
+
+    public PatentFusekiOperations() {
+        try {
+            conn = AuthenticationUtilitiesRDF.loadProperties();
+        } catch (IOException e) {
+            System.out.println("Couldn't read Fuseki RDF properties");
+        }
+    }
+
     public void save(RequestForPatentRecognition requestForPatentRecognition, String xslFile) throws Exception {
 
         String applicationNumber = requestForPatentRecognition.getInformationForInstitution().getApplicationNumber();
         String rdfFile = "gen/rdf/" + applicationNumber + ".rdf";
 
         generateRdf(requestForPatentRecognition, xslFile);
-        AuthenticationUtilitiesRDF.ConnectionProperties conn = AuthenticationUtilitiesRDF.loadProperties();
+//        AuthenticationUtilitiesRDF.ConnectionProperties conn = AuthenticationUtilitiesRDF.loadProperties();
+
+//        Model model = ModelFactory.createDefaultModel();
+//        model.read(rdfFile);
+//
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//
+//        model.write(out, "N-TRIPLES");
+//
+//        String sparqlUpdate = SparqlUtil.insertData(conn.dataEndpoint + GRAPH_URI, out.toString());
+//
+//        UpdateRequest update = UpdateFactory.create(sparqlUpdate);
+//
+//        UpdateProcessor processor = UpdateExecutionFactory.createRemote(update, conn.updateEndpoint);
+//        processor.execute();
 
         Model model = ModelFactory.createDefaultModel();
         model.read(rdfFile);
@@ -46,9 +70,7 @@ public class PatentFusekiOperations {
         model.write(out, "N-TRIPLES");
 
         String sparqlUpdate = SparqlUtil.insertData(conn.dataEndpoint + GRAPH_URI, out.toString());
-
         UpdateRequest update = UpdateFactory.create(sparqlUpdate);
-
         UpdateProcessor processor = UpdateExecutionFactory.createRemote(update, conn.updateEndpoint);
         processor.execute();
 
@@ -57,10 +79,10 @@ public class PatentFusekiOperations {
     public void generateRdf(RequestForPatentRecognition requestForPatentRecognition, String xslFile) throws Exception {
         String applicationNumber = requestForPatentRecognition.getInformationForInstitution().getApplicationNumber();
         String rdfFilePath = "gen/rdf/" + applicationNumber + ".rdf";
-        String xslFilePath = "data/" + xslFile;
+        String xslFilePath = "/data/" + xslFile;
 
         TransformerFactory factory = TransformerFactory.newInstance();
-        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFilePath));
+        InputStream resourceAsStream = getClass().getResourceAsStream(xslFilePath);
         StreamSource xslt = new StreamSource(resourceAsStream);
         Transformer transformer = factory.newTransformer(xslt);
 
@@ -147,6 +169,5 @@ public class PatentFusekiOperations {
             ids.add(querySolution.get(varName).asLiteral() + ".xml");
         }
         return ids;
-
     }
 }

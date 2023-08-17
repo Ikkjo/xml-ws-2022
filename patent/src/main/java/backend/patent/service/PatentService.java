@@ -83,17 +83,23 @@ public class PatentService {
 
     public void createNewPatentRecognitionRequest(CreatePatentRecognitionRequestDTO createPatentRecognitionRequestDTO) throws Exception {
         List<RequestForPatentRecognition> requests = repository.getAll();
-        int maxId = -1;
-        int id;
-        for (RequestForPatentRecognition request : requests) {
-            id = Integer.parseInt(request.getInformationForInstitution().getApplicationNumber());
-            if (id > maxId){
-                maxId = id;
-            }
+//        int maxId = -1;
+//        int id;
+//        for (RequestForPatentRecognition request : requests) {
+//            id = Integer.parseInt(request.getInformationForInstitution().getApplicationNumber());
+//            if (id > maxId){
+//                maxId = id;
+//            }
+//        }
+//        maxId++;
+        int id = 0;
+
+        if(!requests.isEmpty()) {
+            id += requests.size();
         }
-        maxId++;
+
         RequestForPatentRecognition request = dtoUtils.PatentRecognitionRequestFromDTO(createPatentRecognitionRequestDTO);
-        request.getInformationForInstitution().setApplicationNumber(String.format("P-%06d", maxId));
+        request.getInformationForInstitution().setApplicationNumber(String.format("P-%06d", id));
         request.getInformationForInstitution().setSubmissionDate(getCurrentDate());
         repository.save(request);
     }

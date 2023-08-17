@@ -10,6 +10,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class PatentDTOMapper {
@@ -111,17 +113,13 @@ public class PatentDTOMapper {
         requestDTO.applicationInformation = applicationInformationDTO;
 
         // Zahtev za priznanje prava prvenstva iz ranijih prijava
-        EarlierApplicationsDTO earlierApplicationsDTO = new EarlierApplicationsDTO();
-        earlierApplicationsDTO.earlierApplication = new ArrayList<>();
-        for(EarlierApplications.EarlierApplication earlierApplication : request.getPriorityRightsRecognitionFromEarlierApplications().getEarlierApplications().getEarlierApplication()){
-            EarlierApplicationDTO earlierApplicationDTO = new EarlierApplicationDTO();
-            earlierApplicationDTO.earlierApplicationNumber = earlierApplication.getEarlierApplicationNumber();
-            earlierApplicationDTO.earlierApplicationSubmissionDate = earlierApplication.getEarlierApplicationSubmissionDate();
-            earlierApplicationDTO.countryOrOrganizationDesignation = earlierApplication.getCountryOrOrganizationDesignation();
-            earlierApplicationsDTO.earlierApplication.add(earlierApplicationDTO);
-        }
+        List<EarlierApplicationDTO> earlierApplicationDTOS = request
+                .getPriorityRightsRecognitionFromEarlierApplications().getEarlierApplications()
+                .getEarlierApplication().stream().map(EarlierApplicationDTO::new).collect(Collectors.toList());
+
         PriorityRightsRecognitionFromEarlierApplicationsDTO priorityRightsRecognitionFromEarlierApplicationsDTO = new PriorityRightsRecognitionFromEarlierApplicationsDTO();
-        priorityRightsRecognitionFromEarlierApplicationsDTO.earlierApplications = earlierApplicationsDTO;
+
+        priorityRightsRecognitionFromEarlierApplicationsDTO.earlierApplications = earlierApplicationDTOS;
         requestDTO.priorityRightsRecognitionFromEarlierApplications = priorityRightsRecognitionFromEarlierApplicationsDTO;
 
         return requestDTO;
@@ -139,8 +137,10 @@ public class PatentDTOMapper {
 
     public RequestForPatentRecognition PatentRecognitionRequestFromDTO(CreatePatentRecognitionRequestDTO requestDTO) throws DatatypeConfigurationException {
         RequestForPatentRecognition request = new RequestForPatentRecognition();
+        InformationForInstitution informationForInstitution = new InformationForInstitution();
+        informationForInstitution.setSubmissionDate(getCurrentDate());
 
-        request.getInformationForInstitution().setSubmissionDate(getCurrentDate());
+        request.setInformationForInstitution(informationForInstitution);
 
         // Naziv pronalaska
         RequestForPatentRecognition.PatentName patentName = new RequestForPatentRecognition.PatentName();
@@ -149,23 +149,23 @@ public class PatentDTOMapper {
         request.setPatentName(patentName);
 
         // Podnosilac
-        if (requestDTO.applicant instanceof TIndividualDTO) {
+        if (requestDTO.applicantIndividual != null) {
             TIndividual applicant = new TIndividual();
-            applicant.setFirstName(((TIndividualDTO) requestDTO.applicant).firstName);
-            applicant.setLastName(((TIndividualDTO) requestDTO.applicant).lastName);
-            applicant.setAddress(addressFromDTO(requestDTO.applicant.address));
-            applicant.setEmail(requestDTO.applicant.email);
-            applicant.setPhoneNumber(requestDTO.applicant.phoneNumber);
-            applicant.setFaxNumber(requestDTO.applicant.faxNumber);
-            applicant.setCitizenship(((TIndividualDTO) requestDTO.applicant).citizenship);
+            applicant.setFirstName((requestDTO.applicantIndividual).firstName);
+            applicant.setLastName((requestDTO.applicantIndividual).lastName);
+            applicant.setAddress(addressFromDTO(requestDTO.applicantIndividual.address));
+            applicant.setEmail(requestDTO.applicantIndividual.email);
+            applicant.setPhoneNumber(requestDTO.applicantIndividual.phoneNumber);
+            applicant.setFaxNumber(requestDTO.applicantIndividual.faxNumber);
+            applicant.setCitizenship(requestDTO.applicantIndividual.citizenship);
             request.setApplicant(applicant);
-        } else if (requestDTO.applicant instanceof TLegalEntityDTO) {
+        } else if (requestDTO.applicantLegalEntity != null) {
             TLegalEntity applicant = new TLegalEntity();
-            applicant.setBusinessName(((TLegalEntityDTO) requestDTO.applicant).businessName);
-            applicant.setAddress(addressFromDTO(requestDTO.applicant.address));
-            applicant.setEmail(requestDTO.applicant.email);
-            applicant.setPhoneNumber(requestDTO.applicant.phoneNumber);
-            applicant.setFaxNumber(requestDTO.applicant.faxNumber);
+            applicant.setBusinessName((requestDTO.applicantLegalEntity).businessName);
+            applicant.setAddress(addressFromDTO(requestDTO.applicantLegalEntity.address));
+            applicant.setEmail(requestDTO.applicantLegalEntity.email);
+            applicant.setPhoneNumber(requestDTO.applicantLegalEntity.phoneNumber);
+            applicant.setFaxNumber(requestDTO.applicantLegalEntity.faxNumber);
             request.setApplicant(applicant);
         }
 
@@ -213,7 +213,7 @@ public class PatentDTOMapper {
         // Zahtev za priznanje prava prvenstva iz ranijih prijava
         EarlierApplications earlierApplications = new EarlierApplications();
         //earlierApplications.getEarlierApplication();
-        for (EarlierApplicationDTO earlierApplicationDTO : requestDTO.priorityRightsRecognitionFromEarlierApplications.earlierApplications.earlierApplication) {
+        for (EarlierApplicationDTO earlierApplicationDTO : requestDTO.priorityRightsRecognitionFromEarlierApplications.earlierApplications) {
             EarlierApplications.EarlierApplication earlierApplication = new EarlierApplications.EarlierApplication();
             earlierApplication.setEarlierApplicationNumber(earlierApplicationDTO.earlierApplicationNumber);
             earlierApplication.setEarlierApplicationSubmissionDate(earlierApplicationDTO.earlierApplicationSubmissionDate);

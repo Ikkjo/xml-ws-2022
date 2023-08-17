@@ -21,19 +21,19 @@
             <xsl:variable name="applicant">
                 <xsl:choose>
                     <xsl:when test="//a1:Applicant/user:TIndividual">
-                        <xsl:value-of select="//a1:Applicant/user:TIndividual/user:First_name"/>
+                        <xsl:value-of select="//a1:Applicant/user:First_name"/>
                         <xsl:text> </xsl:text>
-                        <xsl:value-of select="//a1:Applicant/user:TIndividual/user:Last_name"/>
+                        <xsl:value-of select="//a1:Applicant/user:Last_name"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="//a1:Applicant/user:TLegal_entity/user:Business_name"/>
+                        <xsl:value-of select="//a1:Applicant/user:Business_name"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
             <xsl:variable name="attorney">
-                <xsl:value-of select="//a1:Attorney/user:TIndividual/user:First_name"/>
+                <xsl:value-of select="//a1:Attorney/user:First_name"/>
                 <xsl:text> </xsl:text>
-                <xsl:value-of select="//a1:Attorney/user:TIndividual/user:Last_name"/>
+                <xsl:value-of select="//a1:Attorney/user:Last_name"/>
             </xsl:variable>
 
             <rdf:Description rdf:about="{$request_number}">

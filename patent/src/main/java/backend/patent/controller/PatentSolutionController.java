@@ -13,7 +13,7 @@ import backend.patent.service.PatentSolutionService;
 import java.io.ByteArrayInputStream;
 
 @RestController()
-@RequestMapping(value = "/api/solution")
+@RequestMapping(value = "/api/patent/solution")
 public class PatentSolutionController {
 
     private final PatentSolutionService solutionService;
@@ -22,7 +22,7 @@ public class PatentSolutionController {
         this.solutionService = solutionService;
     }
 
-    @PostMapping(value = "/create", consumes = "application/xml", produces = "application/xml")
+    @PostMapping(consumes = "application/xml", produces = "application/xml")
     public int createPatentSolution(@RequestBody PatentSolutionDTO solutionDTO) {
         try {
             solutionService.createPatentSolution(solutionDTO);

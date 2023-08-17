@@ -43,7 +43,7 @@ public class PatentExistDBOperations {
 
         try {
             // get the collection
-            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col = getOrCreateCollection(conn, collectionId);
             col.setProperty(OutputKeys.INDENT, "yes");
 
             res = (XMLResource)col.getResource(documentId);
@@ -52,7 +52,7 @@ public class PatentExistDBOperations {
                 System.out.println("[WARNING] Document '" + documentId + "' can not be found!");
             } else {
 
-                JAXBContext context = JAXBContext.newInstance("backend.patent.model.p");
+                JAXBContext context = JAXBContext.newInstance(RequestForPatentRecognition.class);
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -66,7 +66,7 @@ public class PatentExistDBOperations {
         return request;
     }
 
-    public void save(Object object, String applicationNumber, String collectionId, String contextPath) throws Exception {
+    public void save(Object object, String applicationNumber, String collectionId, Class<?> objectClass) throws Exception {
 
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
@@ -96,7 +96,7 @@ public class PatentExistDBOperations {
              */
             res = (XMLResource) col.createResource(documentId, XMLResource.RESOURCE_TYPE);
 
-            JAXBContext context = JAXBContext.newInstance(contextPath);
+            JAXBContext context = JAXBContext.newInstance(objectClass);
 
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -194,7 +194,7 @@ public class PatentExistDBOperations {
         ArrayList<RequestForPatentRecognition> requests;
         try {
             // get the collection
-            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col = getOrCreateCollection(conn, collectionId);
             col.setProperty(OutputKeys.INDENT, "yes");
 
             XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
@@ -225,7 +225,7 @@ public class PatentExistDBOperations {
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml-project/patent/solution";
+        String collectionId = "/db/xml/patent/solution";
         String documentId = id + ".xml";
 
         // initialize database driver
@@ -240,7 +240,7 @@ public class PatentExistDBOperations {
         XMLResource res;
         try {
             // get the collection
-            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col = getOrCreateCollection(conn, collectionId);
             col.setProperty(OutputKeys.INDENT, "yes");
 
             res = (XMLResource)col.getResource(documentId);
@@ -248,7 +248,7 @@ public class PatentExistDBOperations {
 
             if(res != null) {
 
-                JAXBContext context = JAXBContext.newInstance("backend.patent.model.solution");
+                JAXBContext context = JAXBContext.newInstance(PatentSolution.class);
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -270,7 +270,7 @@ public class PatentExistDBOperations {
                 "/*[contains(@Citizenship, '" + content + "')]";
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml-project/patent/request";
+        String collectionId = "/db/xml/patent/request";
 
         Class<?> cl = Class.forName(conn.driver);
 
@@ -285,7 +285,7 @@ public class PatentExistDBOperations {
         ArrayList<RequestForPatentRecognition> requestsForPatentRecognition;
         try {
             // get the collection
-            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col = getOrCreateCollection(conn, collectionId);
             col.setProperty(OutputKeys.INDENT, "yes");
 
             XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");
@@ -314,7 +314,7 @@ public class PatentExistDBOperations {
         AuthenticationUtilities.ConnectionProperties conn = AuthenticationUtilities.loadProperties();
 
         // initialize collection and document identifiers
-        String collectionId = "/db/xml-project/patent/request";
+        String collectionId = "/db/xml/patent/request";
 
         Class<?> cl = Class.forName(conn.driver);
 
@@ -329,7 +329,7 @@ public class PatentExistDBOperations {
         ArrayList<RequestForPatentRecognition> requestsForPatentRecognition;
         try {
             // get the collection
-            col = DatabaseManager.getCollection(conn.uri + collectionId);
+            col = getOrCreateCollection(conn, collectionId);
             col.setProperty(OutputKeys.INDENT, "yes");
 
             XPathQueryService xPathQueryService = (XPathQueryService) col.getService("XPathQueryService", "1.0");

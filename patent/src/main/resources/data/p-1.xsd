@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
     targetNamespace="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
+    xmlns:p1="http://www.XMLproject.ftn.uns.ac.rs/Request_for_patent_recognition"
     elementFormDefault="qualified" xmlns:user="http://www.XMLproject.ftn.uns.ac.rs/User">
     <xs:import namespace="http://www.XMLproject.ftn.uns.ac.rs/User" schemaLocation="User.xsd"/>
     <xs:element name="Request_for_patent_recognition">
@@ -16,7 +16,7 @@
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="Applicant" type="user:TPerson"/>
+                <xs:element name="Applicant" type="user:TPerson"> </xs:element>
                 <xs:element name="Inventor">
                     <xs:complexType>
                         <xs:complexContent>

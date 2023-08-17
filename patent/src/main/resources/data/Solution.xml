@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PatentSolution xmlns="http://www.XMLproject.ftn.uns.ac.rs/Solution"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.XMLproject.ftn.uns.ac.rs/Solution ../../xml/schemes/Solution.xsd">
+    xsi:schemaLocation="http://www.XMLproject.ftn.uns.ac.rs/Solution ../../../../../xml/schemes/Solution.xsd">
     <Is_accepted>true</Is_accepted>
     <Application_number>P-11111</Application_number>
     <Official>Marko Markovic</Official>
