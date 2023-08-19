@@ -9,10 +9,10 @@
             <head>
                 <!--docxjs library predefined styles--><style>
                 .docx-wrapper { padding: 30px; padding-bottom: 0px; display: flex; flex-flow: column; align-items: center; }
-                .docx-wrapper>section.docx { background: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); margin-bottom: 30px; }
+                .docx-wrapper section.docx { background: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); margin-bottom: 30px; }
                 .docx { color: black; }
                 section.docx { box-sizing: border-box; display: flex; flex-flow: column nowrap; position: relative; overflow: hidden; }
-                section.docx>article { margin-bottom: auto; }
+                section.docx article { margin-bottom: auto; }
                 .docx table { border-collapse: collapse; }
                 .docx table td, .docx table th { vertical-align: top; }
                 .docx p { margin: 1rem 0; min-height: 1em; }
@@ -551,9 +551,9 @@
                                         <p>
                                             <span>
                                             <xsl:if test="//a1:Work_title/a1:Alternative_title">
-                                                <xsl:value-of> (</xsl:value-of>
+                                                <xsl:text> (</xsl:text>
                                                 <xsl:value-of select="//a1:Work_title/a1:Alternative_title"/>
-                                                <xsl:value-of>)</xsl:value-of>
+                                                <xsl:text>)</xsl:text>
                                             </xsl:if>
                                             </span>
                                         </p>

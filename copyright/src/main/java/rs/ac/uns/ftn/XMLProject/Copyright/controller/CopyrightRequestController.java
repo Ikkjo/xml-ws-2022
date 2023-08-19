@@ -13,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/copyright/request")
@@ -46,10 +48,10 @@ public class CopyrightRequestController {
     @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<String> createCopyrightSubmissionRequest(@RequestBody CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
         logger.info(copyrightSubmissionRequestDTO.toString());
-        if (copyrightRequestService.createCopyrightSubmissionRequest(copyrightSubmissionRequestDTO))
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        else
-            return ResponseEntity.badRequest().build();
+        Optional<String> maybeRequestNumber = copyrightRequestService.createCopyrightSubmissionRequest(copyrightSubmissionRequestDTO);
+        return maybeRequestNumber.<ResponseEntity<String>>
+                map(s -> ResponseEntity.created(URI.create(s)).build())
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
     @GetMapping(path = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)

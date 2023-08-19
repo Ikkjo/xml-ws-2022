@@ -20,7 +20,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class CopyrightRequestSolutionExistDBOperations {
-    private static final String collectionId = "/db/copyright/solutions";
+    private static final String collectionId = "/db/xml/copyright/solutions";
 
     private ExistDBAuthUtils.ConnectionProperties conn;
 

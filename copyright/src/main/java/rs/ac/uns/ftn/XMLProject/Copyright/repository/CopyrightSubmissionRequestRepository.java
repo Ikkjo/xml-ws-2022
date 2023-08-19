@@ -26,7 +26,7 @@ public class CopyrightSubmissionRequestRepository {
         try {
             return existDB.getAll();
         } catch (Exception e) {
-            return null;
+            return new ArrayList<>();
         }
     }
 

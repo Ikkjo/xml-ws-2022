@@ -12,7 +12,9 @@ import {
   import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenDTO } from 'src/app/dto/TokenDTO';
-import { xmlToObject } from 'src/app/util/XmlUtil';
+import { saveToken, saveSession } from 'src/app/util/context';
+import { xmlToObject, objectToXML } from 'src/app/util/XmlUtil';
+import { SystemUserDTO } from 'src/app/dto/SystemUserDTO';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class EmailFormErrorStateMatcher implements ErrorStateMatcher {
@@ -52,18 +54,14 @@ export class LoginPageComponent {
 
   doLogin() {
     if (this.loginForm.valid) {
-
-        console.log({
+        
+        let loginDto = objectToXML({
             email: this.loginForm.value?.email,
             password: this.loginForm.value?.password,
-        })
+        }, "LoginDTO");
 
-        this.authService.login({
-            email: this.loginForm.value?.email,
-            password: this.loginForm.value?.password,
-        }).subscribe({
+        this.authService.login(loginDto).subscribe({
             next: (token) => {
-                
                 this.handleSuccessfulLogin(token)
             },
             error: (error) => {
@@ -75,15 +73,26 @@ export class LoginPageComponent {
     }
   }
 
-  handleSuccessfulLogin(response: HttpResponse<string>): void {
+  handleSuccessfulLogin(response: string): void {
 
-    console.log(response)
-
-    if(response.body) {
-        localStorage.setItem('token', JSON.stringify(xmlToObject<TokenDTO>(response.body)));
-        this.router.navigate(['/']);
-    } else {
-        console.log(response)
+    if(response) {
+        xmlToObject(response).then(
+        (result: any) => {
+            saveToken(result.TokenDTO.token[0]);
+            this.authService.getLoggedInUser(result.TokenDTO.token).subscribe({
+                next: (sessionContextXML) => {
+                    xmlToObject(sessionContextXML).then((result: any) =>{
+                        saveSession(result.SystemUserDTO);
+                        this.router.navigate(['/']);
+                    })
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            })
+        }).catch((error: any) => {
+            console.log(error);
+        }); 
     }
   }
 

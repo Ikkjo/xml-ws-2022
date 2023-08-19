@@ -18,17 +18,20 @@
                     padding: 5pt;
                     border: 1px solid black;
                     font-size: 9pt;
-                    vertical-align: baseline;
+                    }
+
+                    td, th {
+                    text-align: center;
+                    vertical-align: middle;
                     }
 
                     table {
                     width: 100%;
-                    margin: 0px;
                     border-collapse: collapse;
                     }
 
                     p {
-                    margin: 4pt 0;
+                    margin: 4pt 4pt;
                     margin-bottom: 0pt;
                     text-indent: -0.55pt;
                     margin-left: 0.55pt;
@@ -36,14 +39,14 @@
 
                     .docx-wrapper {
                     background: white;
-                    padding: 0px;
-                    padding-bottom: 0px;
+                    margin: 15px;
+                    padding: 15px;
                     display: flex;
                     flex-flow: column;
                     align-items: center;
                     }
 
-                    .docx-wrapper>section.docx {
+                    .docx-wrapper section.docx {
                     background: white;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
                     margin-bottom: 30px;
@@ -52,9 +55,8 @@
 
                     .docx {
                     color: black;
-                    padding: 0px;
-                    width: 595pt;
-                    min-height: 842pt;
+                    width: 595px;
+                    min-height: 842px;
                     column-count: 1;
                     column-gap: 36pt;
                     overflow: hidden;
@@ -68,8 +70,8 @@
                     position: relative;
                     }
 
-                    section.docx>article {
-                    margin-bottom: auto;
+                    section.docx article {
+                    margin: 0;
                     }
 
                     .docx table {
@@ -129,13 +131,13 @@
                                 </tr>
                                 <tr>
                                     <td>Датум доношења решења</td>
-                                    <td style="text-align: center;"><xsl:value-of select="//sol:solution_date"/></td>
+                                    <td style="text-align: center;"><xsl:value-of select="substring(//sol:solution_date, 9, 2)"/>.<xsl:value-of select="substring(//sol:solution_date, 6, 2)"/>.<xsl:value-of select="substring(//sol:solution_date, 1, 4)"/>.</td>
                                 </tr>
                                 <tr>
                                     <td>Службеник</td>
                                     <td style="text-align: center;">
                                         <xsl:value-of select="//sol:official/sol:first_name"/>
-                                        <xsl:value-of > </xsl:value-of>
+                                        <xsl:text> </xsl:text>
                                         <xsl:value-of select="//sol:official/sol:last_name"/>
                                     </td>
                                 </tr>

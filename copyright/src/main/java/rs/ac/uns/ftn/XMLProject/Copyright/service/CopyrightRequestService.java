@@ -29,7 +29,7 @@ public class CopyrightRequestService {
         this.copyrightSubmissionRequestRepository = copyrightSubmissionRequestRepository;
     }
 
-    public boolean createCopyrightSubmissionRequest(CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
+    public Optional<String> createCopyrightSubmissionRequest(CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
         List<CopyrightSubmissionRequest> copyrightSubmissionRequests = copyrightSubmissionRequestRepository.findAll();
         int id = 0;
 
@@ -42,11 +42,11 @@ public class CopyrightRequestService {
             request.setRequestNumber(String.format("A-%06d", id));
             request.setRequestSubmissionDate(getXMLGregorianCalendarNow());
             copyrightSubmissionRequestRepository.save(request);
+            return Optional.of(request.getRequestNumber());
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return Optional.empty();
         }
-        return true;
     }
 
     public CopyrightSubmissionRequestDTO getCopyrightSubmissionRequestById(String id) throws ResourceNotFoundException {

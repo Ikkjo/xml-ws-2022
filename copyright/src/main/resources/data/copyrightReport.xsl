@@ -23,12 +23,11 @@
 
                     table {
                     width: 100%;
-                    margin: 0px;
                     border-collapse: collapse;
                     }
 
                     p {
-                    margin: 4pt 0;
+                    margin: 4pt 4pt;
                     margin-bottom: 0pt;
                     text-indent: -0.55pt;
                     margin-left: 0.55pt;
@@ -36,14 +35,14 @@
 
                     .docx-wrapper {
                     background: white;
-                    padding: 0px;
-                    padding-bottom: 0px;
+                    margin: 15px;
+                    padding: 15px;
                     display: flex;
                     flex-flow: column;
                     align-items: center;
                     }
 
-                    .docx-wrapper>section.docx {
+                    .docx-wrapper section.docx {
                     background: white;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
                     margin-bottom: 30px;
@@ -52,9 +51,8 @@
 
                     .docx {
                     color: black;
-                    padding: 0px;
-                    width: 595pt;
-                    min-height: 842pt;
+                    width: 595px;
+                    min-height: 842px;
                     column-count: 1;
                     column-gap: 36pt;
                     overflow: hidden;
@@ -68,8 +66,8 @@
                     position: relative;
                     }
 
-                    section.docx>article {
-                    margin-bottom: auto;
+                    section.docx article {
+                    margin: 0;
                     }
 
                     .docx table {
@@ -117,8 +115,8 @@
                                     style="font-weight: bold; min-height: 12pt; font-size: 12pt;">АУТОРСКИХ ДЕЛА</span></p>
 
                             <br/>
-                            <p style="margin-bottom: 0.25pt; text-align: center;"><span
-                                    style="font-weight: bold; min-height: 12pt; font-size: 12pt;">ОД <xsl:value-of select="//rep:startDate"/> ДО <xsl:value-of select="//rep:endDate"/></span></p>
+                            <p style="margin-bottom: 0.25pt; text-align: center;"><span style="font-weight: bold; min-height: 12pt; font-size: 12pt;">ОД <xsl:value-of select="substring(//rep:startDate, 9, 2)"/>.<xsl:value-of select="substring(//rep:startDate, 6, 2)"/>.<xsl:value-of select="substring(//rep:startDate, 1, 4)"/>. ДО <xsl:value-of select="substring(//rep:endDate, 9, 2)"/>.<xsl:value-of select="substring(//rep:endDate, 6, 2)"/>.<xsl:value-of select="substring(//rep:endDate, 1, 4)"/>.</span>
+                            </p>
                             <br/>
                             <br/>
                             <table style="border: 1.5px solid black;">

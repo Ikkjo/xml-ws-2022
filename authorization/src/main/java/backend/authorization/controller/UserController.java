@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping(value = "/authorization", produces= MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "api/authorization", produces= MediaType.APPLICATION_XML_VALUE)
 @RequiredArgsConstructor
 public class UserController {
 
@@ -23,30 +23,30 @@ public class UserController {
     private final JWTUtil jwtUtil;
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
         try {
             return new ResponseEntity<>(service.getTokenDto(loginDTO), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PostMapping(value = "/registration", consumes = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<SystemUserDTO> register(@RequestBody RegistrationDTO registrationDTO) {
+    public ResponseEntity<?> register(@RequestBody RegistrationDTO registrationDTO) {
         try {
             return new ResponseEntity<>(service.registration(registrationDTO), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @GetMapping(value = "/get-user")
-    public ResponseEntity<SystemUserDTO> getUserFromToken(HttpServletRequest request) {
+    public ResponseEntity<?> getUserFromToken(HttpServletRequest request) {
         try {
             String token = jwtUtil.getTokenFromServletRequest(request);
             return new ResponseEntity<>(service.getUserDTOFromToken(token), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

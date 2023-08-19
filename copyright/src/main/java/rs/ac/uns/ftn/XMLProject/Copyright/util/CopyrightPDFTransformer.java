@@ -24,6 +24,9 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.solution.CopyrightRequestSolution;
@@ -35,7 +38,7 @@ public class CopyrightPDFTransformer {
 
     private static final TransformerFactory transformerFactory;
 
-    public static final String A1_XSL_FILE = "/data/A-1.xsl";
+    public static final String A1_XSL_FILE = "/data/a-1.xsl";
     public static final String SOLUTION_XSL_FILE = "/data/copyrightRequestSolution.xsl";
 
     public static final String REPORT_XSL_FILE = "/data/copyrightReport.xsl";
