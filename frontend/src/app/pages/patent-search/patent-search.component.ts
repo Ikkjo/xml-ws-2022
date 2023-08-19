@@ -3,8 +3,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import { Router } from '@angular/router';
 import {PatentRequestService} from "../../services/patentRequestService";
 import {RequestForPatentRecognitionDTO} from "../../dto/RequestForPatentRecognitionDTO";
-import * as xml2js from 'xml2js';
 import { getSession } from 'src/app/util/context';
+import { objectToXML, xmlToObject } from 'src/app/util/XmlUtil';
 
 @Component({
   selector: 'app-patent-search',
@@ -29,7 +29,28 @@ export class PatentSearchComponent implements OnInit {
     const session = getSession();
     if (session !== undefined) this.role = session.role;
     else this.role = '';
-    this.requestsForPatentRecognition = this.rs.getAllRequest();
+
+    console.log(this.role);
+
+    this.rs.getAllRequest().subscribe({
+        next:  data => {
+            xmlToObject(data).then((result: any) => {
+                console.log(result);
+                let requests = result.ArrayList.item;
+                let rqs = [];
+                for (var req of requests) {
+                  let requestForPatentReconition : RequestForPatentRecognitionDTO;
+                  requestForPatentReconition = this.rs.convertResponseToRequest(req);
+                  rqs.push(requestForPatentReconition); 
+                }
+                this.requestsForPatentRecognition = rqs
+                console.log(this.requestsForPatentRecognition)
+              }).catch((error: any) => {
+                  console.error(error)
+              });
+        }
+    });
+
     this.patentSearchForm = this.fb.group({
       searchQuery : ['']
     });
@@ -86,20 +107,19 @@ export class PatentSearchComponent implements OnInit {
     const fileName = this.requestsForPatentRecognition[index].informationForInstitution.applicationNumber;
     const jsonString = this.rs.getJson(fileName)
       .subscribe(data => {
-        const parser = new xml2js.Parser({strict: true, trim: true});
-        parser.parseString(data.toString(), (err, result) => {
-          console.log(result);
-          const jsonString = JSON.stringify(result);
-
-          this.blob = new Blob([jsonString], {type: 'json'});
-
-          var downloadURL = window.URL.createObjectURL(this.blob);
-          var link = document.createElement('a');
-          link.href = downloadURL;
-          link.download = "P-" + fileName + ".json";
-          link.click();
+        xmlToObject(data).then((result: any) => {
+                console.log(result);
+                const jsonString = JSON.stringify(result);
+      
+                this.blob = new Blob([jsonString], {type: 'json'});
+      
+                var downloadURL = window.URL.createObjectURL(this.blob);
+                var link = document.createElement('a');
+                link.href = downloadURL;
+                link.download = "P-" + fileName + ".json";
+                link.click();
         })
-      });
+    });
   }
 
   toggleModal(text: string){

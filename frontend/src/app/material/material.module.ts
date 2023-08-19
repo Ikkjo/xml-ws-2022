@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const materialComponents = [
   MatCommonModule,
@@ -31,6 +32,7 @@ const materialComponents = [
   MatIconModule,
   MatDialogModule,
   MatTableModule,
+  MatSnackBarModule
 ]
 
 @NgModule({

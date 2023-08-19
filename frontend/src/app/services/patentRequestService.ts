@@ -48,10 +48,10 @@ export class PatentRequestService {
     let requestsForPatentRecognition : RequestForPatentRecognitionDTO[] = [];
     const xmlResponse = this.http.get(url + 'search/metadata/' + condition, {headers: new HttpHeaders().set('Content-Type', 'application/xml'), responseType: 'text'})
       .subscribe(data => {
-        const parser = new xml2js.Parser({strict: true, trim: true});
+        const parser = new xml2js.Parser({strict: true, trim: true, explicitArray: false});
         parser.parseString(data.toString(), (err, result) => {
           console.log(result);
-          let requests = result.List.item;
+          let requests = result.ArrayList.item;
           for (var req of requests) {
             let requestForPatentRecognition : RequestForPatentRecognitionDTO;
             requestForPatentRecognition = this.convertResponseToRequest(req);
@@ -66,10 +66,10 @@ export class PatentRequestService {
     let requestsForPatentRecognition : RequestForPatentRecognitionDTO[] = [];
     const xmlResponse = this.http.get(url + 'search/content/' + condition, {headers: new HttpHeaders().set('Content-Type', 'application/xml'), responseType: 'text'})
       .subscribe(data => {
-        const parser = new xml2js.Parser({strict: true, trim: true});
+        const parser = new xml2js.Parser({strict: true, trim: true, explicitArray: false});
         parser.parseString(data.toString(), (err, result) => {
           console.log(result);
-          let requests = result.List.item;
+          let requests = result.ArrayList.item;
           for (var req of requests) {
             let requestForPatentReconition : RequestForPatentRecognitionDTO;
             requestForPatentReconition = this.convertResponseToRequest(req);
@@ -80,114 +80,112 @@ export class PatentRequestService {
     return requestsForPatentRecognition;
   }
 
-  public getAllRequest() : RequestForPatentRecognitionDTO[] {
-    let requestsForPatentRecognition : RequestForPatentRecognitionDTO[] = [];
-    const xmlResponse = this.http.get(url + 'all', {headers: new HttpHeaders().set('Content-Type', 'application/xml'), responseType: 'text'})
-      .subscribe(data => {
-        const parser = new xml2js.Parser({strict: true, trim: true});
-        parser.parseString(data.toString(), (err, result) => {
-          console.log(result);
-          let requests = result.List.item;
-          for (var req of requests) {
-            let requestForPatentReconition : RequestForPatentRecognitionDTO;
-            requestForPatentReconition = this.convertResponseToRequest(req);
-            requestsForPatentRecognition.push(requestForPatentReconition);
-          }
-        })
-      })
-    return requestsForPatentRecognition;
+  public getAllRequest() {
+    return this.http.get(url + 'all', {headers: new HttpHeaders().set('Content-Type', 'application/xml'), responseType: 'text'});
   }
 
   public convertResponseToRequest(item : any) : RequestForPatentRecognitionDTO {
 
     const informationForInstitution : InformationForInstitution = {
-      applicationNumber : item.informationForInstitution[0].applicationNumber[0],
-      receiptDate : item.informationForInstitution[0].receiptDate[0],
-      submissionDate : item.informationForInstitution[0].submissionDate[0]
+      applicationNumber : item.informationForInstitution.applicationNumber,
+      receiptDate : new Date(Number(item.informationForInstitution.receiptDate)),
+      submissionDate : new Date(Number(item.informationForInstitution.submissionDate))
     }
 
     const applicationInformation : ApplicationInformation = {
-      originalApplicationNumber : item.applicationInformation[0].originalApplicationNumber,
-      originalApplicationSubmissionDate : item.applicationInformation[0].originalApplicationSubmissionDate,
-      separateApplication : item.applicationInformation[0].separateApplication,
-      supplementaryApplication : item.applicationInformation[0].supplementaryApplication
+      originalApplicationNumber : item.applicationInformation.originalApplicationNumber,
+      originalApplicationSubmissionDate : new Date(Number(item.applicationInformation.originalApplicationSubmissionDate)),
+      separateApplication : item.applicationInformation.separateApplication,
+      supplementaryApplication : item.applicationInformation.supplementaryApplication
     }
 
     const patentName : PatentName = {
-      serbianPatentName : item.patentName[0].serbianPatentName,
-      englishPatentName : item.patentName[0].englishPatentName
+      serbianPatentName : item.patentName.serbianPatentName,
+      englishPatentName : item.patentName.englishPatentName
     }
 
     const applicantAddress : Address = {
-      street : item.applicant[0].street[0],
-      streetNumber: item.applicant[0].streetNumber[0],
-      city: item.applicant[0].city[0],
-      zip: item.applicant[0].zip[0]
+      street : item.applicant.street,
+      streetNumber: item.applicant.streetNumber,
+      city: item.applicant.city,
+      zip: item.applicant.zip
     }
 
     const applicant : Person = {
-      email : item.applicant[0].email[0],
-      phoneNumber : item.applicant[0].phoneNumber[0],
-      faxNumber : item.applicant[0].faxNumber[0],
+      email : item.applicant.email,
+      phoneNumber : item.applicant.phoneNumber,
+      faxNumber : item.applicant.faxNumber,
       address : applicantAddress
     }
 
     const deliveryType : DeliveryType = {
-      electronicDelivery : item.deliveryType[0].electronicDelivery[0],
-      deliveryInPaperForm : item.deliveryType[0].deliveryInPaperForm[0]
+      electronicDelivery : item.deliveryType.electronicDelivery,
+      deliveryInPaperForm : item.deliveryType.deliveryInPaperForm
     }
 
     const inventorAddress : Address = {
-      street : item.inventor[0].street[0],
-      streetNumber: item.inventor[0].streetNumber[0],
-      city: item.inventor[0].city[0],
-      zip: item.inventor[0].zip[0]
+      street : item.inventor.street,
+      streetNumber: item.inventor.streetNumber,
+      city: item.inventor.city,
+      zip: item.inventor.zip
     }
 
     const inventor : Inventor = {
-      email : item.inventor[0].email[0],
-      phoneNumber : item.inventor[0].phoneNumber[0],
-      faxNumber : item.inventor[0].faxNumber[0],
+      email : item.inventor.email,
+      phoneNumber : item.inventor.phoneNumber,
+      faxNumber : item.inventor.faxNumber,
       address : inventorAddress,
-      firstName : item.inventor[0].firstName[0],
-      lastName : item.inventor[0].lastName[0],
-      doesNotWantToBeListed : item.inventor[0].doesNotWantToBeListed[0] === 'true'
+      firstName : item.inventor.firstName,
+      lastName : item.inventor.lastName,
+      doesNotWantToBeListed : item.inventor.doesNotWantToBeListed === 'true'
     }
 
     const proxyAddress : Address = {
-      street : item.proxy[0].street[0],
-      streetNumber: item.proxy[0].streetNumber[0],
-      city: item.proxy[0].city[0],
-      zip: item.proxy[0].zip[0]
+      street : item.proxy.street,
+      streetNumber: item.proxy.streetNumber,
+      city: item.proxy.city,
+      zip: item.proxy.zip
     }
 
     const proxy : Proxy = {
-      email : item.proxy[0].email[0],
-      phoneNumber : item.proxy[0].phoneNumber[0],
-      faxNumber : item.proxy[0].faxNumber[0],
+      email : item.proxy.email,
+      phoneNumber : item.proxy.phoneNumber,
+      faxNumber : item.proxy.faxNumber,
       address : proxyAddress,
-      firstName : item.proxy[0].firstName[0],
-      lastName : item.proxy[0].lastName[0],
-      proxyForRepresentation : item.proxy[0].proxyForRepresentation[0] === 'true',
-      attorneyForReceivingLetters : item.proxy[0].attorneyForReceivingLetters[0] === 'true'
+      firstName : item.proxy.firstName,
+      lastName : item.proxy.lastName,
+      proxyForRepresentation : item.proxy.proxyForRepresentation === 'true',
+      attorneyForReceivingLetters : item.proxy.attorneyForReceivingLetters === 'true'
     }
 
     const deliveryAddress : DeliveryAddress = {
-      street : item.deliveryAddress[0].street[0],
-      streetNumber : item.deliveryAddress[0].streetNumber[0],
-      city : item.deliveryAddress[0].city[0],
-      zip : item.deliveryAddress[0].zip[0]
+      street : item.deliveryAddress.street,
+      streetNumber : item.deliveryAddress.streetNumber,
+      city : item.deliveryAddress.city,
+      zip : item.deliveryAddress.zip
     }
 
     const earlierApplication : EarlierApplication[] = [];
+    if (item.priorityRightsRecognitionFromEarlierApplications) {
 
-    for (let r of item.priorityRightsRecognitionFromEarlierApplications) {
-      const request : EarlierApplication = {
-        earlierApplicationSubmissionDate : r.earlierApplicationSubmissionDate,
-        earlierApplicationNumber : r.earlierApplicationNumber,
-        countryOrOrganizationDesignation : r.countryOrOrganizationDesignation
-      }
-      earlierApplication.push(request);
+        if (item.priorityRightsRecognitionFromEarlierApplications.earlierApplications.length > 1) {
+            for (let r of item.priorityRightsRecognitionFromEarlierApplications.earlierApplications) {
+              const request : EarlierApplication = {
+                earlierApplicationSubmissionDate : new Date(Number(r.earlierApplicationSubmissionDate)),
+                earlierApplicationNumber : r.earlierApplicationNumber,
+                countryOrOrganizationDesignation : r.countryOrOrganizationDesignation
+              }
+              earlierApplication.push(request);
+            }
+        } else {
+            const request : EarlierApplication = {
+                earlierApplicationSubmissionDate : new Date(Number(item.priorityRightsRecognitionFromEarlierApplications.earlierApplications.earlierApplications.earlierApplicationSubmissionDate)),
+                earlierApplicationNumber : item.priorityRightsRecognitionFromEarlierApplications.earlierApplications.earlierApplications.earlierApplicationNumber,
+                countryOrOrganizationDesignation : item.priorityRightsRecognitionFromEarlierApplications.earlierApplications.earlierApplications.countryOrOrganizationDesignation
+              }
+              earlierApplication.push(request);
+        }
+
     }
 
     const earlierApplications : EarlierApplications = {
@@ -208,9 +206,9 @@ export class PatentRequestService {
       deliveryType: deliveryType,
       applicationInformation: applicationInformation,
       priorityRightsRecognitionFromEarlierApplications: priorityRightsRecognitionFromEarlierApplications,
-      address: item.address[0],
-      institution: item.institution[0],
-      isAccepted: item.isAccepted[0]
+      address: item.address,
+      institution: item.institution,
+      isAccepted: item.isAccepted
     }
 
     return requestForPatentRecognition;
