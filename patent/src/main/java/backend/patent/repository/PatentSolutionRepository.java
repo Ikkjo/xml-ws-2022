@@ -8,9 +8,9 @@ public class PatentSolutionRepository {
     private final PatentExistDBOperations exist;
     private final PatentFusekiOperations fuseki;
 
-    public PatentSolutionRepository(PatentExistDBOperations exist, PatentFusekiOperations fuseki) {
-        this.exist = exist;
-        this.fuseki = fuseki;
+    public PatentSolutionRepository() {
+        exist = new PatentExistDBOperations();
+        fuseki = new PatentFusekiOperations();
     }
 
     public void save(PatentSolution solution) throws Exception {
