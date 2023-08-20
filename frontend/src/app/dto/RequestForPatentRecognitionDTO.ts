@@ -18,8 +18,8 @@ export interface RequestForPatentRecognitionDTO {
 
 export interface InformationForInstitution {
   applicationNumber: string;
-  receiptDate: string;
-  submissionDate: string;
+  receiptDate: Date;
+  submissionDate: Date;
 }
 
 export interface PatentName {
@@ -36,7 +36,7 @@ export interface DeliveryType {
 
 export interface ApplicationInformation {
   originalApplicationNumber: string;
-  originalApplicationSubmissionDate: string;
+  originalApplicationSubmissionDate: Date;
   supplementaryApplication: boolean;
   separateApplication: boolean;
 }
@@ -50,7 +50,7 @@ export interface EarlierApplications {
 }
 
 export interface EarlierApplication {
-  earlierApplicationSubmissionDate: string;
+  earlierApplicationSubmissionDate: Date;
   earlierApplicationNumber: string;
   countryOrOrganizationDesignation: string;
 }

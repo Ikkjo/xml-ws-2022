@@ -51,9 +51,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 public class TAuthor {
 
-    @XmlElement(name = "Author_surname", required = true)
+    @XmlElement(name = "Author_surname")
     protected String authorSurname;
-    @XmlElement(name = "Author_name", required = true)
+    @XmlElement(name = "Author_name")
     protected String authorName;
     @XmlElement(name = "Citizenship")
     protected String citizenship;

@@ -1,0 +1,14 @@
+{
+    "/api/copyright/*": {
+        "target": "http://localhost:9999",
+        "secure": false
+    },
+    "/api/patent/*": {
+        "target": "http://localhost:4201",
+        "secure": false
+    },
+    "/api/authorization/*": {
+        "target": "http://localhost:8989",
+        "secure": false
+    }
+}

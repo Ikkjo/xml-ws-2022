@@ -29,7 +29,7 @@
     <td mat-cell *matCellDef="let request"> {{request.informationForInstitution.submissionDate}} </td>
   </ng-container>
 
-  <ng-container *ngIf="role === 'Sluzbenik'">
+  <ng-container *ngIf="this.role === 'SLUZBENIK'">
     <td mat-cell *matCellDef="let request">
       <button mat-raised-button (click)="downloadHtml(request.index)">.html</button>
       <button mat-raised-button (click)="downloadPdf(request.index)">.pdf</button>
@@ -41,7 +41,7 @@
   </ng-container>
 
   <td mat-cell *matCellDef="let request">
-    <ng-container *ngIf="request.informationForInstitution.receiptDate === '' && role === 'Sluzbenik'">
+    <ng-container *ngIf="request.informationForInstitution.receiptDate === '' && this.role === 'SLUZBENIK'">
       <button mat-raised-button (click)="toggleModal(request.informationForInstitution.applicationNumber)">Поднеси</button>
     </ng-container>
     <ng-container>

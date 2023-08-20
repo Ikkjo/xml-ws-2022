@@ -6,8 +6,10 @@ public class CreatePatentRecognitionRequestDTO {
 
     @XmlElement(name = "Patent_name")
     public PatentNameDTO patentName;
-    @XmlElement(name = "Applicant")
-    public TPersonDTO applicant;
+    @XmlElement
+    public TLegalEntityDTO applicantLegalEntity;
+    @XmlElement
+    public TIndividualDTO applicantIndividual;
     @XmlElement(name = "Inventor")
     public InventorDTO inventor;
     @XmlElement(name = "Proxy")

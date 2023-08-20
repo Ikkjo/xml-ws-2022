@@ -47,7 +47,7 @@ public class PatentService {
             xmlFile.delete();
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return null;
         }
 
         return byteArrayInputStream;
@@ -77,25 +77,30 @@ public class PatentService {
         return dtoUtils.patentRecognitionRequestsToDTOList(repository.getAll());
     }
 
-    public RequestForPatentRecognitionDTO getPatentRecognitionRequest(String id) throws Exception {
-        return dtoUtils.patentRecognitionRequestToDTO(repository.findById(id));
+    public Optional<RequestForPatentRecognitionDTO> getPatentRecognitionRequest(String id) throws Exception {
+        RequestForPatentRecognition request = repository.findById(id);
+
+        if (request != null) {
+            return Optional.of(PatentDTOMapper.patentRecognitionRequestToDTO(request));
+        } else {
+            return Optional.empty();
+        }
     }
 
-    public void createNewPatentRecognitionRequest(CreatePatentRecognitionRequestDTO createPatentRecognitionRequestDTO) throws Exception {
+    public String createNewPatentRecognitionRequest(CreatePatentRecognitionRequestDTO createPatentRecognitionRequestDTO) throws Exception {
         List<RequestForPatentRecognition> requests = repository.getAll();
-        int maxId = -1;
-        int id;
-        for (RequestForPatentRecognition request : requests) {
-            id = Integer.parseInt(request.getInformationForInstitution().getApplicationNumber());
-            if (id > maxId){
-                maxId = id;
-            }
+
+        int id = 0;
+
+        if(!requests.isEmpty()) {
+            id += requests.size();
         }
-        maxId++;
+
         RequestForPatentRecognition request = dtoUtils.PatentRecognitionRequestFromDTO(createPatentRecognitionRequestDTO);
-        request.getInformationForInstitution().setApplicationNumber(String.format("P-%06d", maxId));
+        request.getInformationForInstitution().setApplicationNumber(String.format("P-%06d", id));
         request.getInformationForInstitution().setSubmissionDate(getCurrentDate());
         repository.save(request);
+        return request.getInformationForInstitution().getApplicationNumber();
     }
 
     private XMLGregorianCalendar getCurrentDate() throws DatatypeConfigurationException {
@@ -106,11 +111,11 @@ public class PatentService {
 
     }
 
-    public String getRdfMetadata(String id) {
+    public Optional<String> getRdfMetadata(String id) {
         try {
             String rdfString = repository.createRdfString(id);
             deleteFile("gen/rdf/" + id + ".rdf");
-            return rdfString;
+            return Optional.of(rdfString);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -121,10 +126,10 @@ public class PatentService {
         file.delete();
     }
 
-    public String getJsonMetadata(String id) {
+    public Optional<String> getJsonMetadata(String id) {
 
         try {
-            return repository.getJsonString(id);
+            return Optional.of(repository.getJsonString(id));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

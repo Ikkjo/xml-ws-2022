@@ -22,7 +22,10 @@ public class RequestForPatentRecognitionRepository {
     }
 
     public void save(RequestForPatentRecognition request) throws Exception {
-        exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "backend.patent.model.p");
+        exist.save(request,
+                   request.getInformationForInstitution().getApplicationNumber(),
+                   "/db/xml/patent/request",
+                   RequestForPatentRecognition.class);
         fuseki.save(request, "MetaData.xsl");
     }
 
@@ -44,7 +47,7 @@ public class RequestForPatentRecognitionRepository {
     }
 
     public void update(RequestForPatentRecognition request) throws Exception {
-        exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml-project/patent/request", "backend.patent.model.p");
+        exist.save(request, request.getInformationForInstitution().getApplicationNumber(), "/db/xml/patent/request", RequestForPatentRecognition.class);
         fuseki.save(request, "UpdateMetaData.xsl");
     }
 

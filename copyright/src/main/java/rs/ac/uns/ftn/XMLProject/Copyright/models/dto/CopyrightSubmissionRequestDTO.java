@@ -1,50 +1,48 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.models.dto;
 
 import lombok.*;
-import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
-import rs.ac.uns.ftn.XMLProject.Copyright.models.a.TAuthor;
-import rs.ac.uns.ftn.XMLProject.Copyright.models.a.TIndividual;
-import rs.ac.uns.ftn.XMLProject.Copyright.models.a.TPerson;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
 
-@XmlRootElement(name = "Copyright_submission_request")
+@XmlRootElement(name = "copyrightSubmissionRequest")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CopyrightSubmissionRequestDTO {
-    @XmlElement(name = "Applicant")
-    public PersonDTO applicant;
-    @XmlElement(name = "Attorney")
+    @XmlElement
+    public LegalEntityDTO applicantLegalEntity;
+    @XmlElement
+    public IndividualDTO applicantIndividual;
+    @XmlElement
     public IndividualDTO attorney;
-    @XmlElement(name = "Author_pseudonym")
+    @XmlElement
     public String authorPseudonym;
-    @XmlElement(name = "Work_title")
+    @XmlElement
     public WorkTitleDTO workTitle;
-    @XmlElement(name = "Adaptation_work_information")
+    @XmlElement
     public AdaptationWorkInformationDTO adaptationWorkInformation;
-    @XmlElement(name = "Work_type")
+    @XmlElement
     public String workType;
-    @XmlElement(name = "Form_of_recording_work")
+    @XmlElement
     public String formOfRecordingWork;
-    @XmlElement(name = "Author")
+    @XmlElement
     public AuthorDTO author;
-    @XmlElement(name = "Work_made_in_business_relationship")
+    @XmlElement
     public boolean workMadeInBusinessRelationship;
-    @XmlElement(name = "Way_of_using_work")
+    @XmlElement
     public String wayOfUsingWork;
-    @XmlAttribute(name = "institution")
+    @XmlElement
     public String institution;
-    @XmlAttribute(name = "address")
+    @XmlElement
     public String address;
-    @XmlAttribute(name = "request_number")
+    @XmlElement
     public String requestNumber;
-    @XmlAttribute(name = "accepted")
+    @XmlElement
     public Boolean accepted;
-    @XmlAttribute(name = "request_submission_date")
+    @XmlElement
     @XmlSchemaType(name = "date")
     public XMLGregorianCalendar requestSubmissionDate;
 }

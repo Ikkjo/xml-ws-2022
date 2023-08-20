@@ -37,9 +37,9 @@ public class SparqlUtils {
                     "FROM <%1$s> WHERE { \n" +
                     "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_number> ?request_number .\n" +
                     "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_submission_date> ?request_submission_date .\n" +
-                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_title> ?Main_title .\n" +
-                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_type> ?Work_type .\n" +
-                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Applicant> ?Applicant .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_title> ?title .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_type> ?work_type .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Applicant> ?applicant .\n" +
                     "  FILTER( ?request_number = \"%2$s\" )" +
                     "  }";
 
@@ -57,9 +57,9 @@ public class SparqlUtils {
                     "SELECT ?request_number \n" +
                     "FROM <%1$s> WHERE { \n" +
                     "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_number> ?request_number .\n" +
-                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1accepted> ?accepted .\n" +
+                    "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1is_accepted> ?is_accepted .\n" +
                     "  ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_submission_date> ?request_submission_date .\n" +
-                    "  FILTER( ?accepted = \"%2$s\" && \"%3$s\" < ?request_submission_date && ?request_submission_date < \"%4$s\" )\n" +
+                    "  FILTER( ?is_accepted = \"%2$s\" && \"%3$s\" < ?request_submission_date && ?request_submission_date < \"%4$s\" )\n" +
                     "  }";
 
     /* Plain text RDF serialization format */
@@ -107,21 +107,21 @@ public class SparqlUtils {
     }
 
     private static final Map<String, String> predicateSelectorMap = Stream.of(new String[][] {
-            { "Main_title", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_title> ?Main_title .\n" },
-            { "applicant", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Applicant> ?Applicant .\n" },
-            { "accepted", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1accepted> ?accepted .\n" },
+            { "title", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1title> ?title .\n" },
+            { "applicant", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1applicant> ?applicant .\n" },
+            { "is_accepted", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1is_accepted> ?is_accepted .\n" },
             { "request_submission_date", "?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_submission_date> ?request_submission_date .\n" },
-            { "work_type", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1Work_type> ?Work_type .\n"},
+            { "work_type", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1work_type> ?work_type .\n"},
             { "request_number", " ?request <http://www.XMLproject.ftn.uns.ac.rs/a-1request_number> ?request_number .\n"}
     }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
     private static final Map<String, String> predicateMap = Stream.of(new String[][] {
             { "request_number", "?request_number" },
             { "request_submission_date", "?request_submission_date" },
-            { "Main_title", "?Main_title" },
-            { "Work_type", "?Work_type" },
-            { "Applicant", "?Applicant" },
-            { "accepted", "?accepted = \"true\"" },
-            { "not accepted", "?accepted = \"false\"" },
+            { "title", "?title" },
+            { "work_type", "?work_type" },
+            { "applicant", "?applicant" },
+            { "is_accepted", "?is_accepted = \"true\"" },
+            { "not_accepted", "?is_accepted = \"false\"" },
     }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 
     private static String getQueryPredicateFromCondition(String condition) {

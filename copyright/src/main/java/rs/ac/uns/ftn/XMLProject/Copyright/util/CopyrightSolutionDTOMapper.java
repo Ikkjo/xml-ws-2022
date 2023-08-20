@@ -41,7 +41,7 @@ public class CopyrightSolutionDTOMapper {
         Official official = factory.createOfficial();
 
         official.setFirstName(officialDTO.getFirstName());
-        official.setLastName(official.getLastName());
+        official.setLastName(officialDTO.getLastName());
 
         return official;
     }

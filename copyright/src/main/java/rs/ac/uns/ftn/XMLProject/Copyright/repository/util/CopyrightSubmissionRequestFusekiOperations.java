@@ -1,6 +1,8 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.repository.util;
 
 import org.apache.jena.query.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.RDFAuthUtils.ConnectionProperties;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.RDFAuthUtils;
@@ -97,10 +99,10 @@ public class CopyrightSubmissionRequestFusekiOperations {
     private void updateRdf(CopyrightSubmissionRequest copyrightSubmissionRequest) throws Exception {
         String requestNumber = copyrightSubmissionRequest.getRequestNumber();
         String rdfFile = "gen/rdf/" + requestNumber + ".rdf";
-        String xslFile = "data/copyrightMetadataUpdate.xsl";
+        String xslFile = "/data/copyrightMetadataUpdate.xsl";
 
         TransformerFactory factory = TransformerFactory.newInstance();
-        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
+        InputStream resourceAsStream = getClass().getResourceAsStream(xslFile);
         StreamSource xslt = new StreamSource(resourceAsStream);
         Transformer transformer = factory.newTransformer(xslt);
 
@@ -115,10 +117,10 @@ public class CopyrightSubmissionRequestFusekiOperations {
     private void generateRdf(CopyrightSubmissionRequest copyrightSubmissionRequest) throws Exception {
         String requestNumber = copyrightSubmissionRequest.getRequestNumber();
         String rdfFile = "gen/rdf/" + requestNumber + ".rdf";
-        String xslFile = "data/copyrightMetadata.xsl";
+        String xslFile = "/data/copyrightMetadata.xsl";
 
         TransformerFactory factory = TransformerFactory.newInstance();
-        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
+        InputStream resourceAsStream = getClass().getResourceAsStream(xslFile);
         StreamSource xslt = new StreamSource(resourceAsStream);
         Transformer transformer = factory.newTransformer(xslt);
 

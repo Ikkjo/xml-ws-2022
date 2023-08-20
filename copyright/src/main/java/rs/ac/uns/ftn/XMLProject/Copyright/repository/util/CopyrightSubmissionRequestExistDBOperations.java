@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.XMLProject.Copyright.repository.util;
 
 import org.xmldb.api.base.*;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
+import rs.ac.uns.ftn.XMLProject.Copyright.models.a.ObjectFactory;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.ExistDBAuthUtils;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.ExistDBAuthUtils.ConnectionProperties;
 import org.xmldb.api.DatabaseManager;
@@ -57,8 +58,7 @@ public class CopyrightSubmissionRequestExistDBOperations {
 
 
             if(res != null) {
-
-                JAXBContext context = JAXBContext.newInstance("models.a");
+                JAXBContext context = JAXBContext.newInstance(CopyrightSubmissionRequest.class);
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -97,7 +97,7 @@ public class CopyrightSubmissionRequestExistDBOperations {
             col = getOrCreateCollection(conn, collectionId);
             res = (XMLResource) col.createResource(documentId, XMLResource.RESOURCE_TYPE);
 
-            JAXBContext context = JAXBContext.newInstance("models.a");
+            JAXBContext context = JAXBContext.newInstance(CopyrightSubmissionRequest.class);
 
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

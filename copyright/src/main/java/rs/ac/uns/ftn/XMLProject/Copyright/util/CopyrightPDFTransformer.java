@@ -1,9 +1,6 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.util;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -27,6 +24,9 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.solution.CopyrightRequestSolution;
@@ -38,10 +38,10 @@ public class CopyrightPDFTransformer {
 
     private static final TransformerFactory transformerFactory;
 
-    public static final String A1_XSL_FILE = "data/A-1.xsl";
-    public static final String SOLUTION_XSL_FILE = "data/copyrightRequestSolution.xsl";
+    public static final String A1_XSL_FILE = "/data/a-1.xsl";
+    public static final String SOLUTION_XSL_FILE = "/data/copyrightRequestSolution.xsl";
 
-    public static final String REPORT_XSL_FILE = "data/copyrightReport.xsl";
+    public static final String REPORT_XSL_FILE = "/data/copyrightReport.xsl";
 
     public static final String HTML_PATH = "gen/html/";
 
@@ -74,7 +74,8 @@ public class CopyrightPDFTransformer {
         String outputFile = "gen/pdf/" + file + ".pdf";
 
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outputFile));
-        pdfDocument.setDefaultPageSize(new PageSize(2480,3508));
+        pdfDocument.setDefaultPageSize(new PageSize(595,842));
+
         HtmlConverter.convertToPdf(Files.newInputStream(Paths.get(inputFile)), pdfDocument);
     }
 
@@ -131,8 +132,9 @@ public class CopyrightPDFTransformer {
         try {
 
             // Initialize Transformer instance
-            StreamSource transformSource = new StreamSource(new File(xslPath));
-            Transformer transformer = transformerFactory.newTransformer(transformSource);
+            InputStream resourceAsStream = getClass().getResourceAsStream(xslPath);
+            StreamSource xslt = new StreamSource(resourceAsStream);
+            Transformer transformer = transformerFactory.newTransformer(xslt);
             transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
@@ -157,7 +159,7 @@ public class CopyrightPDFTransformer {
     private void writeToXMLFile(CopyrightSubmissionRequest copyrightSubmissionRequest, String filename)
             throws JAXBException, IOException {
 
-        JAXBContext context = JAXBContext.newInstance("models.a");
+        JAXBContext context = JAXBContext.newInstance(CopyrightSubmissionRequest.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(copyrightSubmissionRequest, Files.newOutputStream(Paths.get(filename)));
@@ -166,7 +168,7 @@ public class CopyrightPDFTransformer {
     private void writeToXMLFile(CopyrightRequestSolution solution, String filename)
             throws JAXBException, IOException {
 
-        JAXBContext context = JAXBContext.newInstance("models.solution");
+        JAXBContext context = JAXBContext.newInstance(CopyrightRequestSolution.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(solution, Files.newOutputStream(Paths.get(filename)));
@@ -175,7 +177,7 @@ public class CopyrightPDFTransformer {
     private void writeToXMLFile(CopyrightReport copyrightSubmissionRequest, String filename)
             throws JAXBException, IOException {
 
-        JAXBContext context = JAXBContext.newInstance("models.report");
+        JAXBContext context = JAXBContext.newInstance(CopyrightReport.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(copyrightSubmissionRequest, Files.newOutputStream(Paths.get(filename)));

@@ -6,14 +6,14 @@ import { RegistrationForm } from '../dto/RegistrationForm';
 import { SystemUserDTO } from '../dto/SystemUserDTO';
 import { TokenDTO } from '../dto/TokenDTO';
 
-const apiUrl = "http://localhost:8989/authorization";
+const apiUrl = "http://localhost:8989/api/authorization";
 const xmlContentHeader = new HttpHeaders().set('Content-Type', 'application/xml');
 
 const endpoints = {
     login: apiUrl + "/login",
     logout: apiUrl + "/logout",
-    register: apiUrl + "/register",
-    getUserFromToken: apiUrl + "/getUser/"
+    register: apiUrl + "/registration",
+    getUserFromToken: apiUrl + "/get-user/"
 };
 
 @Injectable({
@@ -23,21 +23,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  public login(loginForm: LoginForm): Observable<HttpResponse<string>>{
-    return this.http.post<HttpResponse<string>>(endpoints.login, loginForm, { headers: xmlContentHeader });
+  public login(loginForm: string) {
+    return this.http.post(endpoints.login, loginForm, { headers: xmlContentHeader, responseType:'text'});
   }
 
-  public register(registrationFormXml: string): Observable<HttpResponse<String>> {
-    return this.http.post<HttpResponse<String>>(endpoints.login, registrationFormXml, { headers: xmlContentHeader });
+  public register(registrationFormXml: string) {
+    return this.http.post(endpoints.register, registrationFormXml, { headers: xmlContentHeader, responseType:'text' });
   }
 
-  public getLoggedInUser(): SystemUserDTO {
-    return {
-        email: "mail@example.com",
-        firstName: "John",
-        lastName: "Doe",
-        role: "official"
-    };
+  public getLoggedInUser(token: string) {
+    const authHeader = new HttpHeaders().set('Authorization', token).set('Content-Type', 'application/xml');
+    return this.http.get(endpoints.getUserFromToken, {headers: authHeader, responseType:'text'});
   }
-
 }

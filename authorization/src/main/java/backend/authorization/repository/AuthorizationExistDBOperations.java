@@ -23,7 +23,7 @@ import java.util.ArrayList;
 @Component
 public class AuthorizationExistDBOperations {
 
-    private final String collectionId = "/db/xml-project/users";
+    private final String collectionId = "/db/xml/users";
 
     public SystemUser findUserByEmail(String email) throws Exception {
         SystemUser user = null;
@@ -43,7 +43,8 @@ public class AuthorizationExistDBOperations {
         Collection col = null;
         try {
             // get the collection
-            col = DatabaseManager.getCollection(conn.uri + collectionId);
+
+            col = getOrCreateCollection(conn, collectionId);
             col.setProperty(OutputKeys.INDENT, "yes");
 
             XMLResource res = (XMLResource) col.getResource(username);
@@ -51,7 +52,7 @@ public class AuthorizationExistDBOperations {
 
             if (res != null) {
 
-                JAXBContext context = JAXBContext.newInstance("backend.authorization.model");
+                JAXBContext context = JAXBContext.newInstance(SystemUser.class);
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -95,7 +96,7 @@ public class AuthorizationExistDBOperations {
             col = getOrCreateCollection(conn, collectionId);
             XMLResource res = (XMLResource) col.createResource(username, XMLResource.RESOURCE_TYPE);
 
-            JAXBContext context = JAXBContext.newInstance("backend.authorization.model");
+            JAXBContext context = JAXBContext.newInstance(SystemUser.class);
 
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
