@@ -1,7 +1,5 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.controller;
 
-import jakarta.websocket.server.PathParam;
-import org.apache.catalina.connector.Response;
 import rs.ac.uns.ftn.XMLProject.Copyright.exception.ResourceNotFoundException;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.CopyrightSubmissionRequestDTO;
 import org.springframework.core.io.InputStreamResource;
@@ -14,12 +12,13 @@ import rs.ac.uns.ftn.XMLProject.Copyright.service.CopyrightRequestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.print.attribute.standard.Media;
 import java.io.ByteArrayInputStream;
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/api/copyright/request", consumes = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(path = "/api/copyright/request")
 public class CopyrightRequestController {
 
     private final CopyrightRequestService copyrightRequestService;
@@ -31,12 +30,12 @@ public class CopyrightRequestController {
     }
 
     @GetMapping(path = "/all", produces = "application/xml")
-    public List<CopyrightSubmissionRequestDTO> getAllCopyrightRequests() {
-        return copyrightRequestService.getAllCopyrightSubmissionRequests();
+    public ResponseEntity<List<CopyrightSubmissionRequestDTO>> getAllCopyrightRequests() {
+        return ResponseEntity.ok(copyrightRequestService.getAllCopyrightSubmissionRequests());
     }
 
     @GetMapping(path = "/{id}", produces = "application/xml")
-    public ResponseEntity<CopyrightSubmissionRequestDTO> getCopyrightRequestById(@PathVariable("id") String id) {
+    public ResponseEntity<CopyrightSubmissionRequestDTO> getCopyrightRequestById(@PathVariable String id) {
         try {
             return ResponseEntity.ok(copyrightRequestService.getCopyrightSubmissionRequestById(id));
         } catch (ResourceNotFoundException e) {
@@ -46,11 +45,13 @@ public class CopyrightRequestController {
         }
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<String> createCopyrightSubmissionRequest(@RequestBody CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
         logger.info(copyrightSubmissionRequestDTO.toString());
-        copyrightRequestService.createCopyrightSubmissionRequest(copyrightSubmissionRequestDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Optional<String> maybeRequestNumber = copyrightRequestService.createCopyrightSubmissionRequest(copyrightSubmissionRequestDTO);
+        return maybeRequestNumber.<ResponseEntity<String>>
+                map(s -> ResponseEntity.created(URI.create(s)).build())
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
     @GetMapping(path = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
@@ -79,8 +80,8 @@ public class CopyrightRequestController {
         }
     }
 
-    @GetMapping(path = "/{id}/linked", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getLinkedSolution(@PathVariable String id) {
+    @GetMapping(path = "/{id}/linked", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<?> getLinkedSolution(@PathVariable String id) {
         try {
             return ResponseEntity.ok(copyrightRequestService.getLinkedDocuments(id));
         } catch (ResourceNotFoundException e) {

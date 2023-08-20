@@ -24,7 +24,7 @@ public class AuthenticationUtilitiesRDF {
 
         public ConnectionProperties(Properties props) {
             super();
-            dataset = props.getProperty("conn.dataset").trim();
+            dataset = props.getProperty("conn.dataset.patent").trim();
             endpoint = props.getProperty("conn.endpoint").trim();
 
             queryEndpoint = String.join("/", endpoint, dataset, props.getProperty("conn.query").trim());

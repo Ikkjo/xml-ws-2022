@@ -5,26 +5,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "author")
 public class AuthorDTO {
 
-    @XmlElement(name = "Author_surname")
+    @XmlElement(name = "authorSurname")
     public String authorSurname;
-    @XmlElement(name = "Author_name")
+    @XmlElement(name = "authorName")
     public String authorName;
-    @XmlElement(name = "Citizenship", required = true)
+    @XmlElement(name = "citizenship")
     public String citizenship;
-    @XmlElement(name = "Date_of_death")
+    @XmlElement(name = "dateOfDeath")
     public XMLGregorianCalendar dateOfDeath;
     @XmlAttribute(name = "anonymous")
     public Boolean anonymous;
-    @XmlAttribute(name = "is_alive")
+    @XmlAttribute(name = "isAlive")
     public Boolean isAlive;
 }

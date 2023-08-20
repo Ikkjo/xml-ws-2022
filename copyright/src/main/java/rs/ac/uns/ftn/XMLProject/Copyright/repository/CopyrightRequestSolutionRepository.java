@@ -37,16 +37,11 @@ public class CopyrightRequestSolutionRepository {
     }
 
     public boolean save(CopyrightRequestSolution copyrightRequestSolution) {
-        boolean dbSuccess;
-        boolean rdfSuccess;
         try {
-            dbSuccess = existDB.save(copyrightRequestSolution);
-            rdfSuccess = rdf.save(copyrightRequestSolution);
+            return existDB.save(copyrightRequestSolution);
         } catch (Exception e) {
             return false;
         }
-
-        return dbSuccess && rdfSuccess;
     }
 
     public BigInteger countAccepted(String startDate, String endDate) throws IOException {

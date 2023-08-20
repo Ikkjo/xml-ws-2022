@@ -3,6 +3,7 @@ package backend.patent.controller;
 import backend.patent.model.p.dto.CreatePatentRecognitionRequestDTO;
 import backend.patent.model.p.dto.RequestForPatentRecognitionDTO;
 import backend.patent.util.TokenUtils;
+import lombok.RequiredArgsConstructor;
 import org.apache.catalina.connector.Response;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -12,30 +13,35 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import backend.patent.service.PatentService;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/patent")
+@RequiredArgsConstructor
 public class PatentController {
 
     private final PatentService patentService;
     private final TokenUtils tokenUtils;
 
-    public PatentController(PatentService patentService, TokenUtils tokenUtils) {
-        this.patentService = patentService;
-        this.tokenUtils = tokenUtils;
-    }
-
     @GetMapping(value = "/{id}", produces = "application/xml")
-    public RequestForPatentRecognitionDTO getPatentRecognitionRequest(@PathVariable("id") String id) throws Exception {
-        return patentService.getPatentRecognitionRequest(id);
+    public ResponseEntity<?> getPatentRecognitionRequest(@PathVariable("id") String id) throws Exception {
+        try {
+            return ResponseEntity.of(patentService.getPatentRecognitionRequest(id));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e);
+        }
     }
 
     @GetMapping(value = "/all", produces = "application/xml")
-    public List<RequestForPatentRecognitionDTO> getAllPatentRecognitionRequests() throws Exception {
-        return patentService.getAllPatentRecognitionRequests();
+    public ResponseEntity<?> getAllPatentRecognitionRequests() {
+        try {
+            return ResponseEntity.ok(patentService.getAllPatentRecognitionRequests());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e);
+        }
     }
 
     @GetMapping(path = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
@@ -50,39 +56,43 @@ public class PatentController {
 
     @GetMapping(path = "/{id}/html", produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> getDocumentHtml(@PathVariable String id) {
-        return new ResponseEntity<>(patentService.getRequestForPatentRecognitionHTML(id), HttpStatus.OK);
+        return ResponseEntity.ok(patentService.getRequestForPatentRecognitionHTML(id));
     }
 
     @PostMapping(value = "/create", consumes = "application/xml", produces = "application/xml")
-    public int createNewPatentRecognitionRequest(@RequestBody CreatePatentRecognitionRequestDTO createPatentRecognitionRequestDTO) throws Exception {
-        patentService.createNewPatentRecognitionRequest(createPatentRecognitionRequestDTO);
-        return Response.SC_OK;
+    public ResponseEntity<?> createNewPatentRecognitionRequest(@RequestBody CreatePatentRecognitionRequestDTO createPatentRecognitionRequestDTO) {
+        try {
+            String requestId = patentService.createNewPatentRecognitionRequest(createPatentRecognitionRequestDTO);
+            return ResponseEntity.created(URI.create(requestId)).build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e);
+        }
     }
 
     @GetMapping(path = "/{id}/rdf", produces = "application/xml")
     public ResponseEntity<String>  getMetadataRdf(@PathVariable String id) {
-        return new ResponseEntity<>(patentService.getRdfMetadata(id), HttpStatus.OK);
+        return ResponseEntity.of(patentService.getRdfMetadata(id));
     }
 
     @GetMapping(path = "/{id}/json", produces = "application/json")
     public ResponseEntity<String>  getMetadataJson(@PathVariable String id) {
-        return new ResponseEntity<>(patentService.getJsonMetadata(id), HttpStatus.OK);
+        return ResponseEntity.of(patentService.getJsonMetadata(id));
     }
 
     @GetMapping(path = "/search/content/{content}", produces = "application/xml")
-    public List<RequestForPatentRecognitionDTO> searchByContent(@PathVariable String content, HttpServletRequest request) {
+    public ResponseEntity<?> searchByContent(@PathVariable String content, HttpServletRequest request) {
         String role = tokenUtils.getRoleFromHeader(request);
-        return patentService.searchByContent(role, content);
+        return ResponseEntity.ok(patentService.searchByContent(role, content));
     }
 
     @GetMapping(path = "/search/metadata/{condition}", produces = "application/xml")
-    public List<RequestForPatentRecognitionDTO> searchByMetadata(@PathVariable String condition, HttpServletRequest request) {
+    public ResponseEntity<?> searchByMetadata(@PathVariable String condition, HttpServletRequest request) {
         String role = tokenUtils.getRoleFromHeader(request);
-        return patentService.search(role, condition);
+        return ResponseEntity.ok(patentService.search(role, condition));
     }
 
     @GetMapping(path = "/{id}/linked-document", produces = "application/json")
     public ResponseEntity<String>  getLinkedDocument(@PathVariable String id) {
-        return new ResponseEntity<>(patentService.getLinkedDocuments(id), HttpStatus.OK);
+        return ResponseEntity.ok(patentService.getLinkedDocuments(id));
     }
 }

@@ -53,7 +53,7 @@ public class PatentSolutionService {
         return fileContent;
     }
 
-    public void createPatentSolution(PatentSolutionDTO solutionDTO) throws Exception {
+    public String createPatentSolution(PatentSolutionDTO solutionDTO) throws Exception {
         PatentSolution solution = dtoMapper.convertSolutionFromDTO(solutionDTO);
         RequestForPatentRecognition request = requestRepository.findById(solutionDTO.applicationNumber);
         request.setIsAccepted(solutionDTO.isAccepted);
@@ -62,6 +62,8 @@ public class PatentSolutionService {
         solutionRepository.save(solution);
 
         deleteFile("gen/rdf/" + request.getInformationForInstitution().getApplicationNumber() + ".rdf");
+
+        return request.getApplicationInformation().getOriginalApplicationNumber();
     }
 
     private void deleteFile(String filePath) {

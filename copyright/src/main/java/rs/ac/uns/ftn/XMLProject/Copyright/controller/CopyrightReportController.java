@@ -5,16 +5,13 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import rs.ac.uns.ftn.XMLProject.Copyright.exception.ResourceNotFoundException;
+import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.XMLProject.Copyright.service.CopyrightReportService;
 
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 
-@RestController(value = "api/copyright/report")
+@RestController
+@RequestMapping(path = "api/copyright/report")
 @RequiredArgsConstructor
 public class CopyrightReportController {
 

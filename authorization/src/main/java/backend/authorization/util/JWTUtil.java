@@ -4,17 +4,22 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Component
 public class JWTUtil {
+    @Value("Authorization")
+    private String AUTH_HEADER;
+
     public static String SECRET = "salty_secret";
     private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
 
-    public String generateToken(String email, String role) {
+    public  String generateToken(String email, String role) {
         long EXPIRES_IN = 1000L * 60L * 60L * 10L;
         return Jwts.builder()
                 .setSubject(email)
@@ -24,7 +29,7 @@ public class JWTUtil {
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }
 
-    public String getEmailFromToken(String token) {
+    public  String getEmailFromToken(String token) {
         String email;
         try {
             final Claims claims = this.getAllClaimsFromToken(token);
@@ -37,7 +42,7 @@ public class JWTUtil {
         return email;
     }
 
-    private Claims getAllClaimsFromToken(String token) {
+    private  Claims getAllClaimsFromToken(String token) {
         Claims claims;
         try {
             claims = Jwts.parser()
@@ -50,5 +55,9 @@ public class JWTUtil {
             claims = null;
         }
         return claims;
+    }
+    
+    public String getTokenFromServletRequest(HttpServletRequest request) {
+        return request.getHeader(AUTH_HEADER);
     }
 }

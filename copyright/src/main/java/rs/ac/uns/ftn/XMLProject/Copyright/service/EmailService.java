@@ -1,38 +1,31 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.service;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+    private final JavaMailSenderImpl mailSender;
+    private final String USERNAME = "zavodzaintelektualnusvojinu@gmail.com";
 
     @Async
-    public void send(String recipient, String id) throws IOException {
-        {
-            mailSender.setHost("smtp.gmail.com");
-            mailSender.setPort(587);
-            mailSender.setUsername("zavodzaintelektualnusvojinu@gmail.com");
-            mailSender.setPassword("q._vA2F/S&yLPZ.i(]4&.?j7}A(D24y;Y\\+-)'t-kR-R");
-            Properties props = mailSender.getJavaMailProperties();
-            props.put("mail.transport.protocol", "smtp");
-            props.put("mail.smtp.ssl.trust", "*");
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.connectiontimeout", "5000");
-            props.put("mail.smtp.timeout", "3000");
-            props.put("mail.smtp.writetimeout", "5000");
-        }
+    public void send(String recipient, String id) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(
@@ -41,16 +34,10 @@ public class EmailService {
                     "utf-8"
             );
             helper.setTo(recipient);
-            helper.setFrom("zavodzaintelektualnusvojinu@gmail.com");
-            helper.setText("""
-                    Поштовани,
-
-                    у прилогу вам се налази решење поднетог захтева.
-
-                    Срдачно,
-                    Завод за интелектуалну својину""");
-            FileSystemResource pdf = new FileSystemResource(new File("gen/pdf/" + id + "-solution.pdf"));
-            helper.addAttachment("rešenje.pdf", pdf, "application/pdf");
+            helper.setFrom(USERNAME);
+            helper.setText("\nПоштовани,\n\nу прилогу вам се налази решење поднетог захтева.\n\nСрдачно,\nЗавод за интелектуалну својину");
+            File pdf = new File("gen/pdf/" + id + "-solution.pdf");
+            helper.addAttachment("rešenje.pdf", pdf);
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
             throw new IllegalStateException("Failed to send email");

@@ -5,6 +5,7 @@ import rs.ac.uns.ftn.XMLProject.Copyright.exception.ResourceNotFoundException;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.a.CopyrightSubmissionRequest;
 import rs.ac.uns.ftn.XMLProject.Copyright.models.dto.CopyrightSubmissionRequestDTO;
 import org.springframework.stereotype.Service;
+import rs.ac.uns.ftn.XMLProject.Copyright.models.solution.CopyrightRequestSolution;
 import rs.ac.uns.ftn.XMLProject.Copyright.repository.CopyrightSubmissionRequestRepository;
 import org.apache.commons.io.FileUtils;
 import rs.ac.uns.ftn.XMLProject.Copyright.util.CopyrightRequestDTOMapper;
@@ -28,11 +29,11 @@ public class CopyrightRequestService {
         this.copyrightSubmissionRequestRepository = copyrightSubmissionRequestRepository;
     }
 
-    public boolean createCopyrightSubmissionRequest(CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
+    public Optional<String> createCopyrightSubmissionRequest(CopyrightSubmissionRequestDTO copyrightSubmissionRequestDTO) {
         List<CopyrightSubmissionRequest> copyrightSubmissionRequests = copyrightSubmissionRequestRepository.findAll();
         int id = 0;
 
-        if(copyrightSubmissionRequests != null) {
+        if(!copyrightSubmissionRequests.isEmpty()) {
             id += copyrightSubmissionRequests.size();
         }
 
@@ -41,10 +42,11 @@ public class CopyrightRequestService {
             request.setRequestNumber(String.format("A-%06d", id));
             request.setRequestSubmissionDate(getXMLGregorianCalendarNow());
             copyrightSubmissionRequestRepository.save(request);
-        } catch (DatatypeConfigurationException e) {
+            return Optional.of(request.getRequestNumber());
+        } catch (Exception e) {
             e.printStackTrace();
+            return Optional.empty();
         }
-        return false;
     }
 
     public CopyrightSubmissionRequestDTO getCopyrightSubmissionRequestById(String id) throws ResourceNotFoundException {
@@ -117,7 +119,7 @@ public class CopyrightRequestService {
         return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
     }
 
-    public String getLinkedDocuments(String requestNumber) throws ResourceNotFoundException {
+    public List<String> getLinkedDocuments(String requestNumber) throws ResourceNotFoundException {
 
         List<String> linkedDocs = new ArrayList<>();
 
@@ -125,18 +127,20 @@ public class CopyrightRequestService {
                 .orElseThrow(ResourceNotFoundException::new);
 
         if (request.isAccepted() != null) {
-            linkedDocs.add(request.getRequestNumber());
+            linkedDocs.add(request.getRequestNumber() + "-solution");
         }
 
         copyrightSubmissionRequestRepository.search(requestNumber).stream()
                 .forEach((copyrightSubmissionRequest -> {
                     if(!Objects.equals(request.getRequestNumber(), copyrightSubmissionRequest.getRequestNumber())) {
-                        linkedDocs.add(copyrightSubmissionRequest.getRequestNumber());
+                        linkedDocs.add(copyrightSubmissionRequest.getRequestNumber()+".xml");
                     }
                 }));
 
-        return String.join(",", linkedDocs);
+//        return String.join(",", linkedDocs);
+        return linkedDocs;
     }
+
 
     public String getRdfMetadata(String requestNumber) {
         return copyrightSubmissionRequestRepository.getRdfMetadata(requestNumber);

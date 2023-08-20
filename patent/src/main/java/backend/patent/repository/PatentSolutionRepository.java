@@ -14,7 +14,7 @@ public class PatentSolutionRepository {
     }
 
     public void save(PatentSolution solution) throws Exception {
-        exist.save(solution, solution.getApplicationNumber(),"/db/xml-project/patent/solution", "backend.patent.model.solution");
+        exist.save(solution, solution.getApplicationNumber(),"/db/xml/patent/solution", PatentSolution.class);
     }
 
     public PatentSolution findById(String id) throws Exception {

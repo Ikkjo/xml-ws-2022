@@ -1,89 +1,102 @@
 import { Component } from '@angular/core';
 import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    FormGroupDirective,
-    NgForm,
-    Validators,
-  } from '@angular/forms';
-  import { ErrorStateMatcher } from '@angular/material/core';
-  import { HttpResponse } from '@angular/common/http';
-  import { Router } from '@angular/router';
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenDTO } from 'src/app/dto/TokenDTO';
-import { xmlToObject } from 'src/app/util/XmlUtil';
+import { saveToken, saveSession } from 'src/app/util/context';
+import { xmlToObject, objectToXML } from 'src/app/util/XmlUtil';
+import { SystemUserDTO } from 'src/app/dto/SystemUserDTO';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class EmailFormErrorStateMatcher implements ErrorStateMatcher {
-    isErrorState(
-      control: FormControl | null,
-      form: FormGroupDirective | NgForm | null
-    ): boolean {
-      const isSubmitted = form && form.submitted;
-      return !!(
-        control &&
-        control.invalid &&
-        (control.dirty || control.touched || isSubmitted)
-      );
-    }
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
+}
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
-    loginForm!: FormGroup;
-	matcher: EmailFormErrorStateMatcher = new EmailFormErrorStateMatcher();
+  loginForm!: FormGroup;
+  matcher: EmailFormErrorStateMatcher = new EmailFormErrorStateMatcher();
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router
   ) {}
-	ngOnInit(): void {
-		this.loginForm = this.formBuilder.group({
-			email: ['', [Validators.required, Validators.email]],
-			password: ['', [Validators.required]],
-		  });
-	}
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
+  }
 
   doLogin() {
     if (this.loginForm.valid) {
+      let loginDto = objectToXML(
+        {
+          email: this.loginForm.value?.email,
+          password: this.loginForm.value?.password,
+        },
+        'LoginDTO'
+      );
 
-        console.log({
-            email: this.loginForm.value?.email,
-            password: this.loginForm.value?.password,
-        })
+      this.authService.login(loginDto).subscribe({
+        next: (token) => {
+          this.handleSuccessfulLogin(token);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
 
-        this.authService.login({
-            email: this.loginForm.value?.email,
-            password: this.loginForm.value?.password,
-        }).subscribe({
-            next: (token) => {
-                
-                this.handleSuccessfulLogin(token)
-            },
-            error: (error) => {
-                console.log(error);
-            }
-        })
-
-		this.loginForm.reset();
+      this.loginForm.reset();
     }
   }
 
-  handleSuccessfulLogin(response: HttpResponse<string>): void {
-
-    console.log(response)
-
-    if(response.body) {
-        localStorage.setItem('token', JSON.stringify(xmlToObject<TokenDTO>(response.body)));
-        this.router.navigate(['/']);
-    } else {
-        console.log(response)
+  handleSuccessfulLogin(response: string): void {
+    if (response) {
+      xmlToObject(response)
+        .then((result: any) => {
+          saveToken(result.TokenDTO.token);
+          this.authService.getLoggedInUser(result.TokenDTO.token).subscribe({
+            next: (sessionContextXML) => {
+              xmlToObject(sessionContextXML).then((result: any) => {
+                saveSession(result.SystemUserDTO);
+                this.router.navigate([this.router.url])
+                this.router.navigate(['/']);
+                window.location.replace("/")
+              });
+            },
+            error: (error) => {
+              console.log(error);
+            },
+          });
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
     }
   }
 

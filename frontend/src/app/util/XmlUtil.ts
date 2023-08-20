@@ -1,19 +1,21 @@
 import { XMLBuilder, XMLParser } from "fast-xml-parser";
+import {parseString, Parser, Builder, convertableToString} from 'xml2js';
 
-const options = {
-    ignoreAttributes: false,
-    attributeNamePrefix : "_",
-    allowBooleanAttributes: true,
-    ignoreDeclaration: true
+
+export function objectToXML<T extends Object>(obj: T, rootElement: string): string {
+    const builderOptions = {
+        rootName: rootElement
+    }
+    let builder: Builder = new Builder(builderOptions);
+    return builder.buildObject(obj);
 }
 
-const builder: XMLBuilder = new XMLBuilder(options);
-const parser: XMLParser = new XMLParser(options);
+export function xmlToObject(xmlString: string | convertableToString): any {
 
-export function xmlToObject<T extends Object>(xml: string): T{
-    return builder.build(xml) as T;
-}
+    const parserOptions = {
+        explicitArray: false
+    }
 
-export function objectToXML<T extends Object>(obj: T): string {
-    return parser.parse(obj.toString());
+    let parser: Parser = new Parser(parserOptions);
+    return parser.parseStringPromise(xmlString);
 }

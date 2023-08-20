@@ -1,24 +1,24 @@
 package rs.ac.uns.ftn.XMLProject.Copyright.models.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+@XmlRootElement(name = "copyrightRequestSolution")
+@XmlAccessorType(XmlAccessType.FIELD)
 @AllArgsConstructor
 @Data
-@XmlRootElement(name = "Copyright_request_solution")
+@NoArgsConstructor
 public class CopyrightRequestSolutionDTO {
-    @XmlElement(name = "request_number", required = true)
+    @XmlElement(name = "requestNumber", required = true)
     public String requestNumber;
+    @XmlElement(name = "accepted")
     public boolean accepted;
-    @XmlElement(required = true)
+    @XmlElement(name = "official")
     public OfficialDTO official;
-    @XmlElement(name = "solution_date", required = true)
     @XmlSchemaType(name = "date")
     public XMLGregorianCalendar solutionDate;
+    @XmlElement(name = "motivation", nillable = true)
     public String motivation;
 }

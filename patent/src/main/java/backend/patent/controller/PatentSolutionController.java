@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import backend.patent.service.PatentSolutionService;
 
 import java.io.ByteArrayInputStream;
+import java.net.URI;
+import java.util.Optional;
 
 @RestController()
-@RequestMapping(value = "/api/solution")
+@RequestMapping(value = "/api/patent/solution")
 public class PatentSolutionController {
 
     private final PatentSolutionService solutionService;
@@ -22,19 +24,20 @@ public class PatentSolutionController {
         this.solutionService = solutionService;
     }
 
-    @PostMapping(value = "/create", consumes = "application/xml", produces = "application/xml")
-    public int createPatentSolution(@RequestBody PatentSolutionDTO solutionDTO) {
+    @PostMapping(consumes = "application/xml", produces = "application/xml")
+    public ResponseEntity<?> createPatentSolution(@RequestBody PatentSolutionDTO solutionDTO) {
         try {
-            solutionService.createPatentSolution(solutionDTO);
-            return Response.SC_OK;
+            String applicationNumber = solutionService.createPatentSolution(solutionDTO);
+            return ResponseEntity.created(URI.create(applicationNumber)).build();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
     @GetMapping(path = "/{id}/html", produces = MediaType.TEXT_HTML_VALUE)
-    public ResponseEntity<String> getDocumentHtml(@PathVariable String id) {
-        return new ResponseEntity<>(solutionService.getSolutionHTML(id), HttpStatus.OK);
+    public ResponseEntity<?> getDocumentHtml(@PathVariable String id) {
+        Optional<String> solutionHtml = Optional.of(solutionService.getSolutionHTML(id));
+        return ResponseEntity.of(solutionHtml);
     }
 
     @GetMapping(path = "/report/{startDate}/{endDate}", produces = MediaType.APPLICATION_PDF_VALUE)
@@ -44,6 +47,9 @@ public class PatentSolutionController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=report.pdf");
 
-        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(byteFile));
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(byteFile));
     }
 }

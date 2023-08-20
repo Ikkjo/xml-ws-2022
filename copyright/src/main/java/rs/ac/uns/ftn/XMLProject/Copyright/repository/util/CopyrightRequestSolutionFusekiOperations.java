@@ -71,10 +71,11 @@ public class CopyrightRequestSolutionFusekiOperations {
     private void generateRdf(CopyrightRequestSolution copyrightRequestSolution) throws Exception {
         String requestNumber = copyrightRequestSolution.getRequestNumber();
         String rdfFile = "gen/rdf/" + requestNumber + "-solution.rdf";
-        String xslFile = "data/copyrightSolutionMetadata.xsl";
+        String xslFile = "/data/copyrightMetadata.xsl";
 
         TransformerFactory factory = TransformerFactory.newInstance();
-        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
+//        InputStream resourceAsStream = FileUtils.openInputStream(new File(xslFile));
+        InputStream resourceAsStream = getClass().getResourceAsStream(xslFile);
         StreamSource xslt = new StreamSource(resourceAsStream);
         Transformer transformer = factory.newTransformer(xslt);
 

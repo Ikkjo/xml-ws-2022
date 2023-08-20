@@ -18,6 +18,7 @@ import { PatentReportComponent } from './pages/patent-report/patent-report.compo
 import { PatentSearchComponent } from './pages/patent-search/patent-search.component';
 import { SolutionModalComponent } from './components/solution-modal/solution-modal.component';
 import { CopyrightSearchPageComponent } from './pages/copyright-search-page/copyright-search-page.component';
+import { CopyrightReportPageComponent } from './pages/copyright-report-page/copyright-report-page.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CopyrightSearchPageComponent } from './pages/copyright-search-page/copy
     PatentSearchComponent,
     SolutionModalComponent,
     CopyrightSearchPageComponent,
+    CopyrightReportPageComponent,
   ],
   imports: [
     MaterialModule,
