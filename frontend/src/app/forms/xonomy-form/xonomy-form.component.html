@@ -1,0 +1,16 @@
+<div class="w-full flex flex-col justify-center items-center">
+  <div class="w-3/5 p-10 m-10 rounded shadow-md bg-white z-10 h-[80vh]">
+
+    <div class="mb-8 w-full flex justify-center font-bold text-3xl">
+      <h1>Захтев за признање патента</h1>
+    </div>
+
+    <div id="editor"></div>
+
+    <div class="w-full mt-5 flex justify-center">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded" (click)="submit()">Пошаљи захтев</button>
+    </div>
+
+  </div>
+</div>
+<app-alert-modal [(show)]="showAlert"></app-alert-modal>

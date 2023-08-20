@@ -93,13 +93,18 @@ public class PatentSolutionService {
             report.setRejectedRequestsNumber(solutionRepository.countSubmittedResponded(startDate, endDate, "false"));
 
             pdfTransformer.generateHTMLReport(report);
-            pdfTransformer.generatePDF("report");
 
-            File pdfFile = new File("gen/pdf/report.pdf");
+            String reportFile = report.getStartDate() + "-" + report.getEndDate() + "-report";
+
+            pdfTransformer.generatePDF(reportFile);
+
+            File pdfFile = new File("gen/pdf/" + reportFile + ".pdf");
+            File xmlFile = new File("gen/xml/" + reportFile + ".xml");
+            File htmlFile = new File("gen/html/" + reportFile + ".html");
             byteArrayInputStream = new ByteArrayInputStream(FileUtils.readFileToByteArray(pdfFile));
             pdfFile.delete();
-            deleteFile("gen/html/report.html");
-            deleteFile("gen/xml/report.xml");
+            xmlFile.delete();
+            htmlFile.delete();
 
         } catch (Exception e) {
             throw new RuntimeException(e);

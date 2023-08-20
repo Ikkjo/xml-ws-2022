@@ -13,12 +13,15 @@ import { RegsitrationPageComponent } from './pages/regsitration-page/regsitratio
 import { MainNavBarComponent } from './components/main-nav-bar/main-nav-bar.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import {MatMenuModule} from "@angular/material/menu";
+import { MatMenuModule } from "@angular/material/menu";
 import { PatentReportComponent } from './pages/patent-report/patent-report.component';
 import { PatentSearchComponent } from './pages/patent-search/patent-search.component';
 import { SolutionModalComponent } from './components/solution-modal/solution-modal.component';
 import { CopyrightSearchPageComponent } from './pages/copyright-search-page/copyright-search-page.component';
+import { XonomyFormComponent } from './forms/xonomy-form/xonomy-form.component';
+import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 import { CopyrightReportPageComponent } from './pages/copyright-report-page/copyright-report-page.component';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { CopyrightReportPageComponent } from './pages/copyright-report-page/copy
     PatentSearchComponent,
     SolutionModalComponent,
     CopyrightSearchPageComponent,
+    XonomyFormComponent,
+    AlertModalComponent,
     CopyrightReportPageComponent,
   ],
   imports: [
