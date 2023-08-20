@@ -5,7 +5,7 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Мени</mat-toolbar>
     <mat-nav-list class="main-nav-list">
-      <a mat-list-item [matMenuTriggerFor]="request">Захтев</a>
+      <a *ngIf="role" mat-list-item [matMenuTriggerFor]="request">Захтев</a>
       <mat-menu #request="matMenu">
         <a mat-menu-item [routerLink]="['/copyright/request-form']" routerLinkActive="router-link-active">Ауторско дело</a>
         <a mat-menu-item [routerLink]="['/patent/request-form']" routerLinkActive="router-link-active">Патент</a>
@@ -18,6 +18,11 @@
         <a mat-menu-item [routerLink]="['/copyright/search']" routerLinkActive="router-link-active">Ауторско дело</a>
         <a mat-menu-item [routerLink]="['patent/search']" routerLinkActive="router-link-active">Патент</a>
       </mat-menu>
+      <a mat-list-item *ngIf="this.role.toUpperCase() === 'SLUZBENIK'" [matMenuTriggerFor]="report">Извештај</a>
+      <mat-menu #report="matMenu">
+        <a mat-menu-item [routerLink]="['/copyright/report']" routerLinkActive="router-link-active">Ауторско дело</a>
+        <!-- <a mat-menu-item [routerLink]="['patent/report']" routerLinkActive="router-link-active">Патент</a> -->
+      </mat-menu>
       <!-- <a mat-list-item mat-icon [routerLink]="['/account']" routerLinkActive="router-link-active">Account</a> -->
 
       <!-- <a mat-list-item [routerLink]="['/logout']" class="logout-link">Logout</a> -->
@@ -25,8 +30,13 @@
     </mat-nav-list>
     <mat-nav-list class="bottom-nav-list">
       <mat-divider></mat-divider>
-      <a mat-list-item [routerLink]="['/login']" routerLinkActive="router-link-active">Пријава на систем</a>
-      <a mat-list-item [routerLink]="['/register']" routerLinkActive="router-link-active">Регистрација</a>
+      <div *ngIf="!role; else loggedIn">
+          <a mat-list-item [routerLink]="['/login']" routerLinkActive="router-link-active">Пријава на систем</a>
+          <a mat-list-item [routerLink]="['/register']" routerLinkActive="router-link-active">Регистрација</a>
+      </div>
+      <ng-template #loggedIn>
+        <a mat-list-item (click)="logout()">Одјава</a>
+      </ng-template>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

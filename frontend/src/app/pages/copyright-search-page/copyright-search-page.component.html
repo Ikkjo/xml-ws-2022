@@ -6,12 +6,17 @@
 
   <ng-container matColumnDef="requestNumber">
     <th mat-header-cell *matHeaderCellDef>Број захтева</th>
-    <td mat-cell *matCellDef="let request"> {{request.requestNumber </td>
+    <td mat-cell *matCellDef="let request"> {{request.requestNumber}} </td>
   </ng-container>
 
   <ng-container matColumnDef="applicant">
     <th mat-header-cell *matHeaderCellDef>Подносилац</th>
-    <td mat-cell *matCellDef="let request"> {{request.applicant}} </td>
+    <td mat-cell *matCellDef="let request"> {{getApplicant(request.index)}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="mainTitle">
+    <th mat-header-cell *matHeaderCellDef>Наслов дела</th>
+    <td mat-cell *matCellDef="let request"> {{request.workTitle.mainTitle}} </td>
   </ng-container>
 
   <ng-container matColumnDef="requestSubmissionDate">
@@ -20,10 +25,36 @@
   </ng-container>
 
   <ng-container matColumnDef="accepted">
-    <th mat-header-cell *matHeaderCellDef>Прихваћен</th>
-    <td mat-cell *matCellDef="let request"> {{request.accepted}} </td>
+    <th mat-header-cell *matHeaderCellDef>Одобрен</th>
+    <td mat-cell *matCellDef="let request"> {{getAccepted(request.index)}} </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <ng-container matColumnDef="downloadDocument">
+        <th mat-header-cell *matHeaderCellDef>Преузми документ</th>
+        <td mat-cell *matCellDef="let request">
+          <button mat-raised-button (click)="downloadHtml(request.requestNumber)">.html</button>
+          <button mat-raised-button (click)="downloadPdf(request.requestNumber)">.pdf</button>
+        </td>
+  </ng-container>
+
+  <ng-container matColumnDef="downloadMetadata">
+    <th mat-header-cell *matHeaderCellDef>Преузми метаподатке</th>
+    <td mat-cell *matCellDef="let request">
+        <button mat-raised-button (click)="downloadRdf(request.requestNumber)">.rdf</button>
+        <button mat-raised-button (click)="downloadJson(request.requestNumber)">.json</button>
+    </td>
+</ng-container>
+
+  <ng-container matColumnDef="solution">
+      <th mat-header-cell *matHeaderCellDef>Решење</th>
+      <td mat-cell *matCellDef="let request">
+        <button mat-raised-button (click)="toggleModal(request.requestNumber)">Обради захтев</button>
+      </td>
+  </ng-container>
+    <ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </ng-container>
+      
+
 </table>

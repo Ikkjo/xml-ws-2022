@@ -1,7 +1,8 @@
-import { Individual, Person } from "./User";
+import { Individual, LegalEntity, Person } from "../User";
 
-export interface CopyrightRequestForm {
-    applicant: Person;
+export interface CopyrightRequest {
+    applicantIndividual: Individual;
+    applicantLegalEntity: LegalEntity;
     attorney: Individual;
     authorPseudonym?: string;
     workTitle: WorkTitle;
@@ -11,10 +12,11 @@ export interface CopyrightRequestForm {
     author?: Author;
     isWorkMadeInBusinessRelationship: boolean;
     wayOfUsingWork: string;
-    requestSubmissionDate?: Date;
+    requestSubmissionDate: Date | number | string;
     requestNumber?: number;
     institution?: string;
     address?: string;
+    accepted: boolean;
 }
 
 export interface WorkTitle {
@@ -26,7 +28,7 @@ export interface Author {
     firstName: string;
     lastName: string;
     anonymous?: boolean;
-
+    dateOfDeath?: Date;
 }
 
 export interface AdaptationWorkInfo {
