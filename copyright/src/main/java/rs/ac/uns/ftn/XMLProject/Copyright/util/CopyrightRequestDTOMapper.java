@@ -67,6 +67,7 @@ public class CopyrightRequestDTOMapper {
         dto.setRequestSubmissionDate(copyrightSubmissionRequest.getRequestSubmissionDate());
         dto.setInstitution(copyrightSubmissionRequest.getInstitution());
         dto.setAddress(copyrightSubmissionRequest.getAddress());
+        dto.setAccepted(copyrightSubmissionRequest.isAccepted());
 
         return dto;
     }
@@ -112,7 +113,7 @@ public class CopyrightRequestDTOMapper {
         AddressDTO dto = new AddressDTO();
         try {
             dto.setCity(address.getCity());
-            dto.setDrzava(address.getDrzava());
+            dto.setCountry(address.getCountry());
             dto.setStreet(address.getStreet());
             dto.setZipCode(address.getZipCode());
             dto.setStreetNumber(address.getStreetNumber());
@@ -189,7 +190,7 @@ public class CopyrightRequestDTOMapper {
         Address address = factory.createAddress();
 
         address.setCity(addressDTO.getCity());
-        address.setDrzava(addressDTO.getDrzava());
+        address.setCountry(addressDTO.getCountry());
         address.setStreetNumber(addressDTO.getStreetNumber());
         address.setStreet(addressDTO.getStreet());
         address.setZipCode(addressDTO.getZipCode());

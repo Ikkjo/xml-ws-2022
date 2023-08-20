@@ -1,6 +1,6 @@
-import { OrganizationOfficial } from "./User";
+import { OrganizationOfficial } from "../User";
 
-export interface CopyrightSolutionDTO {
+export interface CopyrightSolution {
     requestNumber: string;
     accepted: boolean;
     official: OrganizationOfficial;

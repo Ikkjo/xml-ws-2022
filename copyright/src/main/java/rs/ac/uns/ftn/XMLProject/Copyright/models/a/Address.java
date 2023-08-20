@@ -52,7 +52,7 @@ import javax.xml.bind.annotation.XmlType;
     "streetNumber",
     "city",
     "zipCode",
-    "drzava"
+    "country"
 })
 public class Address {
 
@@ -66,7 +66,7 @@ public class Address {
     @XmlElement(name = "Zip_code")
     protected int zipCode;
     @XmlElement(name = "Drzava")
-    protected String drzava;
+    protected String country;
 
     /**
      * Gets the value of the street property.
@@ -164,8 +164,8 @@ public class Address {
      *     {@link String }
      *     
      */
-    public String getDrzava() {
-        return drzava;
+    public String getCountry() {
+        return country;
     }
 
     /**
@@ -176,8 +176,8 @@ public class Address {
      *     {@link String }
      *     
      */
-    public void setDrzava(String value) {
-        this.drzava = value;
+    public void setCountry(String value) {
+        this.country = value;
     }
 
 }

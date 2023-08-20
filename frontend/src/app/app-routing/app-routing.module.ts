@@ -7,6 +7,7 @@ import { LoginPageComponent } from '../pages/login-page/login-page.component';
 import { RegsitrationPageComponent } from '../pages/regsitration-page/regsitration-page.component';
 import {PatentReportComponent} from "../pages/patent-report/patent-report.component";
 import {PatentSearchComponent} from "../pages/patent-search/patent-search.component";
+import { CopyrightReportPageComponent } from '../pages/copyright-report-page/copyright-report-page.component';
 
 const routes: Routes = [
   {
@@ -36,11 +37,15 @@ const routes: Routes = [
   {
     path: 'copyright/search',
     component: CopyrightSearchPageComponent
-  }
+  },
+  {
+    path: 'copyright/report',
+    component: CopyrightReportPageComponent
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: "reload"})],
   exports: [RouterModule]
 })
 

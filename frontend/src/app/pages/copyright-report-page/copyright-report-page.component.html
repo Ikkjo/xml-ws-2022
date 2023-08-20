@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>ИЗВЕШТАЈ - ЗАХТЕВИ ЗА АУТОРСКА ДЕЛА</h1>
+    <form class="form" [formGroup]="copyrightReportForm">
+      <h3>Почетни и крајњи датум:</h3>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="Почетни датум" [matDatepicker]="startDatepicker" formControlName="startDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <input matInput placeholder="Крајњи датум" [matDatepicker]="endDatepicker" formControlName="endDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatepicker></mat-datepicker>
+      </mat-form-field>
+      <br/><button mat-raised-button class="report-button" type="submit" color="green" (click)="submitForm()">
+      Генериши извештај
+    </button>
+    </form>
+  </div>
+  
