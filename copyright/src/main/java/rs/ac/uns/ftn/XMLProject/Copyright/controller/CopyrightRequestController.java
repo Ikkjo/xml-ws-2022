@@ -30,8 +30,8 @@ public class CopyrightRequestController {
     }
 
     @GetMapping(path = "/all", produces = "application/xml")
-    public List<CopyrightSubmissionRequestDTO> getAllCopyrightRequests() {
-        return copyrightRequestService.getAllCopyrightSubmissionRequests();
+    public ResponseEntity<List<CopyrightSubmissionRequestDTO>> getAllCopyrightRequests() {
+        return ResponseEntity.ok(copyrightRequestService.getAllCopyrightSubmissionRequests());
     }
 
     @GetMapping(path = "/{id}", produces = "application/xml")

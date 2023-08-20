@@ -5,21 +5,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@XmlRootElement(name = "individual")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class IndividualDTO {
 
-    @XmlElement(name = "Phone_number")
+    @XmlElement(name = "phoneNumber")
     public String phoneNumber;
-    @XmlElement(name = "Fax_number")
+    @XmlElement(name = "faxNumber")
     public String faxNumber;
-    @XmlElement(name = "Email")
+    @XmlElement(name = "email")
     public String email;
-    @XmlElement(name = "Address")
+    @XmlElement(name = "address")
     public AddressDTO address;
     @XmlElement(name = "lastName")
     protected String lastName;
